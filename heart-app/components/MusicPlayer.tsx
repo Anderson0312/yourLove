@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef, useEffect } from 'react';
 import { PlayIcon, PauseIcon } from '@heroicons/react/24/solid';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);

@@ -1,7 +1,6 @@
 
 
 import HeartButton from "@/components/HeartButton";
-import Image from "next/image";
 
 export default function Home() {
   return (

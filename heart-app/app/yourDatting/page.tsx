@@ -15,13 +15,13 @@ export default function Home() {
 
   return (
     <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <h1 className="text-2xl font-bold mb-6 text-red-600"
+        <h1 className="text-2xl font-bold mb-6 text-red-600 text-center"
         style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}>
         Nosso Cantinho
         </h1>
         <Carousel images={images} autoPlay={true} interval={5000} />
         <TextDatting name={name}/>
-        <h3 className="text-sm font-bold mt-2 mb-6 text-white"
+        <h3 className="text-sm font-bold mt-2 mb-6 text-white text-center"
         style={{ fontFamily: "'Lora ', serif", fontStyle: "" }}>
         Compartilhando momentos há
         </h3>

@@ -41,7 +41,7 @@ const Countdown: React.FC<CountdownProps> = ({ startDate }) => {
   }, [startDate]);
 
   return (
-    <div className="grid grid-cols-2 gap-5 p-4 ">
+    <div className="grid grid-cols-2 gap-5 p-4 justify-center items-center">
       {Object.entries(timeDiff).map(([label, value]) => (
         <div
           key={label}

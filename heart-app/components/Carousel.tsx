@@ -38,11 +38,12 @@ const Carousel: React.FC<CarouselProps> = ({ images, autoPlay = true, interval =
       </button>
 
     {/* Contêiner das imagens */}
-    <div className="relative h-64">
+    <div className="relative h-64"
+     style={{ height: '30rem' }}>
         {images.map((image, index) => (
           <div
             key={index}
-            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700  rounded-lg ${
               index === currentIndex ? 'opacity-100' : 'opacity-0'
             }`}
             style={{ backgroundImage: `url(${image})` }}
@@ -63,7 +64,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, autoPlay = true, interval =
         {images.map((_, index) => (
           <button
             key={index}
-            className={`w-3 h-3 rounded-full ${
+            className={`w-2 h-2 rounded-full ${
               index === currentIndex ? 'bg-red-600' : 'bg-red-400'
             }`}
             onClick={() => setCurrentIndex(index)}

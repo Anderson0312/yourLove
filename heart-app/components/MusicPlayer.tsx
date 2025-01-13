@@ -36,7 +36,7 @@ const MusicPlayer = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 p-4 rounded-lg flex items-center justify-center w-full max-w-md">
+    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 p-4 rounded-lg flex items-center justify-center max-w-md">
       {/* Controles do player */}
       <audio
         ref={audioRef}

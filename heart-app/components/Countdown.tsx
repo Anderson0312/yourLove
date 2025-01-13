@@ -41,14 +41,14 @@ const Countdown: React.FC<CountdownProps> = ({ startDate }) => {
   }, [startDate]);
 
   return (
-    <div className="grid grid-cols-2 gap-5 p-4 items-center justify-items-center">
+    <div className="grid grid-cols-2 gap-2 p-2 items-center justify-items-center">
       {Object.entries(timeDiff).map(([label, value]) => (
         <div
           key={label}
-          className="flex flex-col items-center justify-center w-20 h-20 bg-gray-100 border border-gray-300 rounded shadow"
-        >
-          <span className="text-2xl font-bold text-gray-700">{value}</span>
-          <span className="text-sm text-gray-500 uppercase">{label}</span>
+          className="flex flex-col items-center justify-center w-20 h-20 bg-zinc-950 border border-gray-800 rounded shadow"
+          style={{ width: "8rem" }}>
+          <span className="text-2xl font-bold text-white-700">{value}</span>
+          <span className="text-sm text-white-500 uppercase">{label}</span>
         </div>
       ))}
     </div>

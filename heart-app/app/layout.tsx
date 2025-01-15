@@ -24,6 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
+      <link rel="icon" href="/heart.svg" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

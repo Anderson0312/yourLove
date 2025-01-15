@@ -7,12 +7,12 @@ interface CountdownProps {
 
 const Countdown: React.FC<CountdownProps> = ({ startDate }) => {
   const [timeDiff, setTimeDiff] = useState({
-    years : 0,
-    months: 0,
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
+    anos: 0,
+    meses: 0,
+    dias: 0,
+    horas: 0,
+    minutos: 0,
+    segundos: 0,
   });
 
   useEffect(() => {
@@ -22,16 +22,31 @@ const Countdown: React.FC<CountdownProps> = ({ startDate }) => {
         new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
       );
 
-      const diff = now.getTime() - start.getTime();
+      let diff = now.getTime() - start.getTime();
 
-      const years  = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-      const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44)) - years * 12;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
+      // Cálculo de anos
+      const anos = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+      diff -= anos * 1000 * 60 * 60 * 24 * 365.25;
 
-      setTimeDiff({ years , months, days, hours, minutes, seconds });
+      // Cálculo de meses
+      const meses = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
+      diff -= meses * 1000 * 60 * 60 * 24 * 30.44;
+
+      // Cálculo de dias
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= dias * 1000 * 60 * 60 * 24;
+
+      // Cálculo de horas, minutos e segundos
+      const horas = Math.floor(diff / (1000 * 60 * 60));
+      diff -= horas * 1000 * 60 * 60;
+
+      const minutos = Math.floor(diff / (1000 * 60));
+      diff -= minutos * 1000 * 60;
+
+      const segundos = Math.floor(diff / 1000);
+
+      // Atualizar o estado com os valores calculados
+      setTimeDiff({ anos, meses, dias, horas, minutos, segundos });
     };
 
     updateCountdown();

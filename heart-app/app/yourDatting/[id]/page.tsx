@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FormComponent from "@/components/FormComponent";
 import Carousel from "@/components/Carousel";
 import Countdown from "@/components/Countdown";
@@ -7,6 +7,8 @@ import FallingHearts from "@/components/FallingHearts";
 import MusicPlayer from "@/components/MusicPlayer";
 import TextDatting from "@/components/TextDatting";
 import Modal from '@/components/Modal';
+import { useParams } from 'next/navigation';
+import { getRegistrationData } from '@/services/api';
 
 interface FormData {
     title: string;
@@ -17,30 +19,68 @@ interface FormData {
 }
 
 export default function Home() {
+    const params = useParams(); // Captura os parâmetros da URL
+    const userId = params.id; // Supondo que a rota seja `/user/[id]`
+
+
+    // const [data, setData] = useState<FormData>({
+    //     title: 'Nosso Cantinho',
+    //     name: 'Anderson e Luana',
+    //     startDate: '2024-12-14T20:00:00Z',
+    //     text: `Desde o momento em que te conheci, meu mundo ganhou novas cores e meu coração encontrou um lar. Cada dia ao seu lado é uma nova aventura, repleta de risos, carinho e felicidade. Você é minha inspiração, minha paz e minha razão de sorrir. Te amo mais do que palavras podem expressar, e sou grato por ter você ao meu lado, hoje e sempre.`,
+    //     images: ['/img1.jpg', '/img2.jpg', '/img3.jpg', '/img4.jpg', '/img5.jpg'],
+    // });
+
     const [data, setData] = useState<FormData>({
-        title: 'Nosso Cantinho',
-        name: 'Anderson e Luana',
-        startDate: '2024-12-14T20:00:00Z',
-        text: `Desde o momento em que te conheci, meu mundo ganhou novas cores e meu coração encontrou um lar. Cada dia ao seu lado é uma nova aventura, repleta de risos, carinho e felicidade. Você é minha inspiração, minha paz e minha razão de sorrir. Te amo mais do que palavras podem expressar, e sou grato por ter você ao meu lado, hoje e sempre.`,
-        images: ['/img1.jpg', '/img2.jpg', '/img3.jpg', '/img4.jpg', '/img5.jpg'],
+        title: '',
+        name: '',
+        startDate: '',
+        text: '',
+        images: [],
     });
+
+    const [loading, setLoading] = useState(true);
 
     const [isEditing, setIsEditing] = useState(false); // Controla se o modal está aberto
 
+    useEffect(() => {
+        if (userId) {
+            const fetchData = async () => {
+                try {
+                    const response = await getRegistrationData(userId); // Busca os dados da API
+                    setData(response); // Atualiza o estado com os dados recebidos
+                } catch (error) {
+                    console.error('Erro ao buscar dados:', error);
+                } finally {
+                    setLoading(false); // Finaliza o carregamento
+                }
+            };
 
-    const handleUpdate = (updatedData: FormData) => {
-        setData(updatedData);
-        setIsEditing(false); // Fecha o modal após salvar
-    };
+            fetchData();
+        }
+    }, [userId]);
+
+    if (loading) {
+        return <div>Carregando...</div>; // Exibe um loading enquanto os dados são buscados
+    }
+
+    // Restante do código...
+
+
+
+    // const handleUpdate = (updatedData: FormData) => {
+    //     setData(updatedData);
+    //     setIsEditing(false); // Fecha o modal após salvar
+    // };
 
     return (
         <div className="hearts-container min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
             {/* Modal com formulário */}
-            {isEditing && (
+            {/* {isEditing && (
                 <Modal onClose={() => setIsEditing(false)}>
                     <FormComponent formData={data} onUpdate={handleUpdate} />
                 </Modal>
-            )}
+            )} */}
             <h1
                 className="text-2xl font-bold mb-6 text-red-600 text-center"
                 style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 interface FormData {
     title: string;
-    name: string;
+    names: string;
     startDate: string;
     text: string;
     images: string[];
@@ -59,7 +59,7 @@ export default function FormComponent({ formData, onUpdate }: FormComponentProps
                 <input
                     type="text"
                     name="name"
-                    value={formState.name}
+                    value={formState.names}
                     onChange={handleChange}
                     className="w-full px-2 py-1 rounded bg-gray-500"
                 />

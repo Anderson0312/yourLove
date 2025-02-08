@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react";
 
 interface CountdownProps {
-  startDate: string; // Data inicial no formato ISO ou similar
+  startDate: Date; // Data inicial no formato ISO ou similar
 }
+
+
 
 const Countdown: React.FC<CountdownProps> = ({ startDate }) => {
   const [timeDiff, setTimeDiff] = useState({

@@ -25,19 +25,26 @@ export const saveRegistrationData = async (userId: string, step: number, data: a
   }
 };
 
-export const uploadPhoto = async (userId: string, file: File) => {
+export const uploadPhotos = async (userId: string, files: File[]) => {
   try {
     const formData = new FormData();
-    formData.append('file', file);
+
+    // formData.append('userId', userId);
+    files.forEach((file, index) => {
+      formData.append(`files`, file); // Enviando com chave 'files' (o backend deve suportar múltiplos arquivos)
+    });
+
+    console.log('entries:',[...formData.entries()]);
 
     const response = await axios.post(`${API_BASE_URL}/registration/${userId}/upload`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
+
     return response.data;
   } catch (error) {
-    console.error('Erro ao fazer upload da foto:', error);
+    console.error('Erro ao fazer upload das fotos:', error);
     throw error;
   }
 };

@@ -1,6 +1,7 @@
 'use client';
 
-import { getRegistrationData, saveRegistrationData, uploadPhoto } from '@/services/api';
+import PreviewLaout from '@/components/previewLaout';
+import { getRegistrationData, saveRegistrationData, uploadPhotos } from '@/services/api';
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -17,7 +18,7 @@ interface FormData {
   date: string;
   text: string;
   music: string;
-  photo: File | null;
+  photo: File[]  | null;
 }
 
 const RegisterStep = () => {
@@ -34,6 +35,18 @@ const RegisterStep = () => {
     music: '',
     photo: null,
   });
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    
+    if (files.length > 5) {
+      alert("Você só pode enviar no máximo 5 fotos.");
+      return;
+    }
+    
+  
+    setFormData((prev) => ({ ...prev, photo: files }));
+  };
 
   const userId = 'Anderson'; // Defina o userId conforme necessário
 
@@ -67,9 +80,8 @@ const RegisterStep = () => {
   const handleNext = async () => {
     if (currentStep < steps.length) {
       try {
-        console.log('Dados a serem enviados:', formData); // Log para depuração
         if (currentStep === 3 && formData.photo) {
-          await uploadPhoto(userId, formData.photo);
+          await uploadPhotos(userId, formData.photo);
         } else {
           await saveRegistrationData(userId, currentStep, formData);
         }
@@ -177,13 +189,13 @@ const RegisterStep = () => {
               onChange={(e) => setFormData({ ...formData, names: e.target.value })}
               className="w-full px-2 py-1 rounded bg-gray-500"
             />
-            <input
-              type="file"
-              onChange={(e) =>
-                setFormData({ ...formData, photo: e.target.files ? e.target.files[0] : null })
-              }
-              className="w-full px-2 py-1 rounded bg-gray-500"
-            />
+              <input
+                type="file"
+                multiple
+                onChange={handleFileChange}
+                className="w-full px-2 py-1 rounded bg-gray-500"
+              />
+
           </div>
           
         )}
@@ -225,6 +237,8 @@ const RegisterStep = () => {
           )}
         </div>
       </form>
+
+      <PreviewLaout/>
     </div>
   );
 };

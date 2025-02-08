@@ -13,10 +13,10 @@ export default function TextDating({ name, text }: TextDatingProps) {
           className="text-2xl sm:text-3xl font-semi-bold text-red-600 mb-4 italic"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
-          {name || "Nome não fornecido"}
+          {name || "Seus Nomes"}
         </h2>
         <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
-            {text}
+            {text|| "Seu Texto..."}
         </p>
       </section>
   );

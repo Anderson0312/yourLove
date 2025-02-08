@@ -13,14 +13,14 @@ import { getRegistrationData } from '@/services/api';
 interface FormData {
     title: string;
     name: string;
-    startDate: string;
+    startDate: Date;
     text: string;
     images: string[];
 }
 
 export default function Home() {
     const params = useParams(); // Captura os parâmetros da URL
-    const userId = params.id; // Supondo que a rota seja `/user/[id]`
+    const userId = Array.isArray(params.id) ? params.id[0] : params.id;
 
 
     // const [data, setData] = useState<FormData>({
@@ -31,10 +31,14 @@ export default function Home() {
     //     images: ['/img1.jpg', '/img2.jpg', '/img3.jpg', '/img4.jpg', '/img5.jpg'],
     // });
 
+    const now = new Date(
+        new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
+      );
+
     const [data, setData] = useState<FormData>({
         title: '',
         name: '',
-        startDate: '',
+        startDate: now,
         text: '',
         images: [],
     });
@@ -97,7 +101,7 @@ export default function Home() {
             </h3>
             <Countdown startDate={data.startDate} />
             <p className="text-xs text-center font-bold text-gray-700">
-                desde {data.startDate}
+                desde {String(data.startDate)}
             </p>
             {/* Botão para abrir o modal */}
             <div className="fixed bottom-0 left-1/3 transform -translate-x-1/2 p-4 rounded-lg flex items-center justify-center max-w-md">

@@ -10,7 +10,7 @@ export default function HeartButton() {
   const handleClick = () => {
     setIsClicked(true);
     setTimeout(() => {
-      router.push('/yourDatting'); // Altere para a rota desejada
+      router.push('/yourDatting/Anderson'); // Altere para a rota desejada
     }, 300); // Tempo para sincronizar com a animação
   };
 

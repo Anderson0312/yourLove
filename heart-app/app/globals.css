@@ -21,6 +21,7 @@ body {
 }
 
 
+
 /* Animação de pulsação contínua */
 @keyframes pulse-beat {
   0%, 100% {
@@ -61,6 +62,8 @@ body {
     @apply absolute w-8 h-8; /* Tamanho padrão do coração */
     animation: fall 5s linear infinite, wiggle 1.5s ease-in-out infinite;
   }
+
+  
 
   @keyframes fall {
     0% {

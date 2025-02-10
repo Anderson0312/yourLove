@@ -3,7 +3,12 @@ import { useState, useRef, useEffect } from 'react';
 import { PlayIcon, PauseIcon } from '@heroicons/react/24/solid';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-const MusicPlayer = () => {
+
+interface MusicPlayer {
+  music: string;
+}
+
+const MusicPlayer = ({ music }: MusicPlayer) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -40,7 +45,7 @@ const MusicPlayer = () => {
       {/* Controles do player */}
       <audio
         ref={audioRef}
-        src="/musci.mp3"  // Caminho da música
+        src= "/musci.mp3"  // Caminho da música
         onTimeUpdate={handleTimeUpdate}
         onEnded={() => setIsPlaying(false)}
       />

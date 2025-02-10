@@ -1,7 +1,7 @@
 'use client';
 
 import PreviewLaout from '@/components/previewLaout';
-import { getRegistrationData, saveRegistrationData, uploadPhotos } from '@/services/api';
+import { getRegistrationData, saveRegistrationData, uploadPhotos, getSpotifyToken } from '@/services/api';
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -14,26 +14,33 @@ const steps = [
 
 interface FormData {
   title: string;
+  username: string;
   names: string;
   date: string;
   text: string;
   music: string;
-  photo: File[]  | null;
+  photo: File[] | null; // Objetos File originais
+  photoPaths: string[] | null; // Caminhos das fotos retornados pelo backend
 }
+
 
 const RegisterStep = () => {
   const router = useRouter();
   const params = useParams();
   const stepParam = params.step ? parseInt(params.step as string, 10) : 1;
+  const [query, setQuery] = useState('');
+  const [previewUrl, setPreviewUrl] = useState('');
 
   const [currentStep, setCurrentStep] = useState<number>(stepParam);
   const [formData, setFormData] = useState<FormData>({
     title: '',
+    username: '',
     date: '',
     names: '',
     text: '',
     music: '',
     photo: null,
+    photoPaths: null,
   });
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,8 +69,6 @@ const RegisterStep = () => {
     const fetchData = async () => {
       try {
         const data = await getRegistrationData(userId);
-        console.log('Dados recebidos da API:', data);
-  
         // Atualiza apenas os campos presentes na resposta da API
         setFormData((prevData) => ({
           ...prevData, // Mantém os valores existentes
@@ -81,11 +86,26 @@ const RegisterStep = () => {
     if (currentStep < steps.length) {
       try {
         if (currentStep === 3 && formData.photo) {
-          await uploadPhotos(userId, formData.photo);
+          // Faz o upload das fotos
+          const uploadResponse = await uploadPhotos(userId, formData.photo);
+  
+          // Atualiza o formData com os caminhos das fotos, mas mantém os objetos File
+          setFormData((prev) => ({
+            ...prev,
+            photoPaths: uploadResponse.filePaths, // Armazena os caminhos das fotos
+          }));
+  
+          // Salva os dados do passo atual
+          await saveRegistrationData(userId, currentStep, {
+            ...formData,
+            photoPaths: uploadResponse.filePaths, // Envia os caminhos das fotos
+          });
         } else {
+          // Salva os dados do passo atual (sem fotos)
           await saveRegistrationData(userId, currentStep, formData);
         }
-
+  
+        // Avança para o próximo passo
         const nextStep = currentStep + 1;
         router.push(`/register/${nextStep}`);
       } catch (error) {
@@ -109,12 +129,59 @@ const RegisterStep = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      console.log('Dados no submit:', formData);
       await saveRegistrationData(userId, currentStep, formData);
       alert('Dados enviados com sucesso!');
       router.push('/success'); // Redireciona para uma página de sucesso
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
+    }
+  };
+
+
+  const handleSearch = async () => {
+    console.log('Função handleSearch chamada'); // Verifique se essa mensagem aparece no console
+    if (!query) {
+      console.log('Campo de busca vazio'); // Verifique se o campo de busca está vazio
+      alert('Por favor, digite o nome da música.');
+      return;
+    }
+  
+    try {
+      console.log('Buscando música...'); // Verifique se a busca está sendo iniciada
+      const token = await getSpotifyToken(); // Função para obter o token de acesso
+      console.log('Token obtido:', token); // Verifique se o token foi obtido
+  
+      const response = await fetch(
+        `https://api.spotify.com/v1/search?q=${encodeURIComponent(
+          query
+        )}&type=track`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      console.log('Resposta da API:', response); // Verifique a resposta da API
+  
+      if (!response.ok) {
+        throw new Error(`Erro na requisição: ${response.statusText}`);
+      }
+  
+      const data = await response.json();
+      console.log('Dados da API:', data); // Verifique os dados retornados pela API
+  
+      if (data.tracks.items.length > 0) {
+        console.log('Música encontrada:', data.tracks.items[0]); // Verifique a música encontrada
+        setPreviewUrl(data.tracks.items[0].preview_url); // Pega o preview da primeira música
+        setFormData((prev) => ({ ...prev, music: data.tracks.items[0].name })); // Atualiza o nome da música no formData
+      } else {
+        console.log('Nenhuma música encontrada.');
+        setPreviewUrl(''); // Limpa o previewUrl se nenhuma música for encontrada
+      }
+    } catch (e) {
+      console.error('Erro ao buscar música: ', e);
+      setPreviewUrl(''); // Limpa o previewUrl em caso de erro
     }
   };
 
@@ -170,14 +237,34 @@ const RegisterStep = () => {
               onChange={(e) => setFormData({ ...formData, text: e.target.value })}
               className="w-full px-2 py-1 rounded bg-gray-500"
             />
-            <input
-              type="text"
-              placeholder="Music"
-              value={formData.music}
-              onChange={(e) => setFormData({ ...formData, music: e.target.value })}
-              className="w-full px-2 py-1 rounded bg-gray-500"
-            />
-          </div>
+              
+              <div className="">
+              <input
+                type="text"
+                placeholder="Digite o nome da música"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="w-full px-2 py-1 rounded bg-gray-500"
+              />
+              <button
+                type="button" // Adicione isso para evitar o envio do formulário
+                onClick={handleSearch}
+                className="mt-2 px-4 py-2 bg-red-500 text-white rounded"
+              >
+                Buscar Música
+              </button>
+
+              {previewUrl && (
+                <div className="mt-4">
+                  <audio controls src={previewUrl}>
+                    Seu navegador não suporta o elemento de áudio.
+                  </audio>
+                </div>
+              )}
+            </div>
+
+            </div>
+
         )}
 
         {currentStep === 3 && (
@@ -200,12 +287,27 @@ const RegisterStep = () => {
           
         )}
 
-        {currentStep === 4 && (
-          <div>
-            <h2 className="text-lg font-bold">Summary</h2>
-            <pre className="bg-red-500 text-white p-4 rounded">{JSON.stringify(formData, null, 2)}</pre>
-          </div>
-        )}
+      {currentStep === 4 && (
+        <div>
+          <h2 className="text-lg font-bold">Summary</h2>
+          <pre className="bg-red-500 text-white p-4 rounded">
+            {JSON.stringify(
+              {
+                ...formData,
+                photo: formData.photo
+                  ? formData.photo.map((file) => ({
+                      name: file.name,
+                      size: file.size,
+                      type: file.type,
+                    }))
+                  : null,
+              },
+              null,
+              2
+            )}
+          </pre>
+        </div>
+      )}
 
         {/* Navigation Buttons */}
         <div className="flex justify-between mt-6">

@@ -1,13 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react';
-import FormComponent from "@/components/FormComponent";
 import Carousel from "@/components/Carousel";
 import Countdown from "@/components/Countdown";
 import FallingHearts from "@/components/FallingHearts";
-import MusicPlayer from "@/components/MusicPlayer";
 import TextDatting from "@/components/TextDatting";
-import Modal from '@/components/Modal';
-import { useParams } from 'next/navigation';
 import { getRegistrationData } from '@/services/api';
 
 interface FormData {
@@ -15,32 +11,22 @@ interface FormData {
     names: string;
     date: Date;
     text: string;
-    images: string[];
+    photoPaths: string[];
 }
 
 export default function PreviewLaout() {
-    const params = useParams(); // Captura os parâmetros da URL
     const userId = 'Anderson'; 
-
 
     const now = new Date(
         new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
       );
-
-    // const [data, setData] = useState<FormData>({
-    //     title: 'Nosso Cantinho',
-    //     name: 'Anderson e Luana',
-    //     startDate: '2024-12-14T20:00:00Z',
-    //     text: `Desde o momento em que te conheci, meu mundo ganhou novas cores e meu coração encontrou um lar. Cada dia ao seu lado é uma nova aventura, repleta de risos, carinho e felicidade. Você é minha inspiração, minha paz e minha razão de sorrir. Te amo mais do que palavras podem expressar, e sou grato por ter você ao meu lado, hoje e sempre.`,
-    //     images: ['/img1.jpg', '/img2.jpg', '/img3.jpg', '/img4.jpg', '/img5.jpg'],
-    // });
 
     const [data, setData] = useState<FormData>({
         title: '',
         names: '',
         date: now,
         text: '',
-        images: [],
+        photoPaths: [],
     });
 
     const [loading, setLoading] = useState(true);
@@ -51,6 +37,7 @@ export default function PreviewLaout() {
             const fetchData = async () => {
                 try {
                     const response = await getRegistrationData(userId); // Busca os dados da API
+                    console.log(response)
                     setData(response); // Atualiza o estado com os dados recebidos
                 } catch (error) {
                     console.error('Erro ao buscar dados:', error);
@@ -84,19 +71,19 @@ export default function PreviewLaout() {
             className="text-2xl font-bold mb-6 text-red-600 text-center"
             style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
         >
-            {data.title || "Título"}
+            {data?.title || "Título"}
         </h1>
-        {/* <Carousel images={data.images} autoPlay={true} interval={5000} /> */}
-        <TextDatting name={data.names} text={data.text} />
+        <Carousel images={data?.photoPaths} autoPlay={true} interval={5000} />
+        <TextDatting name={data?.names} text={data?.text} />
         <h3
             className="text-lg font-semi-bold mt-2 mb-6 text-white text-center"
             style={{ fontFamily: "'Lora ', serif" }}
         >
             Compartilhando momentos há
         </h3>
-        <Countdown startDate={data.date || now} />
+        <Countdown startDate={data?.date || now} />
         <p className="text-xs text-center font-bold text-gray-700">
-            desde {new Date(data.date || now).toLocaleDateString('pt-BR')}
+            desde {new Date(data?.date || now).toLocaleDateString('pt-BR')}
         </p>
         {/* Botão para abrir o modal */}
         <div className="fixed bottom-0 left-1/3 transform -translate-x-1/2 p-4 rounded-lg flex items-center justify-center max-w-md"></div>

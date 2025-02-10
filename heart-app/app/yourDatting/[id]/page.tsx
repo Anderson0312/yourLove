@@ -1,21 +1,22 @@
 'use client'
 import { useEffect, useState } from 'react';
-import FormComponent from "@/components/FormComponent";
 import Carousel from "@/components/Carousel";
 import Countdown from "@/components/Countdown";
 import FallingHearts from "@/components/FallingHearts";
 import MusicPlayer from "@/components/MusicPlayer";
 import TextDatting from "@/components/TextDatting";
-import Modal from '@/components/Modal';
 import { useParams } from 'next/navigation';
 import { getRegistrationData } from '@/services/api';
+import Modal from '@/components/Modal';
+import FormComponent from '@/components/FormComponent';
 
 interface FormData {
     title: string;
-    name: string;
-    startDate: Date;
+    names: string;
+    date: Date;
     text: string;
-    images: string[];
+    photoPaths: string[];
+    music: string;
 }
 
 export default function Home() {
@@ -23,24 +24,13 @@ export default function Home() {
     const userId = Array.isArray(params.id) ? params.id[0] : params.id;
 
 
-    // const [data, setData] = useState<FormData>({
-    //     title: 'Nosso Cantinho',
-    //     name: 'Anderson e Luana',
-    //     startDate: '2024-12-14T20:00:00Z',
-    //     text: `Desde o momento em que te conheci, meu mundo ganhou novas cores e meu coração encontrou um lar. Cada dia ao seu lado é uma nova aventura, repleta de risos, carinho e felicidade. Você é minha inspiração, minha paz e minha razão de sorrir. Te amo mais do que palavras podem expressar, e sou grato por ter você ao meu lado, hoje e sempre.`,
-    //     images: ['/img1.jpg', '/img2.jpg', '/img3.jpg', '/img4.jpg', '/img5.jpg'],
-    // });
-
-    const now = new Date(
-        new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
-      );
-
     const [data, setData] = useState<FormData>({
         title: '',
-        name: '',
-        startDate: now,
+        names: '',
+        date: new Date(),
         text: '',
-        images: [],
+        photoPaths: [],
+        music:'',
     });
 
     const [loading, setLoading] = useState(true);
@@ -51,57 +41,54 @@ export default function Home() {
         if (userId) {
             const fetchData = async () => {
                 try {
-                    const response = await getRegistrationData(userId); // Busca os dados da API
-                    setData(response); // Atualiza o estado com os dados recebidos
+                    const response = await getRegistrationData(userId);
+                    setData(response);
                 } catch (error) {
                     console.error('Erro ao buscar dados:', error);
                 } finally {
-                    setLoading(false); // Finaliza o carregamento
+                    setLoading(false);
                 }
             };
-
+    
             fetchData();
         }
     }, [userId]);
+
+    const handleUpdate = (updatedData: FormData) => {
+        setData(updatedData); // Atualiza o estado 'data' com os novos dados
+        setIsEditing(false); // Fecha o modal após a atualização
+    };
 
     if (loading) {
         return <div>Carregando...</div>; // Exibe um loading enquanto os dados são buscados
     }
 
-    // Restante do código...
-
-
-
-    // const handleUpdate = (updatedData: FormData) => {
-    //     setData(updatedData);
-    //     setIsEditing(false); // Fecha o modal após salvar
-    // };
 
     return (
         <div className="hearts-container min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
             {/* Modal com formulário */}
-            {/* {isEditing && (
+            {isEditing && (
                 <Modal onClose={() => setIsEditing(false)}>
                     <FormComponent formData={data} onUpdate={handleUpdate} />
                 </Modal>
-            )} */}
+            )}
             <h1
                 className="text-2xl font-bold mb-6 text-red-600 text-center"
                 style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
             >
                 {data.title}
             </h1>
-            <Carousel images={data.images} autoPlay={true} interval={5000} />
-            <TextDatting name={data.name} text={data.text} />
+            <Carousel images={data?.photoPaths} autoPlay={true} interval={5000} />
+            <TextDatting name={data.names} text={data.text} />
             <h3
                 className="text-lg font-semi-bold mt-2 mb-6 text-white text-center"
                 style={{ fontFamily: "'Lora ', serif", fontStyle: "" }}
             >
                 Compartilhando momentos há
             </h3>
-            <Countdown startDate={data.startDate} />
+            <Countdown startDate={data.date} />
             <p className="text-xs text-center font-bold text-gray-700">
-                desde {String(data.startDate)}
+                desde {String(data.date)}
             </p>
             {/* Botão para abrir o modal */}
             <div className="fixed bottom-0 left-1/3 transform -translate-x-1/2 p-4 rounded-lg flex items-center justify-center max-w-md">
@@ -115,7 +102,7 @@ export default function Home() {
 
             </button>
             </div>
-            <MusicPlayer />
+            <MusicPlayer music={data.music} />
             <FallingHearts />
         </div>
     );

@@ -1,25 +1,41 @@
-import { useState } from 'react';
+import { saveRegistrationData } from '@/services/api';
+import { useParams } from 'next/navigation';
+import {  useState } from 'react';
 
 interface FormData {
     title: string;
     names: string;
-    startDate: string;
+    date: Date; 
     text: string;
-    images: string[];
+    music: string;
+    photoPaths: string[];
 }
 interface FormComponentProps {
     formData: FormData;
     onUpdate: (data: FormData) => void;
 }
 
-export default function FormComponent({ formData, onUpdate }: FormComponentProps) {
-    const [formState, setFormState] = useState<FormData>(formData);
+export default function FormComponent({ formData }: FormComponentProps) {
+    const [formState, setFormState] = useState<FormData>({
+        ...formData,
+        date: formData.date ? new Date(formData.date) : new Date(), // Garante que seja um objeto Date válido
+    });
     const [previewImages, setPreviewImages] = useState<string[]>([]); // Para mostrar a pré-visualização das imagens
-
+    const [isSubmitting, setIsSubmitting] = useState(false); // Para desabilitar o botão durante o envio
+    const [error, setError] = useState<string | null>(null); // Para exibir erros
+    const params = useParams(); // Captura os parâmetros da URL
+    const userId = params.id as string;
+        
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormState((prev) => ({ ...prev, [name]: value }));
+        if (name === 'date') {
+            // Converte a string de volta para um objeto Date
+            const dateValue = new Date(value);
+            setFormState({ ...formState, [name]: dateValue });
+        } else {
+            setFormState({ ...formState, [name]: value });
+        }
     };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,20 +47,48 @@ export default function FormComponent({ formData, onUpdate }: FormComponentProps
             // Para enviar para o back-end, você pode armazenar os arquivos ou enviar como FormData
             setFormState((prev) => ({
                 ...prev,
-                images: fileArray.map((file) => file.name), // Aqui você pode armazenar apenas os nomes ou URLs reais
+                photoPaths: fileArray.map((file) => file.name), // Aqui você pode armazenar apenas os nomes ou URLs reais
             }));
         }
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        onUpdate(formState);
+        setIsSubmitting(true);
+        setError(null);
+
+        const currentStep = 5;
+
+        try {
+            // Enviar os dados para a API
+            await saveRegistrationData(userId, currentStep, formState);
+
+            // Limpar o formulário ou redirecionar o usuário
+            setFormState({
+                title: '',
+                names: '',
+                date: new Date(),
+                text: '',
+                music: '',
+                photoPaths: [],
+            });
+            setPreviewImages([]);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Erro desconhecido');
+            console.error('Erro ao enviar os dados:', err);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
+    const dateValue = formState.date.toISOString().split('T')[0];
+    if (!userId) return null; // Não renderiza até que `userId` seja válido
+
+
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 p-4  rounded shadow">
+        <form onSubmit={handleSubmit} className="space-y-4 p-4 rounded shadow">
             <div>
-                <label className="block text-sm font-medium ">Título</label>
+                <label className="block text-sm font-medium">Título</label>
                 <input
                     type="text"
                     name="title"
@@ -58,7 +102,7 @@ export default function FormComponent({ formData, onUpdate }: FormComponentProps
                 <label className="block text-sm font-medium">Nomes</label>
                 <input
                     type="text"
-                    name="name"
+                    name="names"
                     value={formState.names}
                     onChange={handleChange}
                     className="w-full px-2 py-1 rounded bg-gray-500"
@@ -68,9 +112,9 @@ export default function FormComponent({ formData, onUpdate }: FormComponentProps
             <div>
                 <label className="block text-sm font-medium">Data Inicial</label>
                 <input
-                    type="datetime-local"
-                    name="startDate"
-                    value={formState.startDate}
+                    type="date"
+                    name="date"
+                    value={dateValue}
                     onChange={handleChange}
                     className="w-full px-2 py-1 rounded bg-gray-500"
                 />
@@ -93,7 +137,7 @@ export default function FormComponent({ formData, onUpdate }: FormComponentProps
                     name="images"
                     onChange={handleImageChange}
                     multiple
-                    accept="/public/"  // Limita os arquivos para imagens
+                    accept="image/*"  // Limita os arquivos para imagens
                     className="w-full px-2 py-1 rounded bg-gray-500"
                 />
 
@@ -112,11 +156,14 @@ export default function FormComponent({ formData, onUpdate }: FormComponentProps
                 )}
             </div>
 
+            {error && <p className="text-red-500">{error}</p>}
+
             <button
                 type="submit"
-                className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
+                disabled={isSubmitting}
+                className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 disabled:bg-gray-400"
             >
-                Salvar
+                {isSubmitting ? 'Enviando...' : 'Salvar'}
             </button>
         </form>
     );

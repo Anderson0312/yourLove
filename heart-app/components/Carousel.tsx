@@ -38,7 +38,6 @@ const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, inter
 
   // Adiciona o domínio do backend ao caminho da imagem
   const getFullImageUrl = (imagePath: string) => {
-    console.log(imagePath);
     return `${imagePath}`;
   };
 

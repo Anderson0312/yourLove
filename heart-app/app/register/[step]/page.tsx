@@ -96,7 +96,6 @@ const RegisterStep = () => {
         if (currentStep === 3 && formData.photo) {
           // Faz o upload das fotos
           const uploadResponse = await uploadPhotos(userId, formData.photo);
-          console.log(uploadResponse)
   
           // Atualiza o formData com os caminhos das fotos, mas mantém os objetos File
           setFormData((prev) => ({
@@ -148,17 +147,13 @@ const RegisterStep = () => {
 
 
   const handleSearch = async () => {
-    console.log('Função handleSearch chamada'); // Verifique se essa mensagem aparece no console
     if (!query) {
-      console.log('Campo de busca vazio'); // Verifique se o campo de busca está vazio
       alert('Por favor, digite o nome da música.');
       return;
     }
   
     try {
-      console.log('Buscando música...'); // Verifique se a busca está sendo iniciada
       const token = await getSpotifyToken(); // Função para obter o token de acesso
-      console.log('Token obtido:', token); // Verifique se o token foi obtido
   
       const response = await fetch(
         `https://api.spotify.com/v1/search?q=${encodeURIComponent(
@@ -171,21 +166,18 @@ const RegisterStep = () => {
         }
       );
   
-      console.log('Resposta da API:', response); // Verifique a resposta da API
   
       if (!response.ok) {
         throw new Error(`Erro na requisição: ${response.statusText}`);
       }
   
       const data = await response.json();
-      console.log('Dados da API:', data); // Verifique os dados retornados pela API
   
       if (data.tracks.items.length > 0) {
         console.log('Música encontrada:', data.tracks.items[0]); // Verifique a música encontrada
         setPreviewUrl(data.tracks.items[0].preview_url); // Pega o preview da primeira música
         setFormData((prev) => ({ ...prev, music: data.tracks.items[0].name })); // Atualiza o nome da música no formData
       } else {
-        console.log('Nenhuma música encontrada.');
         setPreviewUrl(''); // Limpa o previewUrl se nenhuma música for encontrada
       }
     } catch (e) {

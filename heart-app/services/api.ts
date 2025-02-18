@@ -78,6 +78,7 @@ export const getUsernameFromToken = (): string | null => {
   if (typeof window === "undefined") return null; // Evita erro no Next.js SSR
   
   const token = localStorage.getItem("token");
+  console.log(token);
   
   if (!token) return null;
 

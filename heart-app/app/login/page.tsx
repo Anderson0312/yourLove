@@ -33,9 +33,9 @@ export default function Login() {
 
       // Verifica a resposta da API
       if (response?.message === "Login successful" && response?.token) {
+          localStorage.setItem('token', response.token);
           router.push('/register/1'); 
           return; // Isso evita que o setLoading(false) rode depois
-        
       } else {
         setErrorMessage(response?.message || "Error creating user. Please try again.");
       }

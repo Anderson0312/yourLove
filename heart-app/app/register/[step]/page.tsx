@@ -47,6 +47,7 @@ const RegisterStep = () => {
   useEffect(() => {
     const user = getUsernameFromToken();
     setUsername(user);
+    
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +62,7 @@ const RegisterStep = () => {
     setFormData((prev) => ({ ...prev, photo: files }));
   };
 
-  console.log(username);
+  
   const userId = username ?? ""; // Defina o userId conforme necessário
 
   useEffect(() => {

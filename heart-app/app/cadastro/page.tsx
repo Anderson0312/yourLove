@@ -57,7 +57,8 @@ export default function Register() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-10 p-6 bg-pink-50 rounded-lg shadow-lg border border-red-200">
+    <div className="flex items-center justify-center min-h-screen">
+    <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6 bg-pink-50 rounded-lg shadow-lg border border-red-200">
   <h2 className="text-center text-2xl font-bold text-red-600">Cadastro de usuário</h2>
   
   <div className="mb-4 mt-4">
@@ -101,7 +102,7 @@ export default function Register() {
 
   <button
     type="submit"
-    className={`w-full py-2 mb-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+    className={`w-full py-2 mb-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
     disabled={loading}
   >
     {loading ? "Cadastrando com amor..." : "Criar Conta 💕"}
@@ -110,7 +111,7 @@ export default function Register() {
   <p className="text-center text-black">
     Já tem uma conta? <Link href='/login' className='text-red-500 hover:text-red-700 hover:underline'>Faça login aqui 💑</Link>
   </p>
-</form>
-
+  </form>
+  </div>
   );
 }

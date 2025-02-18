@@ -49,7 +49,8 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-10 p-6 bg-pink-50 rounded-lg shadow-lg border border-red-200">
+    <div className="flex items-center justify-center min-h-screen">
+  <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6 bg-pink-50 rounded-lg shadow-lg border border-red-200">
       <h2 className="text-center text-2xl font-bold text-red-600">Login</h2>
       <div className="mb-4">
       <label htmlFor="email" className="block text-lg font-medium text-red-600 mb-2">💌 Seu Email</label>
@@ -78,7 +79,7 @@ export default function Login() {
       )}
       <button
         type="submit"
-        className="w-full py-2 mb-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300"
+        className="w-full py-2 mb-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300"
         disabled={loading}
       >
         {loading ? "Loading..." : "Login 💕"}
@@ -88,5 +89,6 @@ export default function Login() {
       Não tem uma conta? <Link href='/cadastro' className='text-red-500 hover:text-red-700 hover:underline'>Inscreva-se 💑</Link>
   </p>
     </form>
+    </div>
   );
 }

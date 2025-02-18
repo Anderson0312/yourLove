@@ -4,7 +4,7 @@ import Carousel from "@/components/Carousel";
 import Countdown from "@/components/Countdown";
 import FallingHearts from "@/components/FallingHearts";
 import TextDatting from "@/components/TextDatting";
-import { getRegistrationData } from '@/services/api';
+import { getRegistrationData, getUsernameFromToken } from '@/services/api';
 
 interface FormData {
     title: string;
@@ -15,8 +15,14 @@ interface FormData {
 }
 
 export default function PreviewLaout() {
-    const userId = 'Anderson'; 
+    const [username, setUsername] = useState<string | null>(null);
+    
+      useEffect(() => {
+        const user = getUsernameFromToken();
+        setUsername(user);
+      }, []);
 
+    const userId = username; 
     const now = new Date(
         new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
       );

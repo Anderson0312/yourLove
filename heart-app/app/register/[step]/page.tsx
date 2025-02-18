@@ -1,7 +1,7 @@
 'use client';
 
 import PreviewLaout from '@/components/previewLaout';
-import { getRegistrationData, saveRegistrationData, uploadPhotos, getSpotifyToken } from '@/services/api';
+import { getRegistrationData, saveRegistrationData, uploadPhotos, getSpotifyToken, getUsernameFromToken } from '@/services/api';
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -30,7 +30,7 @@ const RegisterStep = () => {
   const stepParam = params.step ? parseInt(params.step as string, 10) : 1;
   const [query, setQuery] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
-
+  const [username, setUsername] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(stepParam);
   const [formData, setFormData] = useState<FormData>({
     title: '',
@@ -42,6 +42,12 @@ const RegisterStep = () => {
     photo: null,
     photoPaths: null,
   });
+
+  
+  useEffect(() => {
+    const user = getUsernameFromToken();
+    setUsername(user);
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -55,7 +61,8 @@ const RegisterStep = () => {
     setFormData((prev) => ({ ...prev, photo: files }));
   };
 
-  const userId = 'Anderson'; // Defina o userId conforme necessário
+  console.log(username);
+  const userId = username ?? ""; // Defina o userId conforme necessário
 
   useEffect(() => {
     if (stepParam >= 1 && stepParam <= steps.length) {

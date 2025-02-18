@@ -1,16 +1,23 @@
 'use client';
 
+import { getUsernameFromToken } from '@/services/api';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function HeartButton() {
   const router = useRouter();
   const [isClicked, setIsClicked] = useState(false);
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    const user = getUsernameFromToken();
+    setUsername(user);
+  }, []);
 
   const handleClick = () => {
     setIsClicked(true);
     setTimeout(() => {
-      router.push('/yourDatting/Anderson'); // Altere para a rota desejada
+      router.push(`/yourDatting/${username}`); // Altere para a rota desejada
     }, 300); // Tempo para sincronizar com a animação
   };
 

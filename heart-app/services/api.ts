@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
 
 const API_BASE_URL = 'https://heart-app-backend.vercel.app/api'; // Ajuste conforme necessário
+const API_BASE_URL2 = 'http://localhost:4000/api'
 
 export const getRegistrationData = async (userId: string) => {
   try {
@@ -42,6 +44,57 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
     throw error;
   }
 };
+
+
+
+export const getRegisterUserData = async (data: any) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL2}/auth/login`, {
+      ...data,
+    });
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao recuperar os dados:', error);
+    throw error;
+  }
+};
+
+export const saveRegisterUserData = async (data: any) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL2}/users/register`, {
+      ...data,
+    });
+    return response.data;
+    
+  } catch (error) {
+    console.error('Erro ao salvar os dados:', error);
+    throw error;
+  }
+};
+
+
+export const getUsernameFromToken = (): string | null => {
+  if (typeof window === "undefined") return null; // Evita erro no Next.js SSR
+  
+  const token = localStorage.getItem("token");
+  
+  if (!token) return null;
+
+  try {
+    const decoded: any = jwtDecode(token);
+    return decoded?.username || null;
+  } catch (error) {
+    console.error("Erro ao decodificar o token:", error);
+    return null;
+  }
+};
+
+
+
+
+
+
 
 
 export const getSpotifyToken = async () => {

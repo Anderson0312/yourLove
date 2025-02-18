@@ -9,6 +9,7 @@ import { useParams } from 'next/navigation';
 import { getRegistrationData } from '@/services/api';
 import Modal from '@/components/Modal';
 import FormComponent from '@/components/FormComponent';
+import HeartLoader from '@/components/HeartLoader';
 
 interface FormData {
     title: string;
@@ -60,7 +61,7 @@ export default function Home() {
     };
 
     if (loading) {
-        return <div>Carregando...</div>; // Exibe um loading enquanto os dados são buscados
+        return <HeartLoader/>; // Exibe um loading enquanto os dados são buscados
     }
 
 

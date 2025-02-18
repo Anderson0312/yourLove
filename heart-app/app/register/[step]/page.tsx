@@ -289,23 +289,17 @@ const RegisterStep = () => {
 
       {currentStep === 4 && (
         <div>
-          <h2 className="text-lg font-bold">Summary</h2>
-          <pre className="bg-red-500 text-white p-4 rounded">
-            {JSON.stringify(
-              {
-                ...formData,
-                photo: formData.photo
-                  ? formData.photo.map((file) => ({
-                      name: file.name,
-                      size: file.size,
-                      type: file.type,
-                    }))
-                  : null,
-              },
-              null,
-              2
-            )}
-          </pre>
+          <h2 className="text-lg font-bold">Resumo</h2>
+
+          <div className="bg-red-500 text-white p-4 rounded">
+            <p><strong>Título:</strong> {formData.title}</p>
+            <p><strong>Data:</strong> {formData.date}</p>
+            <p><strong>Nomes:</strong> {formData.names}</p>
+            <p><strong>Seu Texto:</strong> {formData.text}</p>
+            <p><strong>Música:</strong> {formData.music}</p>
+            <p><strong>Criado em:</strong> {new Date().toLocaleString()}</p>
+            <p><strong>Username:</strong> {formData.username}</p>
+          </div>
         </div>
       )}
 

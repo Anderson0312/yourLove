@@ -4,12 +4,15 @@ interface CarouselProps {
   images?: string[] | null; // Permite que seja null
   autoPlay?: boolean;
   interval?: number;
+  preview?: boolean;
 }
 
-const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, interval = 3000 }) => {
+const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, interval = 3000 , preview = false}) => {
   const validImages = images ?? []; // Garante que seja um array, mesmo se for null
   const totalImages = validImages.length;
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  
 
   // Avançar para o próximo slide
   const nextSlide = () => {
@@ -41,7 +44,7 @@ const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, inter
   return (
     <div className="relative w-full max-w-3xl mx-auto overflow-hidden">
       {/* Contêiner das imagens */}
-      <div className="relative h-64" style={{ height: '30rem' }}>
+      <div className="relative h-64" style={{ height: preview ? '21em' : '30rem' }}>
         {totalImages > 0 ? (
           validImages.map((image, index) => (
             <div

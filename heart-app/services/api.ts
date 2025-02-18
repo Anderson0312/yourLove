@@ -19,7 +19,6 @@ export const saveRegistrationData = async (userId: string, step: number, data: a
       step,
       username: userId
     });
-    console.log("saveRegistrationData:",response.data)
     return response.data;
     
   } catch (error) {
@@ -35,10 +34,7 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
       formData.append(`files`, file); // Enviando com chave 'files' (o backend deve suportar múltiplos arquivos)
     });
 
-    console.log(formData);
-
     const response = await axios.post(`${API_BASE_URL}/registration/${userId}/upload`, formData);
-    console.log("uploadPhotos:", response.data);
     return response.data;
     
   } catch (error) {

@@ -53,10 +53,21 @@ body {
   animation: click-beat 0.3s ease-in-out;
 }
 
+.hearts-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; 
+  height: 100vh; 
+  overflow: hidden;
+  z-index: 0; 
+}
+
+.heart {
+  position: absolute;
+}
+
 @layer utilities {
-  .hearts-container {
-    @apply relative overflow-hidden w-full h-full;
-  }
 
   .heart {
     @apply absolute w-8 h-8; /* Tamanho padrão do coração */

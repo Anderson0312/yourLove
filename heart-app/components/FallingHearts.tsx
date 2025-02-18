@@ -9,6 +9,7 @@ const FallingHearts: React.FC = () => {
       const heart = document.createElement('div');
       heart.className = 'heart';
       heart.style.left = `${Math.random() * 100}vw`; // Posição horizontal aleatória
+      heart.style.top = `${Math.random() * 100}vh`; // Posição vertical aleatória
       heart.style.animationDuration = `${Math.random() * 2 + 3}s`; // Duração aleatória (3 a 5s)
       heart.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="24px" height="24px">

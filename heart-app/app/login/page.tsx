@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation"; // Correção na importação
 import { getRegisterUserData } from "@/services/api";
 import Link from "next/link";
+import FallingHearts from "@/components/FallingHearts";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -49,46 +50,53 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-  <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6 bg-pink-50 rounded-lg shadow-lg border border-red-200">
-      <h2 className="text-center text-2xl font-bold text-red-600">Login</h2>
-      <div className="mb-4">
-      <label htmlFor="email" className="block text-lg font-medium text-red-600 mb-2">💌 Seu Email</label>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-500"
-          placeholder="Insira seu email"
-        />
+    
+    <>
+      <div className="hearts-container fixed inset-0 z-0 overflow-hidden">
+        <FallingHearts />
       </div>
-      <div className="mb-6">
-        <label htmlFor="password" className="block text-lg font-medium text-red-600 mb-2">🔐 Escolha uma Senha</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-4 py-2 border border-pink-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-400"
-          placeholder="Digite uma senha segura"
-        />
-      </div>
-      {errorMessage && (
-        <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
-      )}
-      <button
-        type="submit"
-        className="w-full py-2 mb-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300"
-        disabled={loading}
-      >
-        {loading ? "Loading..." : "Login 💕"}
-      </button>
 
-      <p className="text-center text-black">
-      Não tem uma conta? <Link href='/cadastro' className='text-red-500 hover:text-red-700 hover:underline'>Inscreva-se 💑</Link>
-  </p>
-    </form>
-    </div>
+      <div className="flex items-center justify-center min-h-screen z-10 relative">
+        <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6 bg-pink-50 rounded-lg shadow-lg border border-red-200">
+          <h2 className="text-center text-2xl font-bold text-red-600">Login</h2>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-lg font-medium text-red-600 mb-2">💌 Seu Email</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-500"
+              placeholder="Insira seu email"
+            />
+          </div>
+          <div className="mb-6">
+            <label htmlFor="password" className="block text-lg font-medium text-red-600 mb-2">🔐 Sua Senha</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 border border-pink-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-400"
+              placeholder="Digite uma senha segura"
+            />
+          </div>
+          {errorMessage && (
+            <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
+          )}
+          <button
+            type="submit"
+            className="w-full py-2 mb-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Login 💕"}
+          </button>
+
+          <p className="text-center text-black">
+            Não tem uma conta? <Link href='/cadastro' className='text-red-500 hover:text-red-700 hover:underline'>Inscreva-se 💑</Link>
+          </p>
+        </form>
+      </div>
+    </>
   );
 }

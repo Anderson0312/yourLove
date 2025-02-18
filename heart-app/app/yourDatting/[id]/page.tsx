@@ -66,7 +66,11 @@ export default function Home() {
 
 
     return (
-        <div className="hearts-container min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+        <>
+      <div className="hearts-container fixed inset-0 z-0 overflow-hidden">
+        <FallingHearts />
+      </div>
+        <div className="z-10 min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
             {/* Modal com formulário */}
             {isEditing && (
                 <Modal onClose={() => setIsEditing(false)}>
@@ -106,5 +110,6 @@ export default function Home() {
             <MusicPlayer music={data.music} />
             <FallingHearts />
         </div>
+        </>
     );
 }

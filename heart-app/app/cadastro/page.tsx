@@ -3,6 +3,7 @@ import { useState } from "react";
 import bcrypt from "bcryptjs";
 import { saveRegisterUserData } from "@/services/api";
 import Link from "next/link";
+import FallingHearts from "@/components/FallingHearts";
 
 
 export default function Register() {
@@ -57,7 +58,12 @@ export default function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <>
+      <div className="hearts-container fixed inset-0 z-0 overflow-hidden">
+        <FallingHearts />
+      </div>
+
+      <div className="flex items-center justify-center min-h-screen z-10 relative">
     <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6 bg-pink-50 rounded-lg shadow-lg border border-red-200">
   <h2 className="text-center text-2xl font-bold text-red-600">Cadastro de usuário</h2>
   
@@ -113,5 +119,6 @@ export default function Register() {
   </p>
   </form>
   </div>
+  </>
   );
 }

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import bcrypt from "bcryptjs";
 import { saveRegisterUserData } from "@/services/api";
+import Link from "next/link";
 
 
 export default function Register() {
@@ -56,54 +57,60 @@ export default function Register() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
-      <div className="mb-4">
-        <label htmlFor="email" className="block text-lg font-medium text-black mb-2">Email</label>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-500"
-          placeholder="Enter your email"
-        />
-      </div>
+    <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-10 p-6 bg-pink-50 rounded-lg shadow-lg border border-red-200">
+  <h2 className="text-center text-2xl font-bold text-red-600">Cadastro de usuário</h2>
+  
+  <div className="mb-4 mt-4">
+    <label htmlFor="email" className="block text-lg font-medium text-red-600 mb-2">💌 Seu Email</label>
+    <input
+      id="email"
+      type="email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      className="w-full px-4 py-2 border border-pink-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-400"
+      placeholder="Insira seu email"
+    />
+  </div>
 
-      <div className="mb-4">
-        <label htmlFor="username" className="block text-lg font-medium text-black mb-2">Username</label>
-        <input
-          id="username"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-500"
-          placeholder="Choose a username"
-        />
-      </div>
+  <div className="mb-4">
+    <label htmlFor="username" className="block text-lg font-medium text-red-600 mb-2">💑 Escolha um Username</label>
+    <input
+      id="username"
+      type="text"
+      value={username}
+      onChange={(e) => setUsername(e.target.value)}
+      className="w-full px-4 py-2 border border-pink-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-400"
+      placeholder="Escolha seu nome de usuário"
+    />
+  </div>
 
-      <div className="mb-6">
-        <label htmlFor="password" className="block text-lg font-medium text-black mb-2">Password</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-500"
-          placeholder="Enter your password"
-        />
-      </div>
+  <div className="mb-6">
+    <label htmlFor="password" className="block text-lg font-medium text-red-600 mb-2">🔐 Escolha uma Senha</label>
+    <input
+      id="password"
+      type="password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      className="w-full px-4 py-2 border border-pink-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-400"
+      placeholder="Digite uma senha segura"
+    />
+  </div>
 
-      {/* Exibe mensagens de erro ou sucesso */}
-      {errorMessage && <p className="text-red-600">{errorMessage}</p>}
-      {successMessage && <p className="text-green-600">{successMessage}</p>}
+  {errorMessage && <p className="text-red-600 text-center">💔 {errorMessage}</p>}
+  {successMessage && <p className="text-green-600 text-center">💕 {successMessage}</p>}
 
-      <button
-        type="submit"
-        className={`w-full py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-        disabled={loading} // Desabilita o botão durante o carregamento
-      >
-        {loading ? "Registering..." : "Register"}
-      </button>
-    </form>
+  <button
+    type="submit"
+    className={`w-full py-2 mb-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+    disabled={loading}
+  >
+    {loading ? "Cadastrando com amor..." : "Criar Conta 💕"}
+  </button>
+
+  <p className="text-center text-black">
+    Já tem uma conta? <Link href='/login' className='text-red-500 hover:text-red-700 hover:underline'>Faça login aqui 💑</Link>
+  </p>
+</form>
+
   );
 }

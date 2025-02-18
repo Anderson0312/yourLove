@@ -49,7 +49,7 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
 
 export const getRegisterUserData = async (data: any) => {
   try {
-    const response = await axios.post(`${API_BASE_URL2}/auth/login`, {
+    const response = await axios.post(`${API_BASE_URL}/auth/login`, {
       ...data,
     });
     console.log(response.data)
@@ -62,7 +62,7 @@ export const getRegisterUserData = async (data: any) => {
 
 export const saveRegisterUserData = async (data: any) => {
   try {
-    const response = await axios.post(`${API_BASE_URL2}/users/register`, {
+    const response = await axios.post(`${API_BASE_URL}/users/register`, {
       ...data,
     });
     return response.data;

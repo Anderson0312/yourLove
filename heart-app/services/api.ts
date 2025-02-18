@@ -6,7 +6,7 @@ const API_BASE_URL2 = 'http://localhost:4000/api'
 
 export const getRegistrationData = async (userId: string) => {
   try {
-    const response = await axios.get(`${API_BASE_URL2}/registration/${userId}`);
+    const response = await axios.get(`${API_BASE_URL}/registration/${userId}`);
     return response.data.data;
   } catch (error) {
     console.error('Erro ao recuperar os dados:', error);
@@ -36,7 +36,7 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
       formData.append(`files`, file); // Enviando com chave 'files' (o backend deve suportar múltiplos arquivos)
     });
 
-    const response = await axios.post(`${API_BASE_URL2}/registration/${userId}/upload`, formData);
+    const response = await axios.post(`${API_BASE_URL}/registration/${userId}/upload`, formData);
     console.log(response.data);
     return response.data;
     

@@ -96,6 +96,7 @@ const RegisterStep = () => {
         if (currentStep === 3 && formData.photo) {
           // Faz o upload das fotos
           const uploadResponse = await uploadPhotos(userId, formData.photo);
+          console.log(uploadResponse)
   
           // Atualiza o formData com os caminhos das fotos, mas mantém os objetos File
           setFormData((prev) => ({

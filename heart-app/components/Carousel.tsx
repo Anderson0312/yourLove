@@ -38,7 +38,8 @@ const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, inter
 
   // Adiciona o domínio do backend ao caminho da imagem
   const getFullImageUrl = (imagePath: string) => {
-    return `https://heart-app-backend.vercel.app${imagePath}`;
+    console.log(imagePath);
+    return `${imagePath}`;
   };
 
   return (

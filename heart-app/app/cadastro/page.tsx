@@ -1,8 +1,8 @@
 'use client'
 import { useState } from "react";
-// import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { saveRegisterUserData } from "@/services/api";
+
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ export default function Register() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Verifica se os campos estão preenchidos

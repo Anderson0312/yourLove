@@ -4,6 +4,8 @@ import PreviewLaout from '@/components/previewLaout';
 import { getRegistrationData, saveRegistrationData, uploadPhotos, getSpotifyToken, getUsernameFromToken } from '@/services/api';
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { PhotoIcon } from '@heroicons/react/24/solid'
+import Link from 'next/link';
 
 const steps = [
   { id: 1, name: 'Title and Date' },
@@ -214,39 +216,78 @@ const RegisterStep = () => {
       <form onSubmit={handleSubmit}>
         {currentStep === 1 && (
           <div className="space-y-4">
-            <input
-              type="text"
-              placeholder="Title"
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full px-2 py-1 rounded bg-gray-500"
-            />
-            <input
-              type="date"
-              value={formData.date}
-              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-              className="w-full px-2 py-1 rounded bg-gray-500"
-            />
+            <div className="sm:col-span-4">
+              <label htmlFor="Titulo" className="block text-sm/6 font-medium text-withe">
+                Titulo do site
+              </label>
+              <div className="mt-2">
+                <input
+                  id="Titulo"
+                  name="Titulo"
+                  type="Titulo"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  placeholder="Titulo do site"
+                  className="block w-full rounded-md bg-gray-500 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+
+          
+            <div className="sm:col-span-4">
+              <label htmlFor="date" className="block text-sm/6 font-medium text-withe">
+                Inicio do relacionamento
+              </label>
+              <div className="mt-2">
+                <input
+                  id="date"
+                  name="date"
+                  type="date"
+                  value={formData.date}
+                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                  className="block w-full rounded-md bg-gray-500 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
           </div>
         )}
 
         {currentStep === 2 && (
           <div className="space-y-4">
-            <textarea
-              placeholder="Text"
-              value={formData.text}
-              onChange={(e) => setFormData({ ...formData, text: e.target.value })}
-              className="w-full px-2 py-1 rounded bg-gray-500"
-            />
-              
-              <div className="">
-              <input
-                type="text"
-                placeholder="Digite o nome da música"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                className="w-full px-2 py-1 rounded bg-gray-500"
-              />
+
+            <div className="col-span-full">
+              <label htmlFor="about" className="block text-sm/6 font-medium text-withe-900">
+                Texto do casal
+              </label>
+              <div className="mt-2">
+                <textarea
+                  id="about"
+                  name="about"
+                  placeholder="Texto do casal"
+                  rows={3}
+                  onChange={(e) => setFormData({ ...formData, text: e.target.value })}
+                  className="block w-full rounded-md bg-gray-500 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-red-300 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/7"
+                  value={formData.text}
+                />
+              </div>
+            </div>
+
+
+            <div className="sm:col-span-4">
+              <label htmlFor="email" className="block text-sm/6 font-medium text-withe">
+                Selecione uma musica
+              </label>
+              <div className="mt-2">
+                <input
+                  id="musica"
+                  name="musica"
+                  placeholder="Digite o nome da música"
+                  type="musica"
+                  value={query  ||  formData.music}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="block w-full rounded-md bg-gray-500 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
+                />
+              </div>
               <button
                 type="button" // Adicione isso para evitar o envio do formulário
                 onClick={handleSearch}
@@ -254,7 +295,6 @@ const RegisterStep = () => {
               >
                 Buscar Música
               </button>
-
               {previewUrl && (
                 <div className="mt-4">
                   <audio controls src={previewUrl}>
@@ -262,27 +302,54 @@ const RegisterStep = () => {
                   </audio>
                 </div>
               )}
+              </div>
             </div>
 
-            </div>
+            
 
         )}
 
         {currentStep === 3 && (
           <div className="space-y-4">
-            <input
-              type="text"
-              placeholder="Nomes do casal"
-              value={formData.names}
-              onChange={(e) => setFormData({ ...formData, names: e.target.value })}
-              className="w-full px-2 py-1 rounded bg-gray-500"
-            />
-              <input
-                type="file"
-                multiple
-                onChange={handleFileChange}
-                className="w-full px-2 py-1 rounded bg-gray-500"
-              />
+            
+            <div className="sm:col-span-4">
+              <label htmlFor="Nomes" className="block text-sm/6 font-medium text-withe">
+              Nomes do casal
+              </label>
+              <div className="mt-2">
+                <input
+                  id="Nomes"
+                  name="Nomes"
+                  type="text"
+                  value={formData.names}
+                  onChange={(e) => setFormData({ ...formData, names: e.target.value })}
+                  placeholder="Nomes do casal"
+                  className="block w-full rounded-md bg-gray-500 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+
+            <div className="col-span-full">
+              <label htmlFor="cover-photo" className="block text-white text-sm/6 font-medium text-gray-900">
+                Fotos do casal 
+              </label>
+              <div className="mt-2 flex justify-center bg-gray-500 rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                <div className="text-center">
+                  <PhotoIcon aria-hidden="true" className="mx-auto size-12 text-gray-300" />
+                  <div className="mt-4 flex text-sm/6 text-withe">
+                    <label
+                      htmlFor="file-upload"
+                      className="relative cursor-pointer rounded-md font-semibold text-red-600 focus-within:ring-2 focus-within:ring-red-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-red-800"
+                    >
+                      <span>Envie suas fotos</span>
+                      <input id="file-upload" name="file-upload" type="file" className="sr-only" multiple onChange={handleFileChange}/>
+                    </label>
+                    <p className="pl-1 ">ou arraste aqui</p>
+                  </div>
+                  <p className="text-xs/5 text-withe">PNG, JPG até 10MB</p>
+                </div>
+              </div>
+            </div>
 
           </div>
           
@@ -299,7 +366,12 @@ const RegisterStep = () => {
             <p><strong>Seu Texto:</strong> {formData.text}</p>
             <p><strong>Música:</strong> {formData.music}</p>
             <p><strong>Criado em:</strong> {new Date().toLocaleString()}</p>
-            <p><strong>Username:</strong> {formData.username}</p>
+            <p>
+            <strong>Seu link do site: </strong>  
+            <a href={`https://our-love-app.vercel.app/yourDatting/${formData.username}`}>
+              {`https://our-love-app.vercel.app/yourDatting/${formData.username}`}
+            </a>
+            </p>
           </div>
         </div>
       )}

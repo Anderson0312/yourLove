@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import Carousel from "@/components/Carousel";
 import Countdown from "@/components/Countdown";
-import FallingHearts from "@/components/FallingHearts";
 import TextDatting from "@/components/TextDatting";
 import { getRegistrationData, getUsernameFromToken } from '@/services/api';
 import HeartLoader from './HeartLoader';

@@ -5,7 +5,6 @@ import { getRegistrationData, saveRegistrationData, uploadPhotos, getSpotifyToke
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid'
-import Link from 'next/link';
 
 const steps = [
   { id: 1, name: 'Title and Date' },

@@ -1,6 +1,7 @@
 import { saveRegistrationData } from '@/services/api';
 import { useParams } from 'next/navigation';
 import {  useState } from 'react';
+import Image from "next/image";
 
 interface FormData {
     title: string;
@@ -145,7 +146,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
                 {previewImages.length > 0 && (
                     <div className="mt-4 grid grid-cols-3 gap-2">
                         {previewImages.map((image, index) => (
-                            <img
+                            <Image 
                                 key={index}
                                 src={image}
                                 alt={`Preview ${index}`}

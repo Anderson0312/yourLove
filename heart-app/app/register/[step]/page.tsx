@@ -5,6 +5,9 @@ import { getRegistrationData, saveRegistrationData, uploadPhotos, getSpotifyToke
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid'
+import Link from 'next/link';
+
+
 
 const steps = [
   { id: 1, name: 'Title and Date' },
@@ -65,6 +68,7 @@ const RegisterStep = () => {
 
   
   const userId = username ?? ""; // Defina o userId conforme necessário
+
 
   useEffect(() => {
     if (stepParam >= 1 && stepParam <= steps.length) {
@@ -146,6 +150,22 @@ const RegisterStep = () => {
     }
   };
 
+  const handleRemovePhoto = async (index: number) => {
+    if (!formData.photoPaths) return;
+  
+    const updatedPaths = formData.photoPaths.filter((_, i) => i !== index);
+    setFormData((prev) => ({ ...prev, photoPaths: updatedPaths }));
+  
+    try {
+      await saveRegistrationData(userId, currentStep, {
+        ...formData,
+        photoPaths: updatedPaths, // Enviar lista atualizada de fotos
+      });
+    } catch (error) {
+      console.error('Erro ao remover a foto:', error);
+    }
+  };
+  
 
   const handleSearch = async () => {
     if (!query) {
@@ -190,19 +210,21 @@ const RegisterStep = () => {
   return (
     <div className="container mx-auto p-6">
       {/* Step Indicators */}
-      <div className="flex justify-center items-center space-x-4 mb-6">
+      <div className="flex justify-center items-center space-x-1 mb-6">
         {steps.map((s, index) => (
           <div key={s.id} className="flex items-center">
             <div
               className={`w-8 h-8 rounded-full flex justify-center items-center ${
-                currentStep === s.id ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'
+                currentStep === s.id ? 'bg-red-500 text-white animate-pulse' : 'bg-gray-300 text-black'
               }`}
             >
+              <Link href={`/register/${s.id}`}> 
               {s.id}
+              </Link>
             </div>
             {index < steps.length - 1 && (
               <div
-                className={`w-12 h-1 ${
+                className={`w-12 h-2 ${
                   currentStep > s.id ? 'bg-red-500' : 'bg-gray-300'
                 }`}
               ></div>
@@ -214,9 +236,9 @@ const RegisterStep = () => {
       {/* Form Content */}
       <form onSubmit={handleSubmit}>
         {currentStep === 1 && (
-          <div className="space-y-4">
-            <div className="sm:col-span-4">
-              <label htmlFor="Titulo" className="block text-sm/6 font-medium text-withe">
+          <div className="space-y-4 ">
+            <div className=" sm:col-span-4 ">
+              <label htmlFor="Titulo" className="block text-xl/3 font-bold text-withe">
                 Titulo do site
               </label>
               <div className="mt-2">
@@ -234,7 +256,7 @@ const RegisterStep = () => {
 
           
             <div className="sm:col-span-4">
-              <label htmlFor="date" className="block text-sm/6 font-medium text-withe">
+            <label htmlFor="Titulo" className="block text-xl/3 font-bold text-withe">
                 Inicio do relacionamento
               </label>
               <div className="mt-2">
@@ -328,7 +350,7 @@ const RegisterStep = () => {
               </div>
             </div>
 
-            <div className="col-span-full">
+             <div className="col-span-full">
               <label htmlFor="cover-photo" className="block text-white text-sm/6 font-medium text-gray-900">
                 Fotos do casal 
               </label>
@@ -348,7 +370,31 @@ const RegisterStep = () => {
                   <p className="text-xs/5 text-withe">PNG, JPG até 10MB</p>
                 </div>
               </div>
+            </div>  
+
+            {formData.photoPaths && formData.photoPaths.length > 0 && (
+            <div className="grid grid-cols-3 gap-3">
+              {formData.photoPaths.map((photoUrl, index) => (
+                <div key={index} className="relative w-24 h-24">
+                  <img src={photoUrl} alt={`Foto ${index + 1}`} className="w-full h-full  object-cover rounded-lg shadow-md" />
+                  <button
+                    onClick={() => handleRemovePhoto(index)}
+                    className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
             </div>
+          )} 
+
+              {/* <input
+                type="file"
+                multiple
+                onChange={handleFileChange}
+                className="w-full px-2 py-1 rounded bg-gray-500"
+              /> */}
+          
 
           </div>
           

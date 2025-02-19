@@ -17,7 +17,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Parisienne , Helvetica, sans-serif;
 }
 
 
@@ -65,6 +65,13 @@ body {
 
 .heart {
   position: absolute;
+}
+
+.card {
+  background: var(--surface-card);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
 }
 
 @layer utilities {

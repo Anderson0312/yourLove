@@ -52,51 +52,85 @@ export default function Login() {
   return (
     
     <>
-      <div className="hearts-container fixed inset-0 z-0 overflow-hidden">
-        <FallingHearts />
-      </div>
+    <div className="hearts-container fixed inset-0 z-0 overflow-hidden">
+         <FallingHearts />
+    </div>
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 min-h-screen z-10 relative">
+    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img
+        alt="Your Company"
+        src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=red&shade=600"
+        className="mx-auto h-10 w-auto"
+      />
+      <h2 className="mt-10 text-center text-2xl/9 font-bold text-red-700">
+        Entre com sua conta
+      </h2>
+    </div>
 
-      <div className="flex items-center justify-center min-h-screen z-10 relative">
-        <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6 bg-pink-50 rounded-lg shadow-lg border border-red-200">
-          <h2 className="text-center text-2xl font-bold text-red-600">Login</h2>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-lg font-medium text-red-600 mb-2">💌 Seu Email</label>
+    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="email" className="block text-sm/6 font-medium text-withe">
+            Endereço de Email
+          </label>
+          <div className="mt-2">
             <input
               id="email"
+              name="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-500"
-              placeholder="Insira seu email"
+              required
+              autoComplete="email"
+              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
             />
           </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-lg font-medium text-red-600 mb-2">🔐 Sua Senha</label>
+        </div>
+
+        <div>
+          <div className="flex items-center justify-between">
+            <label htmlFor="password" className="block text-sm/6 font-medium text-withe">
+              Senha
+            </label>
+            <div className="text-sm">
+              <a href="#" className="font-semibold text-red-600 hover:text-red-500">
+                Esqueceu a senha?
+              </a>
+            </div>
+          </div>
+          <div className="mt-2">
             <input
               id="password"
+              name="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-pink-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-red-400"
-              placeholder="Digite uma senha segura"
+              required
+              autoComplete="current-password"
+              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
             />
           </div>
-          {errorMessage && (
-            <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
-          )}
+        </div>
+
+        <div>
           <button
             type="submit"
-            className="w-full py-2 mb-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300"
+            className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
             disabled={loading}
-          >
-            {loading ? "Loading..." : "Login 💕"}
+           >
+           {loading ? "Loading..." : "Entrar 💕"}
           </button>
+        </div>
+      </form>
 
-          <p className="text-center text-black">
-            Não tem uma conta? <Link href='/cadastro' className='text-red-500 hover:text-red-700 hover:underline'>Inscreva-se 💑</Link>
-          </p>
-        </form>
-      </div>
+      <p className="mt-10 text-center text-sm/6 text-white">
+        Não tem conta?{' '}
+        <Link href="/cadastro" className="font-semibold text-red-600 hover:text-red-500">
+          Registrar-se
+        </Link>
+      </p>
+    </div>
+    </div>
     </>
   );
 }

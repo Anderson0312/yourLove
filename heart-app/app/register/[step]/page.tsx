@@ -239,7 +239,7 @@ const RegisterStep = () => {
         {currentStep === 1 && (
           <div className="space-y-4 ">
             <div className=" sm:col-span-4 ">
-              <label htmlFor="Titulo" className="block text-xl/3 font-bold text-withe">
+              <label htmlFor="Titulo" className="poppins-thin block text-lg/3 font-bold text-withe">
                 Titulo do site
               </label>
               <div className="mt-2">
@@ -257,7 +257,7 @@ const RegisterStep = () => {
 
           
             <div className="sm:col-span-4">
-            <label htmlFor="Titulo" className="block text-xl/3 font-bold text-withe">
+            <label htmlFor="Titulo" className=" poppins-thin block text-lg/3 font-bold text-withe">
                 Inicio do relacionamento
               </label>
               <div className="mt-2">
@@ -278,7 +278,7 @@ const RegisterStep = () => {
           <div className="space-y-4">
 
             <div className="col-span-full">
-              <label htmlFor="about" className="block text-sm/6 font-medium text-withe-900">
+              <label htmlFor="about" className="poppins-thin block text-lg/3 font-bold text-withe">
                 Texto do casal
               </label>
               <div className="mt-2">
@@ -296,7 +296,7 @@ const RegisterStep = () => {
 
 
             <div className="sm:col-span-4">
-              <label htmlFor="email" className="block text-sm/6 font-medium text-withe">
+              <label htmlFor="email" className="poppins-thin block text-lg/3 font-bold text-withe">
                 Selecione uma musica
               </label>
               <div className="mt-2">
@@ -335,7 +335,7 @@ const RegisterStep = () => {
           <div className="space-y-4">
             
             <div className="sm:col-span-4">
-              <label htmlFor="Nomes" className="block text-sm/6 font-medium text-withe">
+              <label htmlFor="Nomes" className="poppins-thin block text-lg/3 font-bold text-withe">
               Nomes do casal
               </label>
               <div className="mt-2">
@@ -352,7 +352,7 @@ const RegisterStep = () => {
             </div>
 
              <div className="col-span-full">
-              <label htmlFor="cover-photo" className="block text-white text-sm/6 font-medium text-gray-900">
+              <label htmlFor="cover-photo" className="poppins-thin block text-lg/3 font-bold text-withe">
                 Fotos do casal 
               </label>
               <div className="mt-2 flex justify-center bg-gray-500 rounded-lg border border-dashed border-gray-900/25 px-6 py-10">

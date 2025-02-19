@@ -6,6 +6,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link';
+import Image from "next/image";
 
 
 
@@ -376,7 +377,7 @@ const RegisterStep = () => {
             <div className="grid grid-cols-3 gap-3">
               {formData.photoPaths.map((photoUrl, index) => (
                 <div key={index} className="relative w-24 h-24">
-                  <img src={photoUrl} alt={`Foto ${index + 1}`} className="w-full h-full  object-cover rounded-lg shadow-md" />
+                  <Image src={photoUrl} alt={`Foto ${index + 1}`} className="w-full h-full  object-cover rounded-lg shadow-md" />
                   <button
                     onClick={() => handleRemovePhoto(index)}
                     className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"

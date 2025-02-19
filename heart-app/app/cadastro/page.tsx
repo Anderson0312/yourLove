@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { saveRegisterUserData } from "@/services/api";
 import Link from "next/link";
 import FallingHearts from "@/components/FallingHearts";
+import Image from "next/image";
 
 
 export default function Register() {
@@ -64,7 +65,7 @@ export default function Register() {
   </div>
   <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 min-h-screen z-10 relative">
   <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-    <img
+    <Image 
       alt="Your Company"
       src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=red&shade=600"
       className="mx-auto h-10 w-auto"

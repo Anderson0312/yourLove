@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PhotoIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 const ImageUpload = () => {
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
@@ -42,7 +43,7 @@ const ImageUpload = () => {
         <div className="mt-4 grid grid-cols-3 gap-2">
           {selectedImages.map((file, index) => (
             <div key={index} className="relative w-20 h-20">
-              <img
+              <Image
                 src={URL.createObjectURL(file)}
                 alt={`Preview ${index}`}
                 className="w-full h-full object-cover rounded-md border"

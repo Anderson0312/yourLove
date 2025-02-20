@@ -1,13 +1,13 @@
 'use client';
 
 import PreviewLaout from '@/components/previewLaout';
-import { getRegistrationData, saveRegistrationData, uploadPhotos, getUsernameFromToken, fetchTokenFromBackend } from '@/services/api';
+import { getRegistrationData, saveRegistrationData, uploadPhotos, getUsernameFromToken } from '@/services/api';
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link';
 import Image from "next/image";
-import MusicSearch from '@/components/MusicPlay';
+import YouTubeMusicSearch from '@/components/YouTubeMusicSearch';
 
 
 const steps = [
@@ -34,10 +34,10 @@ const RegisterStep = () => {
   const params = useParams();
   const stepParam = params.step ? parseInt(params.step as string, 10) : 1;
   const [query, setQuery] = useState('');
-  const [token, setToken] = useState('');
   const [username, setUsername] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(stepParam);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const userId = username ?? ""; 
   const [formData, setFormData] = useState<FormData>({
     title: '',
     username: '',
@@ -56,23 +56,6 @@ const RegisterStep = () => {
     setUsername(user);
     
   }, []);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    setPreviewImages(files.map((file) => URL.createObjectURL(file)));
-    
-    if (files.length > 5) {
-      alert("Você só pode enviar no máximo 5 fotos.");
-      return;
-    }
-    
-  
-    setFormData((prev) => ({ ...prev, photo: files }));
-  };
-
-  
-  const userId = username ?? ""; // Defina o userId conforme necessário
-
 
   useEffect(() => {
     if (stepParam >= 1 && stepParam <= steps.length) {
@@ -98,6 +81,30 @@ const RegisterStep = () => {
   
     fetchData();
   }, [userId]);
+
+
+
+  useEffect(() => {
+    // Sincroniza query com o valor de formData.music
+    if (!query && formData.music) {
+      setQuery(formData.music);
+    }
+  }, [formData.music]);
+
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setPreviewImages(files.map((file) => URL.createObjectURL(file)));
+    
+    if (files.length > 5) {
+      alert("Você só pode enviar no máximo 5 fotos.");
+      return;
+    }
+    
+  
+    setFormData((prev) => ({ ...prev, photo: files }));
+  };
+
 
   const handleNext = async () => {
     if (currentStep < steps.length) {
@@ -177,24 +184,10 @@ const RegisterStep = () => {
     );
   };
   
+
   
-  useEffect(() => {
-    const fetchToken = async () => {
-      const accessToken = await fetchTokenFromBackend();
-      setToken(accessToken);
-      console.log(accessToken);
-    };
+  
 
-    fetchToken();
-  }, []);
-
-
-  useEffect(() => {
-    // Sincroniza query com o valor de formData.music
-    if (!query && formData.music) {
-      setQuery(formData.music);
-    }
-  }, [formData.music]);
 
   return (
     <div className="container mx-auto p-6">
@@ -226,6 +219,22 @@ const RegisterStep = () => {
       <form onSubmit={handleSubmit}>
         {currentStep === 1 && (
           <div className="space-y-4 ">
+          <div className="sm:col-span-4">
+              <label htmlFor="Nomes" className="poppins-thin block text-lg/3 font-bold text-withe">
+              Nomes do casal
+              </label>
+              <div className="mt-2">
+                <input
+                  id="Nomes"
+                  name="Nomes"
+                  type="text"
+                  value={formData.names}
+                  onChange={(e) => setFormData({ ...formData, names: e.target.value })}
+                  placeholder="Nomes do casal"
+                  className="block w-full rounded-md bg-gray-500 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
             <div className=" sm:col-span-4 ">
               <label htmlFor="Titulo" className="poppins-thin block text-lg/3 font-bold text-withe">
                 Titulo do site
@@ -242,24 +251,6 @@ const RegisterStep = () => {
                 />
               </div>
             </div>
-
-            <div className="sm:col-span-4">
-              <label htmlFor="Nomes" className="poppins-thin block text-lg/3 font-bold text-withe">
-              Nomes do casal
-              </label>
-              <div className="mt-2">
-                <input
-                  id="Nomes"
-                  name="Nomes"
-                  type="text"
-                  value={formData.names}
-                  onChange={(e) => setFormData({ ...formData, names: e.target.value })}
-                  placeholder="Nomes do casal"
-                  className="block w-full rounded-md bg-gray-500 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
-          
             
           </div>
         )}
@@ -284,7 +275,7 @@ const RegisterStep = () => {
               </div>
             </div>
 
-            <MusicSearch token={token} />
+            <YouTubeMusicSearch/>
 
             </div>
 
@@ -393,8 +384,6 @@ const RegisterStep = () => {
               ))}
             </div>
           )} 
-
-          
 
           </div>
           

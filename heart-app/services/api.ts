@@ -117,3 +117,28 @@ export const searchMusic = async (query: string , token: any) => {
   const data = await response.json();
   return data; // Retorna a lista de músicas encontradas
 };
+
+
+
+export async function searchYouTubeMusic(query: string) {
+  const apiKey = "AIzaSyAEwXdMDQpKIiMQj37kkadIQ_3YrItdFZU"; // Sua chave da API do YouTube
+  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&videoCategoryId=10&maxResults=5&key=${apiKey}`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    
+    if (!data.items || data.items.length === 0) {
+      return []; // Retorna array vazio se não encontrar músicas
+    }
+
+    return data.items.map((item: any) => ({
+      videoId: item.id.videoId,
+      title: item.snippet.title,
+      thumbnail: item.snippet.thumbnails.default.url,
+    }));
+  } catch (error) {
+    console.error("Erro ao buscar músicas:", error);
+    return [];
+  }
+}

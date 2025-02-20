@@ -43,7 +43,6 @@ export default function PreviewLaout() {
             const fetchData = async () => {
                 try {
                     const response = await getRegistrationData(userId); // Busca os dados da API
-                    console.log(response)
                     setData(response); // Atualiza o estado com os dados recebidos
                 } catch (error) {
                     console.error('Erro ao buscar dados:', error);

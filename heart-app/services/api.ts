@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
+require('dotenv').config();
 
 const API_BASE_URL = 'https://heart-app-backend.vercel.app/api'; // Ajuste conforme necessário
 const API_BASE_URL2 = 'http://localhost:4000/api'
@@ -92,7 +93,8 @@ export const getUsernameFromToken = (): string | null => {
 
 
 export async function searchYouTubeMusic(query: string) {
-  const apiKey = process.env.apiYoutube!; // Sua chave da API do YouTube
+  const apiKey = process.env.NEXT_PUBLIC_API_YOUTUBE; // Sua chave da API do YouTube
+  console.log(apiKey);
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&videoCategoryId=10&maxResults=5&key=${apiKey}`;
 
   try {

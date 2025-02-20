@@ -342,7 +342,7 @@ const RegisterStep = () => {
             </div>  
                 {/* Exibir pré-visualização das imagens selecionadas */}
                 {previewImages.length > 0 && (
-                     <div className="mt-4 grid grid-cols-3 gap-2">
+                     <div className="mt-4 grid grid-cols-3 gap-2 flex justify-center">
                          {previewImages.map((image, index) => (
                           <div key={index} className="relative w-24 h-24">
                              <Image 
@@ -351,15 +351,27 @@ const RegisterStep = () => {
                                  key={index}
                                  src={image}
                                  alt={`Preview ${index}`}
-                                 className="w-20 h-20 object-cover rounded"
+                                 className="w-24 h-24 object-cover rounded"
                              />
                              <button
-                             type='button'
-                                onClick={() => handleRemovePhotoPreview(index)}
-                                className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
+                              type="button"
+                              onClick={() => handleRemovePhotoPreview(index)}
+                              className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="w-4 h-4"
                               >
-                                X
-                              </button>
+                                <path
+                                  fillRule="evenodd"
+                                  d="M6.225 4.811a.75.75 0 0 1 1.06 0L12 9.525l4.715-4.714a.75.75 0 1 1 1.06 1.06L13.06 10.5l4.715 4.715a.75.75 0 1 1-1.06 1.06L12 11.575l-4.715 4.715a.75.75 0 0 1-1.06-1.06L10.94 10.5 6.225 5.785a.75.75 0 0 1 0-1.06Z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </button>
+
                              </div>
                          ))}
                      </div>

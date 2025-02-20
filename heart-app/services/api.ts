@@ -92,7 +92,7 @@ export const getUsernameFromToken = (): string | null => {
 
 
 export async function searchYouTubeMusic(query: string) {
-  const apiKey = process.env.GOOGLE_CREDENTIALS!; // Sua chave da API do YouTube
+  const apiKey = process.env.apiYoutube!; // Sua chave da API do YouTube
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&videoCategoryId=10&maxResults=5&key=${apiKey}`;
 
   try {

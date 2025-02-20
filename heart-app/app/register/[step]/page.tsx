@@ -1,12 +1,15 @@
 'use client';
 
 import PreviewLaout from '@/components/previewLaout';
-import { getRegistrationData, saveRegistrationData, uploadPhotos, getSpotifyToken, getUsernameFromToken } from '@/services/api';
+import { getRegistrationData, saveRegistrationData, uploadPhotos, getUsernameFromToken, fetchTokenFromBackend } from '@/services/api';
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link';
 import Image from "next/image";
+import MusicSearch from '@/components/musicplay';
+
+
 
 
 
@@ -34,7 +37,7 @@ const RegisterStep = () => {
   const params = useParams();
   const stepParam = params.step ? parseInt(params.step as string, 10) : 1;
   const [query, setQuery] = useState('');
-  const [previewUrl, setPreviewUrl] = useState('');
+  const [token, setToken] = useState('');
   const [username, setUsername] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(stepParam);
   const [formData, setFormData] = useState<FormData>({
@@ -47,6 +50,7 @@ const RegisterStep = () => {
     photo: null,
     photoPaths: null,
   });
+  
 
   
   useEffect(() => {
@@ -167,46 +171,23 @@ const RegisterStep = () => {
     }
   };
   
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await fetchTokenFromBackend();
+      setToken(accessToken);
+      console.log(accessToken);
+    };
 
-  const handleSearch = async () => {
-    if (!query) {
-      alert('Por favor, digite o nome da música.');
-      return;
+    fetchToken();
+  }, []);
+
+
+  useEffect(() => {
+    // Sincroniza query com o valor de formData.music
+    if (!query && formData.music) {
+      setQuery(formData.music);
     }
-  
-    try {
-      const token = await getSpotifyToken(); // Função para obter o token de acesso
-  
-      const response = await fetch(
-        `https://api.spotify.com/v1/search?q=${encodeURIComponent(
-          query
-        )}&type=track`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-  
-  
-      if (!response.ok) {
-        throw new Error(`Erro na requisição: ${response.statusText}`);
-      }
-  
-      const data = await response.json();
-  
-      if (data.tracks.items.length > 0) {
-        console.log('Música encontrada:', data.tracks.items[0]); // Verifique a música encontrada
-        setPreviewUrl(data.tracks.items[0].preview_url); // Pega o preview da primeira música
-        setFormData((prev) => ({ ...prev, music: data.tracks.items[0].name })); // Atualiza o nome da música no formData
-      } else {
-        setPreviewUrl(''); // Limpa o previewUrl se nenhuma música for encontrada
-      }
-    } catch (e) {
-      console.error('Erro ao buscar música: ', e);
-      setPreviewUrl(''); // Limpa o previewUrl em caso de erro
-    }
-  };
+  }, [formData.music]);
 
   return (
     <div className="container mx-auto p-6">
@@ -297,36 +278,9 @@ const RegisterStep = () => {
             </div>
 
 
-            <div className="sm:col-span-4">
-              <label htmlFor="email" className="poppins-thin block text-lg/3 font-bold text-withe">
-                Selecione uma musica
-              </label>
-              <div className="mt-2">
-                <input
-                  id="musica"
-                  name="musica"
-                  placeholder="Digite o nome da música"
-                  type="musica"
-                  value={query  ||  formData.music}
-                  onChange={(e) => setQuery(e.target.value)}
-                  className="block w-full rounded-md bg-gray-500 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
-                />
-              </div>
-              <button
-                type="button" // Adicione isso para evitar o envio do formulário
-                onClick={handleSearch}
-                className="mt-2 px-4 py-2 bg-red-500 text-white rounded"
-              >
-                Buscar Música
-              </button>
-              {previewUrl && (
-                <div className="mt-4">
-                  <audio controls src={previewUrl}>
-                    Seu navegador não suporta o elemento de áudio.
-                  </audio>
-                </div>
-              )}
-              </div>
+                
+            <MusicSearch token={token} />
+
             </div>
 
             

@@ -95,26 +95,17 @@ export const getUsernameFromToken = (): string | null => {
 
 
 
-export const getSpotifyToken = async () => {
-  const clientId = '3e2e8c7beed44d56a2b6962e6a20a2fc';
-  const clientSecret = '4c3074872fa34ccc94cddd7e534d454b';
-
-  const response = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
-    },
-    body: 'grant_type=client_credentials',
-  });
-
+export const fetchTokenFromBackend = async () => {
+  const response = await fetch(`${API_BASE_URL2}/spotify-auth/token`);
   const data = await response.json();
-  return data.access_token;
+  return data.accessToken;
 };
+
+
 
 export const searchMusic = async (query: string , token: any) => {
   const response = await fetch(
-    `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`,
+    `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=5`,
     {
       method: 'GET',
       headers: {
@@ -124,5 +115,5 @@ export const searchMusic = async (query: string , token: any) => {
   );
 
   const data = await response.json();
-  return data.tracks.items; // Retorna a lista de músicas encontradas
+  return data; // Retorna a lista de músicas encontradas
 };

@@ -59,6 +59,8 @@ export default function Login() {
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 min-h-screen z-10 relative">
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
       <Image
+      width={25}
+      height={25}
         alt="Your Company"
         src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=red&shade=600"
         className="mx-auto h-10 w-auto"

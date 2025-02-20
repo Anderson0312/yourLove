@@ -37,6 +37,7 @@ const RegisterStep = () => {
   const [token, setToken] = useState('');
   const [username, setUsername] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(stepParam);
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [formData, setFormData] = useState<FormData>({
     title: '',
     username: '',
@@ -58,6 +59,7 @@ const RegisterStep = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
+    setPreviewImages(files.map((file) => URL.createObjectURL(file)));
     
     if (files.length > 5) {
       alert("Você só pode enviar no máximo 5 fotos.");
@@ -146,6 +148,7 @@ const RegisterStep = () => {
     try {
       await saveRegistrationData(userId, currentStep, formData);
       alert('Dados enviados com sucesso!');
+      setPreviewImages([]);
       router.push('/success'); // Redireciona para uma página de sucesso
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
@@ -167,6 +170,13 @@ const RegisterStep = () => {
       console.error('Erro ao remover a foto:', error);
     }
   };
+
+  const handleRemovePhotoPreview = (indexToRemove: number) => {
+    setPreviewImages((prevImages) =>
+      prevImages.filter((_, index) => index !== indexToRemove)
+    );
+  };
+  
   
   useEffect(() => {
     const fetchToken = async () => {
@@ -274,8 +284,6 @@ const RegisterStep = () => {
               </div>
             </div>
 
-
-                
             <MusicSearch token={token} />
 
             </div>
@@ -332,6 +340,30 @@ const RegisterStep = () => {
                 </label>
 
             </div>  
+                {/* Exibir pré-visualização das imagens selecionadas */}
+                {previewImages.length > 0 && (
+                     <div className="mt-4 grid grid-cols-3 gap-2">
+                         {previewImages.map((image, index) => (
+                          <div key={index} className="relative w-24 h-24">
+                             <Image 
+                             width={25}
+                             height={25}
+                                 key={index}
+                                 src={image}
+                                 alt={`Preview ${index}`}
+                                 className="w-20 h-20 object-cover rounded"
+                             />
+                             <button
+                             type='button'
+                                onClick={() => handleRemovePhotoPreview(index)}
+                                className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
+                              >
+                                X
+                              </button>
+                             </div>
+                         ))}
+                     </div>
+                 )}  
 
             {formData.photoPaths && formData.photoPaths.length > 0 && (
             <div className="grid grid-cols-3 gap-3">
@@ -339,6 +371,7 @@ const RegisterStep = () => {
                 <div key={index} className="relative w-24 h-24">
                   <Image src={photoUrl} alt={`Foto ${index + 1}`} width={25} height={25}  className="w-full h-full  object-cover rounded-lg shadow-md" />
                   <button
+                   type='button'
                     onClick={() => handleRemovePhoto(index)}
                     className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
                   >

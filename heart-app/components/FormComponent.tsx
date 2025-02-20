@@ -39,6 +39,12 @@ export default function FormComponent({ formData }: FormComponentProps) {
         }
     };
 
+    const handleRemovePhotoPreview = (indexToRemove: number) => {
+        setPreviewImages((prevImages) =>
+          prevImages.filter((_, index) => index !== indexToRemove)
+        );
+      };
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (files) {
@@ -146,12 +152,24 @@ export default function FormComponent({ formData }: FormComponentProps) {
                 {previewImages.length > 0 && (
                     <div className="mt-4 grid grid-cols-3 gap-2">
                         {previewImages.map((image, index) => (
+                            <div>
+                               
                             <Image 
+                            width={25}
+                            height={25}
                                 key={index}
                                 src={image}
                                 alt={`Preview ${index}`}
                                 className="w-20 h-20 object-cover rounded"
                             />
+                             <button
+                   type='button'
+                    onClick={() => handleRemovePhotoPreview(index)}
+                    className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
+                  >
+                    X
+                  </button>
+                            </div>
                         ))}
                     </div>
                 )}

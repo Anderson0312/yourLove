@@ -96,7 +96,7 @@ export const getUsernameFromToken = (): string | null => {
 
 
 export const fetchTokenFromBackend = async () => {
-  const response = await fetch(`${API_BASE_URL2}/spotify-auth/token`);
+  const response = await fetch(`${API_BASE_URL}/spotify-auth/token`);
   const data = await response.json();
   return data.accessToken;
 };

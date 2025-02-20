@@ -1,6 +1,29 @@
 import useSpotifyPlayer from "@/hooks/useSpotifyPlayer";
 import { useState } from "react";
+import Image from "next/image";
 
+
+interface AlbumImage {
+  url: string;
+}
+
+// Define the interface for the artist
+interface Artist {
+  name: string;
+}
+
+// Define the interface for the track object
+interface Track {
+  id: string;
+  name: string;
+  artists: Artist[];
+  album: {
+    images: AlbumImage[];
+  };
+  uri: string;
+  albumImage?: string;
+  artist?: string;
+}
 
 const MusicSearch = ({ token }: { token: string | null }) => {
   const [query, setQuery] = useState("");
@@ -26,7 +49,7 @@ const MusicSearch = ({ token }: { token: string | null }) => {
       }
 
       const data = await response.json();
-        const tracks = data.tracks.items.map((track) => ({
+        const tracks = data.tracks.items.map((track: Track) => ({
           id: track.id,
           name: track.name,
           artist: track.artists[0].name,
@@ -84,14 +107,16 @@ const MusicSearch = ({ token }: { token: string | null }) => {
 
               {musicList.length > 0 && (
                 <div className="mt-4 space-y-3">
-                  {musicList.map((music) => (
+                  {musicList.map((music: Track ) => (
                     <div
                       key={music.id}
                       className="flex items-center gap-4 bg-gray-700 p-3 rounded-md shadow-md"
                     >
-                      <img
-                        src={music.albumImage}
-                        alt={`Capa do álbum de ${music.name}`}
+                      <Image
+                      width={25}
+                      height={25}
+                         src={music.albumImage || 'default-image-url.png'} // Provide a default image if albumImage is undefined
+                         alt={`${music.name} album cover`}
                         className="w-16 h-16 rounded-md"
                       />
                       <div className="flex-1">

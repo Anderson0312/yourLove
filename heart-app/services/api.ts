@@ -91,37 +91,8 @@ export const getUsernameFromToken = (): string | null => {
 
 
 
-
-
-
-
-export const fetchTokenFromBackend = async () => {
-  const response = await fetch(`${API_BASE_URL}/spotify-auth/token`);
-  const data = await response.json();
-  return data.accessToken;
-};
-
-
-
-export const searchMusic = async (query: string , token: any) => {
-  const response = await fetch(
-    `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=5`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  const data = await response.json();
-  return data; // Retorna a lista de músicas encontradas
-};
-
-
-
 export async function searchYouTubeMusic(query: string) {
-  const apiKey = "AIzaSyAEwXdMDQpKIiMQj37kkadIQ_3YrItdFZU"; // Sua chave da API do YouTube
+  const apiKey = process.env.GOOGLE_CREDENTIALS!; // Sua chave da API do YouTube
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&videoCategoryId=10&maxResults=5&key=${apiKey}`;
 
   try {

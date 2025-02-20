@@ -152,8 +152,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
                 {previewImages.length > 0 && (
                     <div className="mt-4 grid grid-cols-3 gap-2">
                         {previewImages.map((image, index) => (
-                            <div>
-                               
+                            <div key={index} className="relative w-24 h-24">
                             <Image 
                             width={25}
                             height={25}

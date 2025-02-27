@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // Definição da interface para a API do YouTube
 interface YT {
@@ -33,7 +33,6 @@ declare global {
 }
 
 function YouTubeAudioPlayer({ videoId }: { videoId: string }) {
-  const [player, setPlayer] = useState<YT.Player | null>(null);
 
   useEffect(() => {
     // Carregar a API do YouTube

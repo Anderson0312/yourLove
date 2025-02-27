@@ -47,7 +47,7 @@ function YouTubeAudioPlayer({ videoId }: { videoId: string }) {
         width: "20",
         videoId: videoId,
         playerVars: {
-          autoplay: 0,
+          autoplay: 1,
           controls: 0,
           modestbranding: 1,
           showinfo: 0,

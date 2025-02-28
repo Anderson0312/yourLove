@@ -10,6 +10,7 @@ import { getRegistrationData } from '@/services/api';
 import Modal from '@/components/Modal';
 import FormComponent from '@/components/FormComponent';
 import HeartLoader from '@/components/HeartLoader';
+import { PencilIcon } from '@heroicons/react/24/solid';
 
 interface FormData {
     title: string;
@@ -18,6 +19,8 @@ interface FormData {
     text: string;
     photoPaths: string[];
     music: string;
+    musicThumbnail: string;
+    musicVideoId: string;
 }
 
 export default function Home() {
@@ -32,6 +35,8 @@ export default function Home() {
         text: '',
         photoPaths: [],
         music:'',
+        musicThumbnail:'',
+        musicVideoId:'',
     });
 
     const [loading, setLoading] = useState(true);
@@ -96,18 +101,21 @@ export default function Home() {
                 desde {String(data.date)}
             </p>
             {/* Botão para abrir o modal */}
-            <div className="fixed bottom-0 left-1/3 transform -translate-x-1/2 p-4 rounded-lg flex items-center justify-center max-w-md">
-            <button
-                onClick={() => setIsEditing(true)}
-                className="px-2 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 "
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                </svg>
+            {/* <div className="fixed bottom-1 left-1/3 transform -translate-x-1/2 p-4 rounded-lg flex items-center justify-center  max-w-md">
+                <button
+                    onClick={() => setIsEditing(true)}
+                    className="p-1 bg-red-500 text-white rounded-full hover:bg-red-600 "
+                >
+                    <PencilIcon className="size-4 text-black "/>
 
-            </button>
-            </div>
-            <MusicPlayer music={data.music} />
+                </button>
+            </div> */}
+
+            <MusicPlayer selectedMusicUser={{
+                  title: data.music || "",
+                  thumbnail: data.musicThumbnail || "",
+                  videoId: data.musicVideoId || "",
+                }}/>
             <FallingHearts />
         </div>
         </>

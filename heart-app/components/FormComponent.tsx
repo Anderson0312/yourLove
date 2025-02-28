@@ -9,6 +9,8 @@ interface FormData {
     date: Date; 
     text: string;
     music: string;
+    musicThumbnail: string;
+    musicVideoId: string;
     photoPaths: string[];
 }
 interface FormComponentProps {

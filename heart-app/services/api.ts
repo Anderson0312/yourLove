@@ -37,7 +37,7 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
       formData.append(`files`, file); // Enviando com chave 'files' (o backend deve suportar múltiplos arquivos)
     });
 
-    const response = await axios.post(`${API_BASE_URL2}/registration/${userId}/upload`, formData);
+    const response = await axios.post(`${API_BASE_URL}/registration/${userId}/upload`, formData);
     return response.data;
     
   } catch (error) {

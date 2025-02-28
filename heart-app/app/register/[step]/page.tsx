@@ -118,6 +118,8 @@ const RegisterStep = () => {
             ...prev,
             photoPaths: uploadResponse.filePaths, // Armazena os caminhos das fotos
           }));
+
+          console.log(formData)
   
           // Salva os dados do passo atual
           await saveRegistrationData(userId, currentStep, {
@@ -277,7 +279,8 @@ const RegisterStep = () => {
                 </div>
               </div>
 
-              <YouTubeMusicSearch/>
+              <YouTubeMusicSearch selectedMusicUser={formData.music} onMusicSelect={(musicTitle) => setFormData({ ...formData, music: musicTitle })}/>
+
 
               </div>
 

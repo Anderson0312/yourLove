@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { PlayCircleIcon, PauseCircleIcon } from "@heroicons/react/24/solid";
 
 // Extensão do tipo de window para incluir a API do YouTube
 declare global {
@@ -14,9 +15,9 @@ interface YouTubeAudioPlayerProps {
 
 function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
   const [player, setPlayer] = useState<YT.Player | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    // Função para inicializar o player quando a API estiver pronta
     const initializePlayer = () => {
       if (window.YT && window.YT.Player) {
         const newPlayer = new window.YT.Player("youtube-audio", {
@@ -34,6 +35,13 @@ function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
             onReady: (event) => {
               setPlayer(event.target);
             },
+            onStateChange: (event) => {
+              if (event.data === window.YT?.PlayerState.PLAYING) {
+                setIsPlaying(true);
+              } else {
+                setIsPlaying(false);
+              }
+            },
           },
         });
 
@@ -41,14 +49,12 @@ function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
       }
     };
 
-    // Verifica se a API do YouTube já foi carregada
     if (!window.YT) {
       const tag = document.createElement("script");
       tag.src = "https://www.youtube.com/iframe_api";
       document.body.appendChild(tag);
     }
 
-    // Callback quando a API estiver pronta
     window.onYouTubeIframeAPIReady = () => {
       initializePlayer();
     };
@@ -60,21 +66,25 @@ function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
     };
   }, [videoId]);
 
-  const handlePlay = () => {
-    if (player) {
+  const togglePlayPause = () => {
+    if (!player) return;
+
+    if (isPlaying) {
+      player.pauseVideo();
+    } else {
       player.playVideo();
     }
   };
 
   return (
-    <div>
+    <div className="flex">
       <div id="youtube-audio" style={{ display: "none" }}></div>
-      <button
-      type="button"
-        onClick={handlePlay}
-        className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-      >
-        ▶️ Play
+      <button type="button" onClick={togglePlayPause}>
+        {isPlaying ? (
+          <PauseCircleIcon className="size-8 text-red-500 hover:text-red-700" />
+        ) : (
+          <PlayCircleIcon className="size-8 text-red-500 hover:text-red-700" />
+        )}
       </button>
     </div>
   );

@@ -10,7 +10,7 @@ import { getRegistrationData } from '@/services/api';
 import Modal from '@/components/Modal';
 import FormComponent from '@/components/FormComponent';
 import HeartLoader from '@/components/HeartLoader';
-import { PencilIcon } from '@heroicons/react/24/solid';
+// import { PencilIcon } from '@heroicons/react/24/solid';
 
 interface FormData {
     title: string;

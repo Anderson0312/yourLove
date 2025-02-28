@@ -4,8 +4,8 @@ import YouTubeAudioPlayer from "./YouTubeAudioPlayer";
 import Image from "next/image";
 
 interface YouTubeMusicSearchProps {
-  selectedMusicUser: string;
-  onMusicSelect: (title: string) => void;
+  selectedMusicUser: { title: string; thumbnail: string; videoId: string } | null;
+  onMusicSelect: (music: { title: string; thumbnail: string; videoId: string }) => void;
 }
 
 function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSearchProps) {
@@ -15,11 +15,11 @@ function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSe
     const [selectedMusic, setSelectedMusic] = useState<{ videoId: string; title: string; thumbnail: string } | null>(null);
 
       // Quando `selectedMusicUser` mudar (vindo do banco), atualiza `selectedMusic`
-  useEffect(() => {
-    if (selectedMusicUser) {
-      setSelectedMusic({ videoId: "", title: selectedMusicUser, thumbnail: "" });
-    }
-  }, [selectedMusicUser]);
+      useEffect(() => {
+        if (selectedMusicUser) {
+          setSelectedMusic(selectedMusicUser);
+        }
+      }, [selectedMusicUser]);
 
   
     async function handleSearch() {
@@ -33,7 +33,7 @@ function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSe
         setVideoId(music.videoId);
         setSelectedMusic(music);
         setSearchResults([]); // Limpa os resultados da busca
-        onMusicSelect(music.title);
+        onMusicSelect(music);
     }
 
   
@@ -75,10 +75,10 @@ function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSe
          {/* Música selecionada */}
          {selectedMusic && (
           <div className="mt-4 p-4 bg-gray-800 rounded-md flex items-center gap-3 justify-between">
-            {selectedMusic.thumbnail && (
+            <div className="flex justify-between items-center  gap-3 ">
               <Image width={12} height={12} src={selectedMusic.thumbnail} alt={selectedMusic.title} className="w-12 h-12 rounded" />
-            )}
-            <span className="text-white">{selectedMusic.title}</span>
+              <span className="text-white">{selectedMusic.title}</span>
+            </div>
             {/* Player */}
             {videoId && <YouTubeAudioPlayer videoId={videoId} />}
           </div>

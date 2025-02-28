@@ -24,6 +24,8 @@ interface FormData {
   date: string;
   text: string;
   music: string;
+  musicThumbnail: string;
+  musicVideoId: string;
   photo: File[] | null; // Objetos File originais
   photoPaths: string[] | null; // Caminhos das fotos retornados pelo backend
 }
@@ -45,6 +47,8 @@ const RegisterStep = () => {
     names: '',
     text: '',
     music: '',
+    musicThumbnail: '',
+    musicVideoId: '',
     photo: null,
     photoPaths: null,
   });
@@ -279,7 +283,19 @@ const RegisterStep = () => {
                 </div>
               </div>
 
-              <YouTubeMusicSearch selectedMusicUser={formData.music} onMusicSelect={(musicTitle) => setFormData({ ...formData, music: musicTitle })}/>
+              <YouTubeMusicSearch
+                selectedMusicUser={{
+                  title: formData.music || "",
+                  thumbnail: formData.musicThumbnail || "",
+                  videoId: formData.musicVideoId || "",
+                }}
+                onMusicSelect={(music) => setFormData({ 
+                  ...formData, 
+                  music: music.title, 
+                  musicThumbnail: music.thumbnail, 
+                  musicVideoId: music.videoId 
+                })}
+              />
 
 
               </div>

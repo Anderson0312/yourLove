@@ -1,68 +1,83 @@
-import { useEffect } from "react";
-
-// Definição da interface para a API do YouTube
-interface YT {
-  Player: {
-    new (elementId: string, options: YTPlayerOptions): void;
-  };
-}
-
-// Definição da interface para as opções do player
-interface YTPlayerOptions {
-  height: string;
-  width: string;
-  videoId: string;
-  playerVars: {
-    autoplay: number;
-    controls: number;
-    modestbranding: number;
-    showinfo: number;
-    rel: number;
-  };
-  events: {
-    onReady: (event: { target: { playVideo: () => void } }) => void;
-  };
-}
+import { useEffect, useState } from "react";
 
 // Extensão do tipo de window para incluir a API do YouTube
 declare global {
   interface Window {
-    YT?: YT;
+    YT?: typeof YT;
     onYouTubeIframeAPIReady?: () => void;
   }
 }
 
-function YouTubeAudioPlayer({ videoId }: { videoId: string }) {
+interface YouTubeAudioPlayerProps {
+  videoId: string;
+}
+
+function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
+  const [player, setPlayer] = useState<YT.Player | null>(null);
 
   useEffect(() => {
-    // Carregar a API do YouTube
-    const tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.body.appendChild(tag);
-
-    // Criar o player quando a API estiver pronta
-    window.onYouTubeIframeAPIReady = () => {
-      new YT.Player("youtube-audio", {
-        height: "20",
-        width: "20",
-        videoId: videoId,
-        playerVars: {
-          autoplay: 1,
-          controls: 0,
-          modestbranding: 1,
-          showinfo: 0,
-          rel: 0,
-        },
-        events: {
-          onReady: (event) => {
-            event.target.playVideo();
+    // Função para inicializar o player quando a API estiver pronta
+    const initializePlayer = () => {
+      if (window.YT && window.YT.Player) {
+        const newPlayer = new window.YT.Player("youtube-audio", {
+          height: "0",
+          width: "0",
+          videoId: videoId,
+          playerVars: {
+            autoplay: 0, // Não iniciar automaticamente
+            controls: 0,
+            modestbranding: 1,
+            showinfo: 0,
+            rel: 0,
           },
-        },
-      });
+          events: {
+            onReady: (event) => {
+              setPlayer(event.target);
+            },
+          },
+        });
+
+        setPlayer(newPlayer);
+      }
+    };
+
+    // Verifica se a API do YouTube já foi carregada
+    if (!window.YT) {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.body.appendChild(tag);
+    }
+
+    // Callback quando a API estiver pronta
+    window.onYouTubeIframeAPIReady = () => {
+      initializePlayer();
+    };
+
+    return () => {
+      if (player) {
+        player.destroy();
+      }
     };
   }, [videoId]);
 
-  return <div id="youtube-audio" style={{ display: "none" }}></div>;
+  const handlePlay = () => {
+    if (player) {
+      player.playVideo();
+    }
+  };
+
+  return (
+    <div>
+      <div id="youtube-audio" style={{ display: "none" }}></div>
+      <button
+      type="button"
+        onClick={handlePlay}
+        className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+      >
+        ▶️ Play
+      </button>
+    </div>
+  );
 }
 
 export default YouTubeAudioPlayer;

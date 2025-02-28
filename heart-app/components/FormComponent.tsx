@@ -79,6 +79,8 @@ export default function FormComponent({ formData }: FormComponentProps) {
                 date: new Date(),
                 text: '',
                 music: '',
+                musicThumbnail: '',
+                musicVideoId: '',
                 photoPaths: [],
             });
             setPreviewImages([]);

@@ -4,7 +4,7 @@ import PreviewLaout from '@/components/previewLaout';
 import { getRegistrationData, saveRegistrationData, uploadPhotos, getUsernameFromToken } from '@/services/api';
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { PhotoIcon } from '@heroicons/react/24/solid'
+// import { PhotoIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link';
 import Image from "next/image";
 import YouTubeMusicSearch from '@/components/YouTubeMusicSearch';

@@ -231,7 +231,7 @@ const RegisterStep = () => {
             <div className="space-y-4 ">
             <div className="sm:col-span-4">
                 <label htmlFor="Nomes" className="poppins-thin block text-lg/3 font-bold text-withe">
-                Nomes do casal
+                Nome Casal
                 </label>
                 <div className="mt-2">
                   <input
@@ -247,7 +247,7 @@ const RegisterStep = () => {
               </div>
               <div className=" sm:col-span-4 ">
                 <label htmlFor="Titulo" className="poppins-thin block text-lg/3 font-bold text-withe">
-                  Titulo do site
+                  Titulo Site
                 </label>
                 <div className="mt-2">
                   <input
@@ -270,7 +270,7 @@ const RegisterStep = () => {
 
               <div className="col-span-full">
                 <label htmlFor="about" className="poppins-thin block text-lg/3 font-bold text-withe">
-                  Texto do casal
+                  Seu Texto
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -311,7 +311,7 @@ const RegisterStep = () => {
               
               <div className="sm:col-span-4">
               <label htmlFor="Titulo" className=" poppins-thin block text-lg/3 font-bold text-withe">
-                  Inicio do relacionamento
+                  Data Inicial
                 </label>
                 <div className="mt-2">
                   <input
@@ -327,7 +327,7 @@ const RegisterStep = () => {
 
               <div className="col-span-full">
                 <label htmlFor="cover-photo" className="poppins-thin block text-lg/3 font-bold text-withe">
-                  Fotos do casal 
+                  Suas Fotos 
                 </label>
                 <label
                     htmlFor="file-upload"

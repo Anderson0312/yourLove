@@ -97,15 +97,21 @@ const RegisterStep = () => {
 
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    setPreviewImages(files.map((file) => URL.createObjectURL(file)));
+    if (!e.target.files) return;
     
-    if (files.length > 5) {
-      alert("Você só pode enviar no máximo 5 fotos.");
-      return;
-    }
-    setFormData((prev) => ({ ...prev, photo: files }));
+    const newFiles = Array.from(e.target.files);
+    
+    setFormData((prev) => ({
+      ...prev,
+      photo: [...(prev.photo || []), ...newFiles].slice(0, 5), // Garante no máximo 5 fotos
+    }));
+  
+    setPreviewImages((prev) => [
+      ...prev,
+      ...newFiles.map((file) => URL.createObjectURL(file)),
+    ].slice(0, 5)); // Atualiza a pré-visualização sem ultrapassar 5 imagens
   };
+  
 
 
   const handleNext = async () => {
@@ -343,8 +349,7 @@ const RegisterStep = () => {
                       id="file-upload"
                       name="file-upload"
                       type="file"
-                      className="sr-only"
-                      multiple
+                      className="hidden"
                       accept="image/*"
                       onChange={handleFileChange}
                     />

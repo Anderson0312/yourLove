@@ -344,6 +344,8 @@ const RegisterStep = () => {
                       name="file-upload"
                       type="file"
                       className="sr-only"
+                      multiple
+                      accept="image/*"
                       onChange={handleFileChange}
                     />
                   </label>

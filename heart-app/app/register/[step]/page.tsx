@@ -26,7 +26,7 @@ interface FormData {
   music: string;
   musicThumbnail: string;
   musicVideoId: string;
-  photo: File[] | null; // Objetos File originais
+  photo: File[]; // Objetos File originais
   photoPaths: string[] | null; // Caminhos das fotos retornados pelo backend
 }
 
@@ -49,7 +49,7 @@ const RegisterStep = () => {
     music: '',
     musicThumbnail: '',
     musicVideoId: '',
-    photo: null,
+    photo: [],
     photoPaths: null,
   });
   
@@ -97,20 +97,22 @@ const RegisterStep = () => {
 
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
+    if (!e.target.files || e.target.files.length === 0) return;
     
     const newFiles = Array.from(e.target.files);
-    
-    setFormData((prev) => ({
-      ...prev,
-      photo: [...(prev.photo || []), ...newFiles].slice(0, 5), // Garante no máximo 5 fotos
-    }));
-  
-    setPreviewImages((prev) => [
-      ...prev,
-      ...newFiles.map((file) => URL.createObjectURL(file)),
-    ].slice(0, 5)); // Atualiza a pré-visualização sem ultrapassar 5 imagens
+    if (formData.photo.length + newFiles.length > 6) {
+      alert("Você só pode enviar no máximo 5 fotos.");
+      return;
+    }
+
+    const updatedFiles = [...formData.photo, ...newFiles];
+    setFormData((prev) => ({ ...prev, photo: updatedFiles }));
+    setPreviewImages((prev) => [...prev, ...newFiles.map(file => URL.createObjectURL(file))]);
+    e.target.value = "";
   };
+
+
+
   
 
 
@@ -189,9 +191,11 @@ const RegisterStep = () => {
   };
 
   const handleRemovePhotoPreview = (indexToRemove: number) => {
-    setPreviewImages((prevImages) =>
-      prevImages.filter((_, index) => index !== indexToRemove)
-    );
+    setFormData((prev) => ({
+      ...prev,
+      photo: prev.photo.filter((_, i) => i !== indexToRemove),
+    }));
+    setPreviewImages((prev) => prev.filter((_, index) => index !== indexToRemove));
   };
   
 
@@ -345,16 +349,17 @@ const RegisterStep = () => {
                       </div>
                       <p className="text-xs/5 text-white">PNG, JPG até 10MB</p>
                     </div>
+                    
                     <input
                       id="file-upload"
                       name="file-upload"
                       type="file"
                       className="hidden"
+                      multiple
                       accept="image/*"
                       onChange={handleFileChange}
                     />
                   </label>
-
               </div>  
                   {/* Exibir pré-visualização das imagens selecionadas */}
                   {previewImages.length > 0 && (

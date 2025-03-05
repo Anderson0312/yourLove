@@ -26,7 +26,7 @@ interface FormData {
   music: string;
   musicThumbnail: string;
   musicVideoId: string;
-  photo: File[]; // Objetos File originais
+  photo: File[] | null ; // Objetos File originais
   photoPaths: string[] | null; // Caminhos das fotos retornados pelo backend
 }
 
@@ -49,7 +49,7 @@ const RegisterStep = () => {
     music: '',
     musicThumbnail: '',
     musicVideoId: '',
-    photo: [],
+    photo: null,
     photoPaths: null,
   });
   
@@ -97,19 +97,16 @@ const RegisterStep = () => {
 
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) return;
+    const files = Array.from(e.target.files || []);
+    setPreviewImages(files.map((file) => URL.createObjectURL(file)));
     
-    const newFiles = Array.from(e.target.files);
-    if (formData.photo.length + newFiles.length > 6) {
+    if (files.length > 5) {
       alert("Você só pode enviar no máximo 5 fotos.");
       return;
     }
-
-    const updatedFiles = [...formData.photo, ...newFiles];
-    setFormData((prev) => ({ ...prev, photo: updatedFiles }));
-    setPreviewImages((prev) => [...prev, ...newFiles.map(file => URL.createObjectURL(file))]);
-    e.target.value = "";
+    setFormData((prev) => ({ ...prev, photo: files }));
   };
+
 
 
 
@@ -191,13 +188,10 @@ const RegisterStep = () => {
   };
 
   const handleRemovePhotoPreview = (indexToRemove: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      photo: prev.photo.filter((_, i) => i !== indexToRemove),
-    }));
-    setPreviewImages((prev) => prev.filter((_, index) => index !== indexToRemove));
+    setPreviewImages((prevImages) =>
+      prevImages.filter((_, index) => index !== indexToRemove)
+    );
   };
-  
 
   
   

@@ -104,8 +104,6 @@ const RegisterStep = () => {
       alert("Você só pode enviar no máximo 5 fotos.");
       return;
     }
-    
-  
     setFormData((prev) => ({ ...prev, photo: files }));
   };
 
@@ -346,7 +344,6 @@ const RegisterStep = () => {
                       name="file-upload"
                       type="file"
                       className="sr-only"
-                      multiple
                       onChange={handleFileChange}
                     />
                   </label>

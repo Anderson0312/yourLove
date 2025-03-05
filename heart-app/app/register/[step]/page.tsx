@@ -331,72 +331,41 @@ const RegisterStep = () => {
                 </div>
               </div>
 
-              <div className="col-span-full">
-                <label htmlFor="cover-photo" className="poppins-thin block text-lg/3 font-bold text-withe">
-                  Fotos do casal 
-                </label>
-                <label
-                    htmlFor="file-upload"
-                    className="mt-2 flex cursor-pointer justify-center bg-gray-500 rounded-lg border border-dashed border-gray-900/25 px-3 py-5"
+              <div className="space-y-4">
+          <label className="block text-lg font-bold">Fotos do casal</label>
+          <input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            multiple
+            className="hidden"
+            onChange={handleFileChange}
+          />
+          <button
+            type="button"
+            onClick={() => document.getElementById("file-upload")?.click()}
+            className={`px-4 py-2 rounded-lg text-white ${formData.photo.length >= 5 ? "bg-gray-400 cursor-not-allowed" : "bg-gray-500"}`}
+            disabled={formData.photo.length >= 5}
+          >
+            {formData.photo.length >= 5 ? "Limite atingido (5 fotos)" : "Adicionar Foto"}
+          </button>
+          {previewImages.length > 0 && (
+            <div className="grid grid-cols-3 gap-2">
+              {previewImages.map((image, index) => (
+                <div key={index} className="relative w-24 h-24">
+                  <Image src={image} alt={`Preview ${index}`} width={96} height={96} className="w-full h-full object-cover rounded" />
+                  <button
+                    type="button"
+                    onClick={() => handleRemovePhotoPreview(index)}
+                    className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
                   >
-                    <div className="text-center">
-                      <PhotoIcon aria-hidden="true" className="mx-auto size-12 text-gray-300" />
-                      <div className="mt-4 flex text-sm/6 text-white">
-                        <span className="relative cursor-pointer rounded-md font-semibold text-red-600 hover:text-red-800">
-                          Envie suas fotos
-                        </span>
-                        <p className="pl-1">ou arraste aqui</p>
-                      </div>
-                      <p className="text-xs/5 text-white">PNG, JPG até 10MB</p>
-                    </div>
-                    
-                    <input
-                      id="file-upload"
-                      name="file-upload"
-                      type="file"
-                      className="hidden"
-                      multiple
-                      accept="image/*"
-                      onChange={handleFileChange}
-                    />
-                  </label>
-              </div>  
-                  {/* Exibir pré-visualização das imagens selecionadas */}
-                  {previewImages.length > 0 && (
-                      <div className="mt-4 grid grid-cols-3 gap-2 flex justify-center">
-                          {previewImages.map((image, index) => (
-                            <div key={index} className="relative w-24 h-24">
-                              <Image 
-                              width={25}
-                              height={25}
-                                  key={index}
-                                  src={image}
-                                  alt={`Preview ${index}`}
-                                  className="w-24 h-24 object-cover rounded"
-                              />
-                              <button
-                                type="button"
-                                onClick={() => handleRemovePhotoPreview(index)}
-                                className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 24 24"
-                                  fill="currentColor"
-                                  className="w-4 h-4"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M6.225 4.811a.75.75 0 0 1 1.06 0L12 9.525l4.715-4.714a.75.75 0 1 1 1.06 1.06L13.06 10.5l4.715 4.715a.75.75 0 1 1-1.06 1.06L12 11.575l-4.715 4.715a.75.75 0 0 1-1.06-1.06L10.94 10.5 6.225 5.785a.75.75 0 0 1 0-1.06Z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </button>
-
-                              </div>
-                          ))}
-                      </div>
-                  )}  
+                    X
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
               {formData.photoPaths && formData.photoPaths.length > 0 && (
               <div className="grid grid-cols-3 gap-3">

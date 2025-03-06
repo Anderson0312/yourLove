@@ -1,6 +1,6 @@
 'use client';
 
-import PreviewLaout from '@/components/previewLaout';
+import PreviewLayoutPadrao from '@/components/previewLayoutPadrao';
 import { getRegistrationData, saveRegistrationData, uploadPhotos, getUsernameFromToken } from '@/services/api';
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -8,13 +8,16 @@ import { PhotoIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link';
 import Image from "next/image";
 import YouTubeMusicSearch from '@/components/YouTubeMusicSearch';
+import LayoutSelector from '@/components/LayoutSelector';
+import PreviewLayoutNetfilx from '@/components/previewLayoutNetflix';
 
 
 const steps = [
   { id: 1, name: 'Title and Date' },
   { id: 2, name: 'Text and Music' },
   { id: 3, name: 'Photo and Names' },
-  { id: 4, name: 'Summary' },
+  { id: 4, name: 'Choice Layout' },
+  { id: 5, name: 'Summary' },
 ];
 
 interface FormData {
@@ -39,6 +42,7 @@ const RegisterStep = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(stepParam);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [layout, setLayout] = useState("padrao");
   const userId = username ?? ""; 
   const [formData, setFormData] = useState<FormData>({
     title: '',
@@ -426,6 +430,13 @@ const RegisterStep = () => {
 
         {currentStep === 4 && (
           <div>
+            <h2 className="text-lg font-bold">Escolha o Layout</h2>
+            <LayoutSelector onLayoutChange={setLayout} />
+          </div>
+        )}
+
+        {currentStep === 5 && (
+          <div>
             <h2 className="text-lg font-bold">Resumo</h2>
 
             <div className="bg-red-500 text-white p-4 rounded">
@@ -476,7 +487,13 @@ const RegisterStep = () => {
           </div>
         </form>
       </div>
-      <PreviewLaout/>
+
+      {layout === "padrao" ? (
+          <PreviewLayoutPadrao/>
+        ) : (
+          <PreviewLayoutNetfilx/>
+        )}
+      
     </div>
   );
 };

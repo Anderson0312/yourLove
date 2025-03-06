@@ -14,7 +14,7 @@ interface FormData {
     photoPaths: string[];
 }
 
-export default function PreviewLaout() {
+export default function PreviewLayoutPadrao() {
     const [username, setUsername] = useState<string | null>(null);
     
       useEffect(() => {

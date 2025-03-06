@@ -8,6 +8,9 @@ import Carousel from '@/components/Carousel';
 import { useParams } from 'next/navigation';
 import MusicPlayerNetflix from '@/components/MusicPlayerNetflix';
 import HeartLoader from '@/components/HeartLoader';
+import Modal from '@/components/Modal';
+import FormComponent from '@/components/FormComponent';
+import { PencilIcon } from '@heroicons/react/24/solid';
 
 interface FormData {
     title: string;
@@ -24,6 +27,7 @@ export default function LayoutNetflix() {
   const params = useParams();
   const userId = Array.isArray(params.id) ? params.id[0] : params.id;
   const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const now = new Date(
       new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
     );
@@ -60,6 +64,11 @@ export default function LayoutNetflix() {
       }
   }, [userId]);
 
+  const handleUpdate = (updatedData: FormData) => {
+    setData(updatedData); // Atualiza o estado 'data' com os novos dados
+    setIsEditing(false); // Fecha o modal após a atualização
+};
+
   if (loading) {
     return <HeartLoader/>; // Exibe um loading enquanto os dados são buscados
 }
@@ -67,7 +76,24 @@ export default function LayoutNetflix() {
 
   return (
     <div className="bg-black text-white font-roboto min-h-screen">
-          {/* Header */}
+      {/* Modal com formulário */}
+      {isEditing && (
+                <Modal onClose={() => setIsEditing(false)}>
+                    <FormComponent formData={data} onUpdate={handleUpdate} />
+                </Modal>
+            )}
+
+    {/* Botão para abrir o modal */}
+    <div className="fixed bottom-0 right-1 transform -translate-x-1/2 p-4 rounded-lg flex items-center justify-center max-w-md">
+                <button
+                    onClick={() => setIsEditing(true)}
+                    className="p-1 bg-red-500 text-white rounded-full hover:bg-red-600 "
+                >
+                    <PencilIcon className="size-4 text-black "/>
+
+                </button>
+            </div>
+    {/* Header */}
     <header className="flex items-center justify-between p-4 bg-black bg-opacity-75 fixed w-full z-10">
       <div className="flex items-center space-x-4">
         <Image

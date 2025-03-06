@@ -2,12 +2,14 @@ import { saveRegistrationData } from '@/services/api';
 import { useParams } from 'next/navigation';
 import {  useState } from 'react';
 import Image from "next/image";
+import LayoutSelector from '@/components/LayoutSelector';
 
 interface FormData {
     title: string;
     names: string;
     date: Date; 
     text: string;
+    layout: string;
     music: string;
     musicThumbnail: string;
     musicVideoId: string;
@@ -28,7 +30,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
     const [error, setError] = useState<string | null>(null); // Para exibir erros
     const params = useParams(); // Captura os parâmetros da URL
     const userId = params.id as string;
-        
+    const [layout, setLayout] = useState(formData.layout || "padrao");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -78,6 +80,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
                 names: '',
                 date: new Date(),
                 text: '',
+                layout: '',
                 music: '',
                 musicThumbnail: '',
                 musicVideoId: '',
@@ -189,6 +192,17 @@ export default function FormComponent({ formData }: FormComponentProps) {
                     </div>
                 )}
             </div>
+
+            <h2 className="text-lg font-bold">Escolha o Layout</h2>
+                        <LayoutSelector 
+                          onLayoutChange={(selectedLayout) => {
+                            setFormState((prev) => ({
+                              ...prev,
+                              layout: selectedLayout, // Atualiza o formData
+                            }));
+                            setLayout(selectedLayout);
+                          }} 
+                        />
 
             {error && <p className="text-red-500">{error}</p>}
 

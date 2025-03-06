@@ -17,6 +17,7 @@ interface FormData {
     names: string;
     date: Date;
     text: string;
+    layout: string;
     photoPaths: string[];
     music: string;
     musicThumbnail: string;
@@ -33,6 +34,7 @@ export default function LayoutPadrao() {
         names: '',
         date: new Date(),
         text: '',
+        layout: '',
         photoPaths: [],
         music:'',
         musicThumbnail:'',

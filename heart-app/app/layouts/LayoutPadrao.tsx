@@ -103,7 +103,7 @@ export default function LayoutPadrao() {
                 desde {String(data.date)}
             </p>
             {/* Botão para abrir o modal */}
-            <div className="fixed bottom-2 right-1 transform -translate-x-1/2 p-4 rounded-lg flex items-center justify-center max-w-md">
+            <div className="fixed top-5 right-3 p-4 rounded-lg flex items-center justify-center max-w-md">
                 <button
                     onClick={() => setIsEditing(true)}
                     className="p-1 bg-red-500 text-white rounded-full hover:bg-red-600 "

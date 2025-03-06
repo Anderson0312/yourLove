@@ -121,6 +121,7 @@ export default function PreviewLayoutNetfilx() {
                         <h1 className="text-4xl font-bold">{data?.title || "Título"}</h1>
                         <div className="flex items-center space-x-2 mt-2">
                           <span className="text-green-500 font-semibold">100% Match</span>
+                          <span className="text-gray-400">Since</span>
                           <span className="text-gray-400">{ano}</span>
                           <span className="px-2 py-1 border border-gray-400 rounded">{mes}</span>
                           <span className="text-gray-400">{dia}</span>
@@ -128,6 +129,7 @@ export default function PreviewLayoutNetfilx() {
                         <div className="flex space-x-4 mt-4">
                           <button className="flex items-center bg-white text-black px-4 py-2 rounded">
                             <FaPlay className="mr-2" /> Play
+                            
                           </button>
                           <button className="flex items-center bg-gray-700 bg-opacity-75 px-4 py-2 rounded">
                             <FaPlus className="mr-2" /> Minha Lista

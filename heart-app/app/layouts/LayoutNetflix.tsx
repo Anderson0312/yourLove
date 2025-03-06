@@ -6,6 +6,7 @@ import { FaSearch, FaBell, FaPlay, FaPlus } from 'react-icons/fa';
 import { getRegistrationData } from '@/services/api';
 import Carousel from '@/components/Carousel';
 import { useParams } from 'next/navigation';
+import MusicPlayerNetflix from '@/components/MusicPlayNetflix';
 
 interface FormData {
     title: string;
@@ -13,6 +14,7 @@ interface FormData {
     date: Date;
     text: string;
     photoPaths: string[];
+    musicVideoId:string;
 }
 
 export default function LayoutNetflix() {
@@ -29,6 +31,7 @@ export default function LayoutNetflix() {
       date: now,
       text: '',
       photoPaths: [],
+      musicVideoId:'',
   });
 
   const ano = new Date(data?.date || now).getFullYear();
@@ -46,7 +49,6 @@ export default function LayoutNetflix() {
                   console.error('Erro ao buscar dados:', error);
               } 
           };
-
           fetchData();
       }
   }, [userId]);
@@ -94,14 +96,17 @@ export default function LayoutNetflix() {
           <h1 className="text-4xl font-bold">{data?.title || "Título"}</h1>
           <div className="flex items-center space-x-2 mt-2">
             <span className="text-green-500 font-semibold">100% Match</span>
+            <span className="text-gray-400">Since</span>
             <span className="text-gray-400">{ano}</span>
             <span className="px-2 py-1 border border-gray-400 rounded">{mes}</span>
             <span className="text-gray-400">{dia}</span>
           </div>
           <div className="flex space-x-4 mt-4">
-            <button className="flex items-center bg-white text-black px-4 py-2 rounded">
-              <FaPlay className="mr-2" /> Play
-            </button>
+            <div className="flex items-center bg-white text-black px-4 py-2 rounded">
+              <MusicPlayerNetflix selectedMusicUser={{
+                  videoId: data.musicVideoId || "",
+                }}/>  Play
+            </div>
             <button className="flex items-center bg-gray-700 bg-opacity-75 px-4 py-2 rounded">
               <FaPlus className="mr-2" /> Minha lista
             </button>

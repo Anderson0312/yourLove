@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { FaSearch, FaBell, FaPlay, FaPlus } from 'react-icons/fa';
+import { FaSearch, FaBell,  FaPlus } from 'react-icons/fa';
 import { getRegistrationData } from '@/services/api';
 import Carousel from '@/components/Carousel';
 import { useParams } from 'next/navigation';

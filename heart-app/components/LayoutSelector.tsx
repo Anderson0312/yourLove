@@ -6,11 +6,11 @@ const LayoutSelector = ({ onLayoutChange }: { onLayoutChange: (layout: string) =
 
   useEffect(() => {
     const savedLayout = localStorage.getItem("userLayout");
-    if (savedLayout) {
+    if (savedLayout && savedLayout !== layout) {
       setLayout(savedLayout);
       onLayoutChange(savedLayout);
     }
-  }, [onLayoutChange]);
+  }, []); 
 
   const handleChange = (selectedLayout: string) => {
     setLayout(selectedLayout);
@@ -22,19 +22,20 @@ const LayoutSelector = ({ onLayoutChange }: { onLayoutChange: (layout: string) =
     <div className="flex gap-4">
       <button
         type="button"
-
-        className={` py-2 px-4 rounded ${layout === "Netflix" ? "bg-red-500 " : "bg-gray-600"}`}
-        onClick={() => handleChange("Netflix")}
-      >
-        Netflix Layout
-      </button>
-      <button
-        type="button"
         className={` py-2 px-4 rounded ${layout === "padrao" ? "bg-red-500 " : "bg-gray-600"}`}
         onClick={() => handleChange("padrao")}
       >
         Padrão Layout
       </button>
+      <button
+        type="button"
+
+        className={` py-2 px-4 rounded ${layout === "netflix" ? "bg-red-500 " : "bg-gray-600"}`}
+        onClick={() => handleChange("netflix")}
+      >
+        Netflix Layout
+      </button>
+      
     </div>
   );
 };

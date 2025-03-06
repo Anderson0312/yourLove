@@ -26,6 +26,7 @@ interface FormData {
   names: string;
   date: string;
   text: string;
+  layout: string;
   music: string;
   musicThumbnail: string;
   musicVideoId: string;
@@ -42,7 +43,6 @@ const RegisterStep = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(stepParam);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
-  const [layout, setLayout] = useState("padrao");
   const userId = username ?? ""; 
   const [formData, setFormData] = useState<FormData>({
     title: '',
@@ -50,15 +50,15 @@ const RegisterStep = () => {
     date: '',
     names: '',
     text: '',
+    layout: '',
     music: '',
     musicThumbnail: '',
     musicVideoId: '',
     photo: null,
     photoPaths: null,
   });
-  
+  const [layout, setLayout] = useState(formData.layout || "padrao");
 
-  
   useEffect(() => {
     const user = getUsernameFromToken();
     setUsername(user);
@@ -91,7 +91,6 @@ const RegisterStep = () => {
   }, [userId]);
 
 
-
   useEffect(() => {
     // Sincroniza query com o valor de formData.music
     if (!query && formData.music) {
@@ -110,12 +109,6 @@ const RegisterStep = () => {
     }
     setFormData((prev) => ({ ...prev, photo: files }));
   };
-
-
-
-
-  
-
 
   const handleNext = async () => {
     if (currentStep < steps.length) {
@@ -197,8 +190,11 @@ const RegisterStep = () => {
     );
   };
 
-  
-  
+  useEffect(() => {
+    if (formData.layout) {
+      setLayout(formData.layout);
+    }
+  }, [formData.layout]); 
 
 
   return (
@@ -431,7 +427,16 @@ const RegisterStep = () => {
         {currentStep === 4 && (
           <div>
             <h2 className="text-lg font-bold">Escolha o Layout</h2>
-            <LayoutSelector onLayoutChange={setLayout} />
+            <LayoutSelector 
+              onLayoutChange={(selectedLayout) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  layout: selectedLayout, // Atualiza o formData
+                }));
+                setLayout(selectedLayout);
+              }} 
+            />
+            <p>Layout selecionado: {layout}</p>
           </div>
         )}
 
@@ -444,6 +449,7 @@ const RegisterStep = () => {
               <p><strong>Data:</strong> {formData.date}</p>
               <p><strong>Nomes:</strong> {formData.names}</p>
               <p><strong>Seu Texto:</strong> {formData.text}</p>
+              <p><strong>Layout:</strong> {formData.layout}</p>
               <p><strong>Música:</strong> {formData.music}</p>
               <p><strong>Criado em:</strong> {new Date().toLocaleString()}</p>
               <p>
@@ -489,9 +495,13 @@ const RegisterStep = () => {
       </div>
 
       {layout === "padrao" ? (
+        
           <PreviewLayoutPadrao/>
+          
         ) : (
+          
           <PreviewLayoutNetfilx/>
+          
         )}
       
     </div>

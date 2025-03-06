@@ -148,7 +148,23 @@ export default function PreviewLayoutNetfilx() {
                           <h3 className="text-xl font-bold mb-2">Genero</h3>
                           <p className="text-gray-300 mb-4">Adventure, Drama, Romance</p>
                         </div>
-                        
+                        <div className="">
+                                    <h2 className="text-2xl font-bold mb-4">Mais como este</h2>
+                                    <div className="grid grid-cols-2 gap-3">
+                                    {data?.photoPaths?.map((path, index) => (
+                                      <div key={index}>
+                                        <Image
+                                          src={path} // Se os caminhos estiverem completos no array, use diretamente
+                                          alt={`Movie ${index + 1} poster`}
+                                          width={150}
+                                          height={225}
+                                          className="w-25 h-24 object-cover rounded"
+                                        />
+                                        <p className="text-gray-300 mt-2">Nosso Filme {index + 1}</p>
+                                      </div>
+                                    ))}
+                                    </div>
+                                  </div>
                       </div>
                     </section>
                   </main>

@@ -23,7 +23,7 @@ interface FormData {
     musicVideoId: string;
 }
 
-export default function Home() {
+export default function LayoutPadrao() {
     const params = useParams(); // Captura os parâmetros da URL
     const userId = Array.isArray(params.id) ? params.id[0] : params.id;
 

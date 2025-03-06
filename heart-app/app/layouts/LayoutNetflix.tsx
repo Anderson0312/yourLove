@@ -45,9 +45,11 @@ export default function LayoutNetflix() {
       musicVideoId:'',
   });
 
-  const ano = new Date(data?.date || now).getFullYear();
-  const mes = new Date(data?.date || now).getMonth();
-  const dia = new Date(data?.date || now).getDay();
+  const ano = new Date(data?.date ).getFullYear();
+  const mes = new Date(data?.date).getMonth() + 1;
+  const dia = new Date(data?.date).getDate() +1;
+
+
 
 
   useEffect(() => {
@@ -156,7 +158,7 @@ export default function LayoutNetflix() {
       <section className="p-8">
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
           <div className="md:w-2/3">
-            <h2 className="text-2xl font-bold mb-4">Resumo</h2>
+            <h2 className="text-2xl font-bold mb-4">Visão geral</h2>
             <p className="text-gray-300 mb-4">
                           {data?.text || "Seu texto" }
                           </p>

@@ -193,7 +193,8 @@ export default function FormComponent({ formData }: FormComponentProps) {
                 )}
             </div>
 
-            <h2 className="text-lg font-bold">Escolha o Layout</h2>
+            <div className=''>
+            <label className="block text-sm font-medium mb-2">Escolha o Layout</label>
                         <LayoutSelector 
                           onLayoutChange={(selectedLayout) => {
                             setFormState((prev) => ({
@@ -204,6 +205,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
                           }} 
                         />
             <p>layout escolhido: {layout}</p>
+            </div>
 
             {error && <p className="text-red-500">{error}</p>}
 

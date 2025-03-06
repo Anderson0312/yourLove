@@ -143,10 +143,10 @@ export default function PreviewLayoutNetfilx() {
                         <div className="">
                           <h2 className="text-2xl font-bold mb-4">Visão geral</h2>
                           <p className="text-gray-300 mb-4">
-                          {data?.text}
+                          {data?.text || "Seu texto" }
                           </p>
                           <h3 className="text-xl font-bold mb-2">Elenco</h3>
-                          <p className="text-gray-300 mb-4">{data?.names}</p>
+                          <p className="text-gray-300 mb-4">{data?.names || "Nome & Nome"}</p>
                           <h3 className="text-xl font-bold mb-2">Genero</h3>
                           <p className="text-gray-300 mb-4">Adventure, Drama, Romance</p>
                         </div>

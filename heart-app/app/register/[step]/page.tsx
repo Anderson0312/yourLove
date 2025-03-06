@@ -4,7 +4,7 @@ import PreviewLayoutPadrao from '@/components/previewLayoutPadrao';
 import { getRegistrationData, saveRegistrationData, uploadPhotos, getUsernameFromToken } from '@/services/api';
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { PhotoIcon } from '@heroicons/react/24/solid'
+import { PhotoIcon, ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link';
 import Image from "next/image";
 import YouTubeMusicSearch from '@/components/YouTubeMusicSearch';
@@ -230,7 +230,7 @@ const RegisterStep = () => {
           {currentStep === 1 && (
             <div className="space-y-4 ">
             <div className="sm:col-span-4">
-                <label htmlFor="Nomes" className="poppins-thin block text-lg/3 font-bold text-withe">
+                <label htmlFor="Nomes" className="poppins-thin block text-lg font-bold text-withe">
                 Nome Casal
                 </label>
                 <div className="mt-2">
@@ -246,7 +246,7 @@ const RegisterStep = () => {
                 </div>
               </div>
               <div className=" sm:col-span-4 ">
-                <label htmlFor="Titulo" className="poppins-thin block text-lg/3 font-bold text-withe">
+                <label htmlFor="Titulo" className="poppins-thin block text-lg font-bold text-withe">
                   Titulo Site
                 </label>
                 <div className="mt-2">
@@ -269,7 +269,7 @@ const RegisterStep = () => {
             <div className="space-y-4">
 
               <div className="col-span-full">
-                <label htmlFor="about" className="poppins-thin block text-lg/3 font-bold text-withe">
+                <label htmlFor="about" className="poppins-thin block text-lg font-bold text-withe">
                   Seu Texto
                 </label>
                 <div className="mt-2">
@@ -310,7 +310,7 @@ const RegisterStep = () => {
             <div className="space-y-4">
               
               <div className="sm:col-span-4">
-              <label htmlFor="Titulo" className=" poppins-thin block text-lg/3 font-bold text-withe">
+              <label htmlFor="Titulo" className=" poppins-thin block text-lg font-bold text-withe">
                   Data Inicial
                 </label>
                 <div className="mt-2">
@@ -326,7 +326,7 @@ const RegisterStep = () => {
               </div>
 
               <div className="col-span-full">
-                <label htmlFor="cover-photo" className="poppins-thin block text-lg/3 font-bold text-withe">
+                <label htmlFor="cover-photo" className="poppins-thin block text-lg font-bold text-withe">
                   Suas Fotos 
                 </label>
                 <label
@@ -436,7 +436,6 @@ const RegisterStep = () => {
                 setLayout(selectedLayout);
               }} 
             />
-            <p>Layout selecionado: {layout}</p>
           </div>
         )}
 
@@ -468,19 +467,22 @@ const RegisterStep = () => {
               <button
                 type="button"
                 onClick={handleBack}
-                className="bg-gray-500 text-white py-2 px-4 rounded"
+                className="flex items-center justify-center bg-gray-500 text-white py-2 px-4 rounded"
               >
+                <ChevronLeftIcon className="text-white mr-2 h-5 w-5"/>
                 Back
               </button>
             )}
             {currentStep < steps.length && (
               <button
-                type="button"
-                onClick={handleNext}
-                className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-              >
-                Next
-              </button>
+              type="button"
+              onClick={handleNext}
+              className="flex items-center justify-center bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+            >
+              Next
+              <ChevronRightIcon className="text-white ml-2 h-5 w-5" />
+            </button>
+            
             )}
             {currentStep === steps.length && (
               <button

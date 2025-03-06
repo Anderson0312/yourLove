@@ -19,7 +19,7 @@ const LayoutSelector = ({ onLayoutChange }: { onLayoutChange: (layout: string) =
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 justify-center">
       <button
         type="button"
         className={` py-2 px-4 rounded ${layout === "padrao" ? "bg-red-500 " : "bg-gray-600"}`}

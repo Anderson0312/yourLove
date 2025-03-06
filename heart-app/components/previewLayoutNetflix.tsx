@@ -120,7 +120,7 @@ export default function PreviewLayoutNetfilx() {
                       <div className="absolute bottom-8 left-8">
                         <h1 className="text-4xl font-bold">{data?.title || "Título"}</h1>
                         <div className="flex items-center space-x-2 mt-2">
-                          <span className="text-green-500 font-semibold">98% Match</span>
+                          <span className="text-green-500 font-semibold">100% Match</span>
                           <span className="text-gray-400">{ano}</span>
                           <span className="px-2 py-1 border border-gray-400 rounded">{mes}</span>
                           <span className="text-gray-400">{dia}</span>

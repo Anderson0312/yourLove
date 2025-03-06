@@ -71,7 +71,7 @@ export default function LayoutNetflix() {
     <header className="flex items-center justify-between p-4 bg-black bg-opacity-75 fixed w-full z-10">
       <div className="flex items-center space-x-4">
         <Image
-          src="https://storage.googleapis.com/a1aa/image/zmBSc0wHj2miqRK9AyuETe8IMhLlybcxkJoM-6NZ6k8.jpg"
+          src="/loveflix.png"
           alt="Netflix logo"
           width={100}
           height={50}

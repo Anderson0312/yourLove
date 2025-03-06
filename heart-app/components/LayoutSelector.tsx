@@ -33,7 +33,7 @@ const LayoutSelector = ({ onLayoutChange }: { onLayoutChange: (layout: string) =
         className={` py-2 px-4 rounded ${layout === "netflix" ? "bg-red-500 " : "bg-gray-600"}`}
         onClick={() => handleChange("netflix")}
       >
-        Netflix Layout
+        Loveflix Layout
       </button>
       
     </div>

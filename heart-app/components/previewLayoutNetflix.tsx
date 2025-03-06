@@ -85,7 +85,7 @@ export default function PreviewLayoutNetfilx() {
                   <header className="flex items-center justify-between p-4 bg-black bg-opacity-75 max-w-[350px] mt-1 ">
                     <div className="flex items-center space-x-4">
                       <Image
-                        src="https://storage.googleapis.com/a1aa/image/zmBSc0wHj2miqRK9AyuETe8IMhLlybcxkJoM-6NZ6k8.jpg"
+                        src="/loveflix.png"
                         alt="Netflix logo"
                         width={100}
                         height={50}

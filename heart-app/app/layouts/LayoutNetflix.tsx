@@ -6,7 +6,8 @@ import { FaSearch, FaBell,  FaPlus } from 'react-icons/fa';
 import { getRegistrationData } from '@/services/api';
 import Carousel from '@/components/Carousel';
 import { useParams } from 'next/navigation';
-import MusicPlayerNetflix from '@/components/MusicPlayNetflix';
+import MusicPlayerNetflix from '@/components/MusicPlayerNetflix';
+import HeartLoader from '@/components/HeartLoader';
 
 interface FormData {
     title: string;
@@ -14,13 +15,15 @@ interface FormData {
     date: Date;
     text: string;
     photoPaths: string[];
-    musicVideoId:string;
+    music: string;
+    musicThumbnail: string;
+    musicVideoId: string;
 }
 
 export default function LayoutNetflix() {
   const params = useParams();
   const userId = Array.isArray(params.id) ? params.id[0] : params.id;
-    
+  const [loading, setLoading] = useState(true);
   const now = new Date(
       new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
     );
@@ -31,6 +34,8 @@ export default function LayoutNetflix() {
       date: now,
       text: '',
       photoPaths: [],
+      music:'',
+      musicThumbnail:'',
       musicVideoId:'',
   });
 
@@ -47,11 +52,17 @@ export default function LayoutNetflix() {
                   setData(response); // Atualiza o estado com os dados recebidos
               } catch (error) {
                   console.error('Erro ao buscar dados:', error);
-              } 
+              } finally {
+                  setLoading(false);
+              }
           };
           fetchData();
       }
   }, [userId]);
+
+  if (loading) {
+    return <HeartLoader/>; // Exibe um loading enquanto os dados são buscados
+}
 
 
   return (
@@ -103,9 +114,9 @@ export default function LayoutNetflix() {
           </div>
           <div className="flex space-x-4 mt-4">
             <div className="flex items-center bg-white text-black px-4 py-2 rounded">
-              <MusicPlayerNetflix selectedMusicUser={{
+            <MusicPlayerNetflix selectedMusicUser={{
                   videoId: data.musicVideoId || "",
-                }}/>  Play
+                }}/> Play  
             </div>
             <button className="flex items-center bg-gray-700 bg-opacity-75 px-4 py-2 rounded">
               <FaPlus className="mr-2" /> Minha lista
@@ -119,15 +130,15 @@ export default function LayoutNetflix() {
           <div className="md:w-2/3">
             <h2 className="text-2xl font-bold mb-4">Resumo</h2>
             <p className="text-gray-300 mb-4">
-                          {data?.text}
+                          {data?.text || "Seu texto" }
                           </p>
             <h3 className="text-xl font-bold mb-2">Autores</h3>
-            <p className="text-gray-300 mb-4">{data?.names}</p>
+            <p className="text-gray-300 mb-4">{data?.names || "Nome & Nome"}</p>
             <h3 className="text-xl font-bold mb-2">Genero</h3>
             <p className="text-gray-300 mb-4">Adventure, Drama, Romance</p>
           </div>
           <div className="md:w-1/3">
-            <h2 className="text-2xl font-bold mb-4">Mais como este</h2>
+            <h2 className="text-2xl font-bold mb-4">Mais Como Este</h2>
             <div className="grid grid-cols-2 gap-3">
             {data?.photoPaths?.map((path, index) => (
               <div key={index}>

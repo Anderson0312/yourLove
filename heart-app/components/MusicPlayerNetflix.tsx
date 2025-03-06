@@ -3,9 +3,11 @@ import { useEffect } from 'react';
 import YouTubeAudioPlayer from './YouTubeAudioPlayer';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+
 interface MusicPlayerProps {
-  selectedMusicUser: { videoId: string };
+  selectedMusicUser: {videoId: string };
 }
+
 
 const MusicPlayerNetflix = ({ selectedMusicUser }: MusicPlayerProps) => {
   useEffect(() => {

@@ -203,6 +203,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
                             setLayout(selectedLayout);
                           }} 
                         />
+            <p>layout escolhido: {layout}</p>
 
             {error && <p className="text-red-500">{error}</p>}
 

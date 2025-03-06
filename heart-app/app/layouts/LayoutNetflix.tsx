@@ -6,14 +6,14 @@ import { FaSearch, FaBell, FaPlay, FaPlus } from 'react-icons/fa';
 export default function LayoutNetflix() {
 
 
-  var title = 'Test Title'
-  var ano = 2024;
-  var mes = 3;
-  var dia = 12;
+  const  title = 'Test Title'
+  const  ano = 2024;
+  const  mes = 3;
+  const  dia = 12;
 
-  var textContent= 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+  const  textContent= 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
 
-  var cast = 'cast1, cast2'
+  const  cast = 'cast1, cast2'
 
   return (
     <div className="bg-black text-white font-roboto min-h-screen">

@@ -30,9 +30,9 @@ const tiers = [
   },
 ]
 
-function classNames(...classes: any[] ) {
-  return classes.filter(Boolean).join(' ')
-}
+function classNames(...classes: (string | undefined | null | boolean)[]) {
+    return classes.filter(Boolean).join(' ');
+  }
 
 export default function ChoicePlan() {
   return (

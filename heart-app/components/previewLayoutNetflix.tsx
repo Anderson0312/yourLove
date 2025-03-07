@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { FaSearch, FaBell, FaPlay, FaPlus } from 'react-icons/fa';
+import { FaSearch, FaBell,  FaPlus } from 'react-icons/fa';
 import { getRegistrationData, getUsernameFromToken } from '@/services/api';
 import HeartLoader from './HeartLoader';
 import Carousel from './Carousel';

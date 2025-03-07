@@ -10,6 +10,7 @@ import Image from "next/image";
 import YouTubeMusicSearch from '@/components/YouTubeMusicSearch';
 import LayoutSelector from '@/components/LayoutSelector';
 import PreviewLayoutNetfilx from '@/components/previewLayoutNetflix';
+import ChoicePlan from '@/components/ChoicePlan';
 
 
 const steps = [
@@ -441,8 +442,7 @@ const RegisterStep = () => {
 
         {currentStep === 5 && (
           <div>
-            <h2 className="text-lg font-bold">Resumo</h2>
-
+            {/* <h2 className="text-lg font-bold">Resumo</h2>
             <div className="bg-red-500 text-white p-4 rounded">
               <p><strong>Título:</strong> {formData.title}</p>
               <p><strong>Data:</strong> {formData.date}</p>
@@ -457,7 +457,8 @@ const RegisterStep = () => {
                 {`https://our-love-app.vercel.app/yourDatting/${formData.username}`}
               </a>
               </p>
-            </div>
+            </div> */}
+            <ChoicePlan/>
           </div>
         )}
 
@@ -484,26 +485,22 @@ const RegisterStep = () => {
             </button>
             
             )}
-            {currentStep === steps.length && (
+            {/* {currentStep === steps.length && (
               <button
                 type="submit"
                 className="bg-red-500 text-white py-2 px-4 rounded"
               >
                 Submit
               </button>
-            )}
+            )} */}
           </div>
         </form>
       </div>
 
       {layout === "padrao" ? (
-        
           <PreviewLayoutPadrao/>
-          
         ) : (
-          
           <PreviewLayoutNetfilx/>
-          
         )}
       
     </div>

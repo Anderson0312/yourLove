@@ -5,12 +5,14 @@ import { FaSearch, FaBell, FaPlay, FaPlus } from 'react-icons/fa';
 import { getRegistrationData, getUsernameFromToken } from '@/services/api';
 import HeartLoader from './HeartLoader';
 import Carousel from './Carousel';
+import MusicPlayerNetflix from './MusicPlayerNetflix';
 
 interface FormData {
     title: string;
     names: string;
     date: Date;
     text: string;
+    musicVideoId: string;
     photoPaths: string[];
 }
 
@@ -32,6 +34,7 @@ export default function PreviewLayoutNetfilx() {
         names: '',
         date: now,
         text: '',
+        musicVideoId: '',
         photoPaths: [],
     });
 
@@ -39,9 +42,8 @@ export default function PreviewLayoutNetfilx() {
 
 
     const ano = new Date(data?.date || now).getFullYear();
-    const mes = new Date(data?.date || now).getMonth();
-    const dia = new Date(data?.date || now).getDay();
-
+    const mes = new Date(data?.date || now).getMonth() + 1;
+    const dia = new Date(data?.date || now).getDate() +1;
 
 
 
@@ -127,10 +129,11 @@ export default function PreviewLayoutNetfilx() {
                           <span className="text-gray-400">{dia}</span>
                         </div>
                         <div className="flex space-x-4 mt-4">
-                          <button className="flex items-center bg-white text-black px-4 py-2 rounded">
-                            <FaPlay className="mr-2" /> Play
-                            
-                          </button>
+                          <div className="flex items-center bg-white text-black px-4 py-2 rounded">
+                          <MusicPlayerNetflix selectedMusicUser={{
+                                videoId: data.musicVideoId || "",
+                              }}/> Play  
+                          </div>
                           <button className="flex items-center bg-gray-700 bg-opacity-75 px-4 py-2 rounded">
                             <FaPlus className="mr-2" /> Minha Lista
                           </button>

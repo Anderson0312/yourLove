@@ -45,9 +45,9 @@ export default function LayoutNetflix() {
       musicVideoId:'',
   });
 
-  const ano = new Date(data?.date ).getFullYear();
-  const mes = new Date(data?.date).getMonth() + 1;
-  const dia = new Date(data?.date).getDate() +1;
+  const ano = new Date(data?.date || now).getFullYear();
+  const mes = new Date(data?.date || now).getMonth() + 1;
+  const dia = new Date(data?.date || now).getDate() +1;
 
 
 
@@ -168,7 +168,7 @@ export default function LayoutNetflix() {
             <p className="text-gray-300 mb-4">Adventure, Drama, Romance</p>
           </div>
           <div className="md:w-1/3">
-            <h2 className="text-2xl font-bold mb-4">Mais Como Este</h2>
+            <h2 className="text-2xl font-bold mb-4">Mais como este</h2>
             <div className="grid grid-cols-2 gap-3">
             {data?.photoPaths?.map((path, index) => (
               <div key={index}>
@@ -179,7 +179,7 @@ export default function LayoutNetflix() {
                   height={225}
                   className="w-25 h-24 object-cover rounded"
                 />
-                <p className="text-gray-300 mt-2">Nosso Filme {index + 1}</p>
+                <p className="text-gray-300 mt-2">Nosso Filme❤️{index + 1}</p>
               </div>
             ))}
             </div>

@@ -33,6 +33,12 @@ const tiers = [
   },
 ]
 
+type Tier = {
+    id: string;
+    priceMonthly: string;
+    quantity: number;
+  };
+
 function classNames(...classes: (string | undefined | null | boolean)[]) {
     return classes.filter(Boolean).join(' ');
   }
@@ -40,7 +46,7 @@ function classNames(...classes: (string | undefined | null | boolean)[]) {
 export default function ChoicePlan() {
   const [loading, setLoading] = useState(false);
 
-  const handleCheckout = async (tier: any) => {
+  const handleCheckout = async (tier: Tier) => {
     setLoading(true);
     try {
         const response = await fetch('/api/checkout', {

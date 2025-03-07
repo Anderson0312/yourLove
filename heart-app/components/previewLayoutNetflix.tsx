@@ -165,7 +165,7 @@ export default function PreviewLayoutNetfilx() {
                                           height={225}
                                           className="w-25 h-24 object-cover rounded"
                                         />
-                                        <p className="text-gray-300 mt-2">Nosso Filme {index + 1}</p>
+                                        <p className="text-gray-300 mt-2">Nosso Filme❤️{index + 1}</p>
                                       </div>
                                     ))}
                                     </div>

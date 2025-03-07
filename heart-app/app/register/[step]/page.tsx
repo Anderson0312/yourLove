@@ -11,6 +11,7 @@ import YouTubeMusicSearch from '@/components/YouTubeMusicSearch';
 import LayoutSelector from '@/components/LayoutSelector';
 import PreviewLayoutNetfilx from '@/components/previewLayoutNetflix';
 import ChoicePlan from '@/components/ChoicePlan';
+import HeadingTop from '@/components/HeadingTop';
 
 
 const steps = [
@@ -199,8 +200,10 @@ const RegisterStep = () => {
 
 
   return (
+    <div>
+      <HeadingTop/>
+    
     <div className="container  mx-auto p-6 sm:flex">
-
       <div className="lg:w-2/3 xs:w-full">
         {/* Step Indicators */}
         <div className="flex justify-center items-center space-x-1 mb-6">
@@ -503,6 +506,7 @@ const RegisterStep = () => {
           <PreviewLayoutNetfilx/>
         )}
       
+    </div>
     </div>
   );
 };

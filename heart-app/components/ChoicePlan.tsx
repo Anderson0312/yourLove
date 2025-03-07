@@ -7,6 +7,7 @@ const tiers = [
     id: 'tier-Anual',
     href: '#',
     priceMonthly: '15',
+    priceId : 'price_1R03syCmHaaYVWvZsbny3ljD',
     quantity:1,
     description: "O plano perfeito se você está começando a usar nosso site",
     features: ['Texto Dedicado', 'Contador Tempo Real', 'Data De Inicio', 'Maximo de 5 Imagens', 'Suport 24h','Musica Escolhida'],
@@ -17,6 +18,7 @@ const tiers = [
     id: 'tier-lifetime',
     href: '#',
     priceMonthly: '25',
+    priceId : 'price_1R04PnCmHaaYVWvZDnHnELJe',
     quantity:1,
     description: 'Ideal para você que quer um site para lembrar da pessoa amanha para toda vida.',
     features: [
@@ -35,7 +37,7 @@ const tiers = [
 
 type Tier = {
     id: string;
-    priceMonthly: string;
+    priceId: string;
     quantity: number;
   };
 
@@ -53,7 +55,7 @@ export default function ChoicePlan() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                items: [{ priceId: tier.priceMonthly, quantity: tier.quantity }],
+                items: [{ priceId: tier.priceId, quantity: tier.quantity }],
             }),
           });
 

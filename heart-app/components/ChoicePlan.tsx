@@ -7,7 +7,7 @@ const tiers = [
     id: 'tier-Anual',
     href: '#',
     priceMonthly: '15',
-    quantity:'1',
+    quantity:1,
     description: "O plano perfeito se você está começando a usar nosso site",
     features: ['Texto Dedicado', 'Contador Tempo Real', 'Data De Inicio', 'Maximo de 5 Imagens', 'Suport 24h','Musica Escolhida'],
     featured: false,
@@ -17,7 +17,7 @@ const tiers = [
     id: 'tier-lifetime',
     href: '#',
     priceMonthly: '25',
-    quantity:'1',
+    quantity:1,
     description: 'Ideal para você que quer um site para lembrar da pessoa amanha para toda vida.',
     features: [
       'Texto Dedicado',

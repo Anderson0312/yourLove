@@ -1,11 +1,13 @@
 import { CheckIcon } from '@heroicons/react/20/solid'
+import { useState } from 'react';
 
 const tiers = [
   {
     name: 'Anual',
     id: 'tier-Anual',
     href: '#',
-    priceMonthly: 'R$ 15',
+    priceMonthly: '15',
+    quantity:'1',
     description: "O plano perfeito se você está começando a usar nosso site",
     features: ['Texto Dedicado', 'Contador Tempo Real', 'Data De Inicio', 'Maximo de 5 Imagens', 'Suport 24h','Musica Escolhida'],
     featured: false,
@@ -14,7 +16,8 @@ const tiers = [
     name: 'Vida Toda',
     id: 'tier-lifetime',
     href: '#',
-    priceMonthly: 'R$ 25',
+    priceMonthly: '25',
+    quantity:'1',
     description: 'Ideal para você que quer um site para lembrar da pessoa amanha para toda vida.',
     features: [
       'Texto Dedicado',
@@ -35,6 +38,34 @@ function classNames(...classes: (string | undefined | null | boolean)[]) {
   }
 
 export default function ChoicePlan() {
+  const [loading, setLoading] = useState(false);
+
+  const handleCheckout = async (tier: any) => {
+    setLoading(true);
+    try {
+        const response = await fetch('/api/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                items: [{ priceId: tier.priceMonthly, quantity: tier.quantity }],
+            }),
+          });
+
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url; // Redireciona para o Stripe
+      } else {
+        alert('Erro ao redirecionar para o checkout');
+      }
+    } catch (error) {
+      console.error('Erro ao iniciar checkout', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+
   return (
     <div className="relative isolate px-6 py-5 sm:py-5 lg:px-8">
       <div aria-hidden="true" className="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl">
@@ -82,6 +113,7 @@ export default function ChoicePlan() {
                   'text-5xl font-semibold tracking-tight',
                 )}
               >
+                R$
                 {tier.priceMonthly}
               </span>
               <span className={classNames(tier.featured ? 'text-gray-400' : 'text-gray-500', 'text-base')}></span>
@@ -106,18 +138,19 @@ export default function ChoicePlan() {
                 </li>
               ))}
             </ul>
-            <a
-              href={tier.href}
+            <button
+              onClick={() => handleCheckout(tier)}
               aria-describedby={tier.id}
+              type='button'
               className={classNames(
                 tier.featured
-                  ? 'bg-red-500 text-white shadow-xs hover:bg-red-400 focus-visible:outline-red-500'
-                  : 'text-red-600 ring-1 ring-red-200 ring-inset hover:ring-red-300 focus-visible:outline-red-600',
+                  ? 'w-full bg-red-500 text-white shadow-xs hover:bg-red-400 focus-visible:outline-red-500'
+                  : 'w-full text-red-600 ring-1 ring-red-200 ring-inset hover:ring-red-300 focus-visible:outline-red-600',
                 'mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10',
               )}
             >
-              Criar Agora
-            </a>
+              {loading ? 'Redirecionando...' : 'Criar Agora'}
+            </button>
           </div>
         ))}
       </div>

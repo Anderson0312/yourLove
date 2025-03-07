@@ -46,8 +46,6 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
   }
 };
 
-
-
 export const getRegisterUserData = async (data: any) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/auth/login`, {
@@ -73,7 +71,6 @@ export const saveRegisterUserData = async (data: any) => {
   }
 };
 
-
 export const getUsernameFromToken = (): string | null => {
   if (typeof window === "undefined") return null; // Evita erro no Next.js SSR
   
@@ -88,9 +85,6 @@ export const getUsernameFromToken = (): string | null => {
     return null;
   }
 };
-
-
-
 
 export async function searchYouTubeMusic(query: string) {
   const apiKey = process.env.NEXT_PUBLIC_API_YOUTUBE; // Sua chave da API do YouTube
@@ -115,3 +109,4 @@ export async function searchYouTubeMusic(query: string) {
     return [];
   }
 }
+

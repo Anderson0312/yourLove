@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 
 const API_BASE_URL2 = 'http://localhost:4000/api'
 

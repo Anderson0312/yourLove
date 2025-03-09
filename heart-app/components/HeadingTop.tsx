@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 export class HeadingTop extends Component {
   render() {
     return (
-        <header className="flex h-10 items-center justify-center bg-red-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-       ❤️ Dia da mulher - Todos os planos com 50% de desconto!
+        <header className="flex h-10 items-center justify-center bg-gradient-to-r from-red-600 to-red-500 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
+       ❤️ <strong>Dia da mulher</strong> - Todos os planos com 50% de desconto!
       </header>
     )
   }

@@ -30,7 +30,7 @@ const ImageUpload = () => {
               className="relative cursor-pointer rounded-md font-semibold text-red-600 focus-within:ring-2 focus-within:ring-red-600 focus-within:ring-offset-2 hover:text-red-800"
             >
               <span>Envie suas fotos</span>
-              <input id="file-upload" name="file-upload" type="file" className="sr-only" multiple onChange={handleFileChange} accept="image/png, image/jpeg"/>
+              <input id="file-upload" name="file-upload" type="file" className="hidden" multiple onChange={handleFileChange} accept="image/png, image/jpeg"/>
             </label>
             <p className="pl-1">ou arraste aqui</p>
           </div>

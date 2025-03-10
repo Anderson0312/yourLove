@@ -354,7 +354,7 @@ const RegisterStep = () => {
                       type="file"
                       className="hidden"
                       multiple
-                      accept="image/*"
+                      accept="image/png, image/jpeg , image/jpg"
                       onChange={handleFileChange}
                     />
                   </label>

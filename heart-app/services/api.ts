@@ -37,12 +37,36 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
       formData.append(`files`, file); // Enviando com chave 'files' (o backend deve suportar múltiplos arquivos)
     });
 
-    const response = await axios.post(`${API_BASE_URL}/registration/${userId}/upload`, formData);
+    const response = await axios.post(`${API_BASE_URL}/registration/${userId}/upload`, formData, {
+      timeout: 30000, // 30 segundos de timeout
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    alert('Upload das fotos concluído com sucesso!'); // Feedback visual para o usuário
     return response.data;
-    
   } catch (error) {
-    console.error('Erro ao fazer upload das fotos:', error);
-    alert(`uploadPhotos: ${error}`);
+    let errorMessage = 'Erro desconhecido ao fazer upload das fotos.';
+
+    if (axios.isAxiosError(error)) {
+      // Erro específico do Axios (como Network Error, timeout, etc.)
+      if (error.response) {
+        // Erro com resposta do servidor (status 4xx ou 5xx)
+        errorMessage = `Erro no servidor: ${error.response.status} - ${error.response.data.message || 'Sem detalhes'}`;
+      } else if (error.request) {
+        // Erro sem resposta do servidor (falha na conexão)
+        errorMessage = 'Sem resposta do servidor. Verifique sua conexão com a internet.';
+      } else {
+        // Outros erros do Axios
+        errorMessage = `Erro ao configurar a requisição: ${error.message}`;
+      }
+    } else if (error instanceof Error) {
+      // Erros genéricos do JavaScript
+      errorMessage = `Erro: ${error.message}`;
+    }
+
+    alert(`uploadPhotos: ${errorMessage}`); // Exibe o erro em um alerta
     throw error;
   }
 };

@@ -154,7 +154,7 @@ const RegisterStep = () => {
         router.push(`/register/${nextStep}`);
       } catch (error) {
         console.error('Erro ao salvar os dados:', error);
-        alert('Erro ao enviar fotos. Tente novamente.');
+        alert(error);
       }finally {
         setIsUploading(false); // Desativa o feedback de carregamento
       }

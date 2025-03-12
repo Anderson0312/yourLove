@@ -42,6 +42,7 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
     
   } catch (error) {
     console.error('Erro ao fazer upload das fotos:', error);
+    alert(`uploadPhotos: ${error}`);
     throw error;
   }
 };

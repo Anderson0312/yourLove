@@ -154,7 +154,7 @@ const RegisterStep = () => {
         router.push(`/register/${nextStep}`);
       } catch (error) {
         console.error('Erro ao salvar os dados:', error);
-        alert(error);
+        alert(`handleNext: ${error}`);
       }finally {
         setIsUploading(false); // Desativa o feedback de carregamento
       }
@@ -431,7 +431,7 @@ const RegisterStep = () => {
                   </div>
                 ))}
               </div>
-              )} 
+            )} 
 
               {isUploading && (
               <div className="flex justify-center items-center">

@@ -45,6 +45,7 @@ const RegisterStep = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(stepParam);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
   const userId = username ?? ""; 
   const [formData, setFormData] = useState<FormData>({
     title: '',
@@ -63,8 +64,7 @@ const RegisterStep = () => {
 
   useEffect(() => {
     const user = getUsernameFromToken();
-    setUsername(user);
-    
+    setUsername(user); 
   }, []);
 
   useEffect(() => {
@@ -92,7 +92,6 @@ const RegisterStep = () => {
     fetchData();
   }, [userId]);
 
-
   useEffect(() => {
     // Sincroniza query com o valor de formData.music
     if (!query && formData.music) {
@@ -100,6 +99,17 @@ const RegisterStep = () => {
     }
   }, [formData.music]);
 
+  useEffect(() => {
+    if (formData.layout) {
+      setLayout(formData.layout);
+    }
+  }, [formData.layout]); 
+
+  useEffect(() => {
+    return () => {
+      previewImages.forEach((image) => URL.revokeObjectURL(image));
+    };
+  }, [previewImages]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -115,7 +125,9 @@ const RegisterStep = () => {
   const handleNext = async () => {
     if (currentStep < steps.length) {
       try {
+        
         if (currentStep === 3 && formData.photo) {
+          setIsUploading(true);
           // Faz o upload das fotos
           const uploadResponse = await uploadPhotos(userId, formData.photo);
   
@@ -142,6 +154,9 @@ const RegisterStep = () => {
         router.push(`/register/${nextStep}`);
       } catch (error) {
         console.error('Erro ao salvar os dados:', error);
+        alert('Erro ao enviar fotos. Tente novamente.');
+      }finally {
+        setIsUploading(false); // Desativa o feedback de carregamento
       }
     }
   };
@@ -191,12 +206,6 @@ const RegisterStep = () => {
       prevImages.filter((_, index) => index !== indexToRemove)
     );
   };
-
-  useEffect(() => {
-    if (formData.layout) {
-      setLayout(formData.layout);
-    }
-  }, [formData.layout]); 
 
 
   return (
@@ -422,7 +431,13 @@ const RegisterStep = () => {
                   </div>
                 ))}
               </div>
-            )} 
+              )} 
+
+              {isUploading && (
+              <div className="flex justify-center items-center">
+                  <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+              </div>
+              )}
 
             </div>
             

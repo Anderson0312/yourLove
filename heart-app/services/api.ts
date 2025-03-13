@@ -33,14 +33,13 @@ export const saveRegistrationData = async (userId: string, step: number, data: a
 export const uploadPhotos = async (userId: string, files: File[]) => {
   try {
     const formData = new FormData();
-    files.forEach((file, index) => {
-      alert(`Adicionando arquivo ${index + 1}: ${file}`);
+    files.forEach((file) => {
       formData.append(`files`, file); // Enviando com chave 'files' (o backend deve suportar múltiplos arquivos)
     });
 
     alert('Enviando requisição para o servidor...'); 
     const response = await axios.post(`${API_BASE_URL}/registration/${userId}/upload`, formData, {
-      timeout: 30000, // 30 segundos de timeout
+      timeout: 60000, // 30 segundos de timeout
       headers: {},
     });
 

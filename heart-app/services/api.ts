@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
+import imageCompression from 'browser-image-compression';
 require('dotenv').config();
+
 
 const API_BASE_URL = 'https://heart-app-backend.vercel.app/api'; // Ajuste conforme necessário
 const API_BASE_URL2 = 'http://localhost:4000/api'
@@ -30,12 +32,19 @@ export const saveRegistrationData = async (userId: string, step: number, data: a
   }
 };
 
+
+
+const compressImage = async (file: File) => {
+  const options = { maxSizeMB: 1, maxWidthOrHeight: 1024, useWebWorker: true };
+  return await imageCompression(file, options);
+};
+
 export const uploadPhotos = async (userId: string, files: File[]) => {
   try {
+    const compressedFiles = await Promise.all(files.map(compressImage));
+
     const formData = new FormData();
-    files.forEach((file) => {
-      formData.append(`files`, file); // Enviando com chave 'files' (o backend deve suportar múltiplos arquivos)
-    });
+    compressedFiles.forEach((file) => formData.append(`files`, file));
 
     alert('Enviando requisição para o servidor...'); 
     const response = await axios.post(`${API_BASE_URL}/registration/${userId}/upload`, formData, {

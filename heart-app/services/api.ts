@@ -46,13 +46,13 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
     const formData = new FormData();
     compressedFiles.forEach((file) => formData.append(`files`, file));
 
-    alert(`Enviando requisição para o servidor... ${compressedFiles}`); 
+    // alert(`Enviando requisição para o servidor... ${compressedFiles}`); 
     const response = await axios.post(`${API_BASE_URL}/registration/${userId}/upload`, formData, {
       timeout: 120000, // 30 segundos de timeout
       headers: {},
     });
 
-    alert('Upload das fotos concluído com sucesso!'); // Feedback visual para o usuário
+    //  alert('Upload das fotos concluído com sucesso!'); 
     return response.data;
   } catch (error) {
     let errorMessage = 'Erro desconhecido ao fazer upload das fotos.';

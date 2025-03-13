@@ -5,7 +5,7 @@ require('dotenv').config();
 
 
 const API_BASE_URL = 'https://heart-app-backend.vercel.app/api'; // Ajuste conforme necessário
-const API_BASE_URL2 = 'http://localhost:4000/api'
+const API_BASE_URL2 = 'http://192.168.2.3:4000/api'
 
 export const getRegistrationData = async (userId: string) => {
   try {

@@ -47,7 +47,7 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
     compressedFiles.forEach((file) => formData.append(`files`, file));
 
     alert('Enviando requisição para o servidor...'); 
-    const response = await axios.post(`${API_BASE_URL}/registration/${userId}/upload`, formData, {
+    const response = await axios.post(`${API_BASE_URL2}/registration/${userId}/upload`, formData, {
       timeout: 60000, // 30 segundos de timeout
       headers: {},
     });

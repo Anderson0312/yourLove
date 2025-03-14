@@ -11,7 +11,6 @@ import Modal from '@/components/Modal';
 import FormComponent from '@/components/FormComponent';
 import HeartLoader from '@/components/HeartLoader';
 import { PencilIcon } from '@heroicons/react/24/solid';
-
 interface FormData {
     title: string;
     names: string;
@@ -22,12 +21,12 @@ interface FormData {
     music: string;
     musicThumbnail: string;
     musicVideoId: string;
+    modelo_carrosel: string;
 }
 
 export default function LayoutPadrao() {
     const params = useParams(); // Captura os parâmetros da URL
     const userId = Array.isArray(params.id) ? params.id[0] : params.id;
-
 
     const [data, setData] = useState<FormData>({
         title: '',
@@ -39,6 +38,7 @@ export default function LayoutPadrao() {
         music:'',
         musicThumbnail:'',
         musicVideoId:'',
+        modelo_carrosel:'',
     });
 
     const [loading, setLoading] = useState(true);
@@ -90,7 +90,7 @@ export default function LayoutPadrao() {
             >
                 {data.title}
             </h1>
-            <Carousel images={data?.photoPaths} autoPlay={true} interval={5000} />
+            <Carousel images={data?.photoPaths} autoPlay={true} interval={5000} variant={data?.modelo_carrosel}/>
             <TextDatting name={data.names} text={data.text} />
             <h3
                 className="text-lg font-semi-bold mt-2 mb-6 text-white text-center"

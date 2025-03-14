@@ -14,6 +14,7 @@ interface FormData {
     musicThumbnail: string;
     musicVideoId: string;
     photoPaths: string[];
+    modelo_carrosel: string;
 }
 interface FormComponentProps {
     formData: FormData;
@@ -31,6 +32,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
     const params = useParams(); // Captura os parâmetros da URL
     const userId = params.id as string;
     const [layout, setLayout] = useState(formData.layout || "padrao");
+    const [modelo_carrosel, setModCarrosel] = useState(formData.modelo_carrosel || "padrao");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -85,6 +87,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
                 musicThumbnail: '',
                 musicVideoId: '',
                 photoPaths: [],
+                modelo_carrosel: '',
             });
             setPreviewImages([]);
         } catch (err) {
@@ -201,9 +204,18 @@ export default function FormComponent({ formData }: FormComponentProps) {
                               ...prev,
                               layout: selectedLayout, // Atualiza o formData
                             }));
-                            setLayout(selectedLayout);
+                            setLayout(selectedLayout)
+                            }}
+                            onCarrouselChange={(selectedCarrosel) => {
+                                setFormState((prev) => ({
+                                  ...prev,
+                                  modelo_carrosel: selectedCarrosel, // Atualiza o formData com o carrossel
+                                }));
+                                setModCarrosel(selectedCarrosel);
                           }} 
                         />
+
+                        
             <p>layout escolhido: {layout}</p>
             </div>
 

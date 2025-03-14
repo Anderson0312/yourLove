@@ -34,6 +34,7 @@ interface FormData {
   musicVideoId: string;
   photo: File[] | null ; // Objetos File originais
   photoPaths: string[] | null; // Caminhos das fotos retornados pelo backend
+  modelo_carrosel: string; 
 }
 
 
@@ -59,8 +60,13 @@ const RegisterStep = () => {
     musicVideoId: '',
     photo: null,
     photoPaths: null,
+    modelo_carrosel: '',
   });
+  const [isNextDisabled, setIsNextDisabled] = useState(false);
+  const [errors, setErrors] = useState<{ names?: string; title?: string }>({});
+  const [showErrors, setShowErrors] = useState(false);
   const [layout, setLayout] = useState(formData.layout || "padrao");
+  const [modCarrosel, setModCarrosel] = useState(formData.modelo_carrosel || "padrao");
 
   useEffect(() => {
     const user = getUsernameFromToken();
@@ -105,11 +111,26 @@ const RegisterStep = () => {
     }
   }, [formData.layout]); 
 
+
   useEffect(() => {
     return () => {
       previewImages.forEach((image) => URL.revokeObjectURL(image));
     };
   }, [previewImages]);
+
+  const validateFields = () => {
+    const newErrors: { names?: string; title?: string } = {};
+    
+    if (!formData.names) {
+      newErrors.names = "Insira seu nome para continuar.";
+    }
+    if (!formData.title) {
+      newErrors.title = "Insira um título para continuar.";
+    }
+  
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Retorna `true` se não houver erros
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -124,8 +145,14 @@ const RegisterStep = () => {
 
   const handleNext = async () => {
     if (currentStep < steps.length) {
-      try {
-        
+      try {        
+        if (currentStep === 1) {
+          const isValid = validateFields();
+          setShowErrors(true); // Exibe erros apenas ao clicar em "Next"
+      
+          if (!isValid) return; // Impede o avanço se houver erros
+        }
+
         if (currentStep === 3 && formData.photo) {
           setIsUploading(true);
           // Faz o upload das fotos
@@ -148,8 +175,7 @@ const RegisterStep = () => {
           // Salva os dados do passo atual (sem fotos)
           await saveRegistrationData(userId, currentStep, formData);
         }
-  
-        // Avança para o próximo passo
+
         const nextStep = currentStep + 1;
         router.push(`/register/${nextStep}`);
       } catch (error) {
@@ -255,6 +281,8 @@ const RegisterStep = () => {
                     placeholder="Nomes do casal"
                     className="block w-full rounded-md bg-gray-500 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
                   />
+                  {showErrors && errors.names && <p className="text-red-500 text-sm mt-1">{errors.names}</p>}
+
                 </div>
               </div>
               <div className=" sm:col-span-4 ">
@@ -271,6 +299,7 @@ const RegisterStep = () => {
                     placeholder="Titulo do site"
                     className="block w-full rounded-md bg-gray-500 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
                   />
+                  {showErrors && errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
                 </div>
               </div>
               
@@ -444,16 +473,24 @@ const RegisterStep = () => {
 
         {currentStep === 4 && (
           <div>
-            <h2 className="text-lg font-bold">Escolha o Layout</h2>
+            <h2 className="text-lg font-bold">Escolha o Layout do Site</h2>
             <LayoutSelector 
               onLayoutChange={(selectedLayout) => {
                 setFormData((prev) => ({
                   ...prev,
-                  layout: selectedLayout, // Atualiza o formData
+                  layout: selectedLayout, // Atualiza o formData com o layout
                 }));
                 setLayout(selectedLayout);
-              }} 
+              }}
+              onCarrouselChange={(selectedCarrosel) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  modelo_carrosel: selectedCarrosel, // Atualiza o formData com o carrossel
+                }));
+                setModCarrosel(selectedCarrosel);
+              }}
             />
+
           </div>
         )}
 
@@ -496,6 +533,7 @@ const RegisterStep = () => {
               type="button"
               onClick={handleNext}
               className="flex items-center justify-center bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+              disabled={isNextDisabled}
             >
               Next
               <ChevronRightIcon className="text-white ml-2 h-5 w-5" />
@@ -515,7 +553,7 @@ const RegisterStep = () => {
       </div>
 
       {layout === "padrao" ? (
-          <PreviewLayoutPadrao/>
+          <PreviewLayoutPadrao modeloCarrosel={modCarrosel}/>
         ) : (
           <PreviewLayoutNetfilx/>
         )}

@@ -12,48 +12,53 @@ interface FormData {
     date: Date;
     text: string;
     photoPaths: string[];
+    modelo_carrosel: string;
 }
 
-export default function PreviewLayoutPadrao() {
+export default function PreviewLayoutPadrao({ modeloCarrosel }: { modeloCarrosel: string }) {
     const [username, setUsername] = useState<string | null>(null);
-    
-      useEffect(() => {
-        const user = getUsernameFromToken();
-        setUsername(user);
-      }, []);
-
-    const userId = username; 
+    const [modCarrosel, setModCarrosel] = useState<string>(modeloCarrosel);
+    const [loading, setLoading] = useState(true);
     const now = new Date(
         new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
       );
-
     const [data, setData] = useState<FormData>({
         title: '',
         names: '',
         date: now,
         text: '',
         photoPaths: [],
+        modelo_carrosel: '',
     });
 
-    const [loading, setLoading] = useState(true);
-
+    
+    useEffect(() => {
+        const user = getUsernameFromToken();
+        setUsername(user);
+      }, []);
 
     useEffect(() => {
-        if (userId) {
+        if (username) {
             const fetchData = async () => {
                 try {
-                    const response = await getRegistrationData(userId); // Busca os dados da API
-                    setData(response); // Atualiza o estado com os dados recebidos
+                    const response = await getRegistrationData(username);
+                    setData(response);
+                    if (response.modelo_carrosel) {
+                        setModCarrosel(response.modelo_carrosel); // Garante que o modelo vem da API
+                    }
                 } catch (error) {
                     console.error('Erro ao buscar dados:', error);
                 } finally {
-                    setLoading(false); // Finaliza o carregamento
+                    setLoading(false);
                 }
             };
-
             fetchData();
         }
-    }, [userId]);
+    }, [username]);
+
+    useEffect(() => {
+        setModCarrosel(modeloCarrosel);
+    }, [modeloCarrosel]);
 
     if (loading) {
         return <HeartLoader/>;// Exibe um loading enquanto os dados são buscados
@@ -81,7 +86,12 @@ export default function PreviewLayoutPadrao() {
                 >
                     {data?.title || "Título"}
                 </h1>
-                <Carousel images={data?.photoPaths} autoPlay={true} interval={5000} preview={true} />
+                
+
+                <Carousel images={data?.photoPaths} autoPlay={true} interval={5000} preview={true} variant={modCarrosel}/>
+
+
+
                 <TextDatting name={data?.names} text={data?.text} />
                 <h3
                     className="text-lg font-semi-bold mt-2 mb-6 text-white text-center"

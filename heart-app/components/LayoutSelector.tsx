@@ -1,16 +1,27 @@
-// components/LayoutSelector.tsx
 import { useState, useEffect } from "react";
 
-const LayoutSelector = ({ onLayoutChange }: { onLayoutChange: (layout: string) => void }) => {
+interface LayoutSelectorProps {
+  onLayoutChange: (layout: string) => void;
+  onCarrouselChange: (carrousel: string) => void;
+}
+
+const LayoutSelector: React.FC<LayoutSelectorProps> = ({ onLayoutChange, onCarrouselChange }) => {
   const [layout, setLayout] = useState("padrao");
+  const [modCarrosel, setModCarrosel] = useState("padrao");
 
   useEffect(() => {
     const savedLayout = localStorage.getItem("userLayout");
-    if (savedLayout && savedLayout !== layout) {
+    const savedCarrousel = localStorage.getItem("userCarrosel");
+    
+    if (savedLayout) {
       setLayout(savedLayout);
       onLayoutChange(savedLayout);
     }
-  }, []); 
+    if (savedCarrousel) {
+      setModCarrosel(savedCarrousel);
+      onCarrouselChange(savedCarrousel);
+    }
+  }, []);
 
   const handleChange = (selectedLayout: string) => {
     setLayout(selectedLayout);
@@ -18,24 +29,59 @@ const LayoutSelector = ({ onLayoutChange }: { onLayoutChange: (layout: string) =
     onLayoutChange(selectedLayout);
   };
 
-  return (
-    <div className="flex gap-4 justify-center">
-      <button
-        type="button"
-        className={` py-2 px-4 rounded ${layout === "padrao" ? "bg-red-500 " : "bg-gray-600"}`}
-        onClick={() => handleChange("padrao")}
-      >
-        Padrão Layout
-      </button>
-      <button
-        type="button"
+  const handleChangeCarrosel = (selectedCarrosel: string) => {
+    setModCarrosel(selectedCarrosel);
+    localStorage.setItem("userCarrosel", selectedCarrosel);
+    onCarrouselChange(selectedCarrosel);
+  };
 
-        className={` py-2 px-4 rounded ${layout === "netflix" ? "bg-red-500 " : "bg-gray-600"}`}
-        onClick={() => handleChange("netflix")}
-      >
-        Loveflix Layout
-      </button>
-      
+  return (
+    <div className="container p-4">
+      <div className="flex gap-4 justify-center mb-4">
+        <button
+          type="button"
+          className={`py-2 px-4 rounded ${layout === "padrao" ? "bg-red-500" : "bg-gray-600"}`}
+          onClick={() => handleChange("padrao")}
+        >
+          Padrão Layout
+        </button>
+        <button
+          type="button"
+          className={`py-2 px-4 rounded ${layout === "netflix" ? "bg-red-500" : "bg-gray-600"}`}
+          onClick={() => handleChange("netflix")}
+        >
+          Loveflix Layout
+        </button>
+      </div>
+
+      {layout === "padrao" && (
+        <div>
+          <h3 className="text-lg font-bold text-center mb-2">Escolha o Carrossel</h3>
+          <div className="flex gap-4 justify-center">
+            <button
+              type="button"
+              className={`py-2 px-4 rounded ${modCarrosel === "padrao" ? "bg-red-500" : "bg-gray-600"}`}
+              onClick={() => handleChangeCarrosel("padrao")}
+            >
+              Padrão
+            </button>
+            <button
+              type="button"
+              className={`py-2 px-4 rounded ${modCarrosel === "cards" ? "bg-red-500" : "bg-gray-600"}`}
+              onClick={() => handleChangeCarrosel("cards")}
+            >
+              Cards
+            </button>
+            <button
+              type="button"
+              className={`py-2 px-4 rounded ${modCarrosel === "cubo" ? "bg-red-500" : "bg-gray-600"}`}
+              onClick={() => handleChangeCarrosel("cubo")}
+            >
+              Cubo
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

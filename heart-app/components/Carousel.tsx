@@ -216,7 +216,7 @@ const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, inter
           .cube {
             position: relative;
             width: 400px;
-            height: 390px;
+            height: 400px;
             transform-style: preserve-3d;
           }
   

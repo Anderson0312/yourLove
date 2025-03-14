@@ -45,7 +45,7 @@ function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSe
             placeholder="Buscar música..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="block w-full rounded-md bg-gray-500 px-3 py-1.5 text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600"
+            className="block w-full rounded-md bg-gray-700 px-3 py-1.5 text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600"
           />
           <button
             type="button"

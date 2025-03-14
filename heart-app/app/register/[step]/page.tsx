@@ -62,7 +62,6 @@ const RegisterStep = () => {
     photoPaths: null,
     modelo_carrosel: '',
   });
-  const [isNextDisabled, setIsNextDisabled] = useState(false);
   const [errors, setErrors] = useState<{ names?: string; title?: string }>({});
   const [showErrors, setShowErrors] = useState(false);
   const [layout, setLayout] = useState(formData.layout || "padrao");
@@ -533,7 +532,6 @@ const RegisterStep = () => {
               type="button"
               onClick={handleNext}
               className="flex items-center justify-center bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-              disabled={isNextDisabled}
             >
               Next
               <ChevronRightIcon className="text-white ml-2 h-5 w-5" />

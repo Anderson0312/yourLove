@@ -1,6 +1,6 @@
 import { saveRegistrationData } from '@/services/api';
 import { useParams } from 'next/navigation';
-import {  useState } from 'react';
+import {  useEffect, useState } from 'react';
 import Image from "next/image";
 import LayoutSelector from '@/components/LayoutSelector';
 
@@ -97,6 +97,17 @@ export default function FormComponent({ formData }: FormComponentProps) {
             setIsSubmitting(false);
         }
     };
+
+     useEffect(() => {
+        setModCarrosel(modelo_carrosel);
+    }, [modelo_carrosel]);
+
+      useEffect(() => {
+        if (layout) {
+          setLayout(layout);
+        }
+      }, [layout]); 
+    
 
     const dateValue = formState.date.toISOString().split('T')[0];
     if (!userId) return null; // Não renderiza até que `userId` seja válido

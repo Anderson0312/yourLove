@@ -32,7 +32,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
     const params = useParams(); // Captura os parâmetros da URL
     const userId = params.id as string;
     const [layout, setLayout] = useState(formData.layout || "padrao");
-    const [modelo_carrosel, setModCarrosel] = useState(formData.modelo_carrosel || "padrao");
+    const [modcarrosel, setModCarrosel] = useState(formData.modelo_carrosel || "padrao");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -99,8 +99,8 @@ export default function FormComponent({ formData }: FormComponentProps) {
     };
 
      useEffect(() => {
-        setModCarrosel(modelo_carrosel);
-    }, [modelo_carrosel]);
+        setModCarrosel(modcarrosel);
+    }, [modcarrosel]);
 
       useEffect(() => {
         if (layout) {

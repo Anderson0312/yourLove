@@ -22,6 +22,7 @@ interface FormData {
     music: string;
     musicThumbnail: string;
     musicVideoId: string;
+    modelo_carrosel: string;
 }
 
 export default function LayoutNetflix() {
@@ -43,6 +44,8 @@ export default function LayoutNetflix() {
       music:'',
       musicThumbnail:'',
       musicVideoId:'',
+      modelo_carrosel: ''
+
   });
 
   const ano = new Date(data?.date || now).getFullYear();

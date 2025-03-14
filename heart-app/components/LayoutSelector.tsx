@@ -40,14 +40,14 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({ onLayoutChange, onCarro
       <div className="flex gap-4 justify-center mb-4">
         <button
           type="button"
-          className={`py-2 px-4 rounded ${layout === "padrao" ? "bg-red-500" : "bg-gray-600"}`}
+          className={`py-2 px-4 rounded ${layout === "padrao" ? "bg-red-500" : "border"}`}
           onClick={() => handleChange("padrao")}
         >
           Padrão Layout
         </button>
         <button
           type="button"
-          className={`py-2 px-4 rounded ${layout === "netflix" ? "bg-red-500" : "bg-gray-600"}`}
+          className={`py-2 px-4 rounded ${layout === "netflix" ? "bg-red-500" : "border"}`}
           onClick={() => handleChange("netflix")}
         >
           Loveflix Layout
@@ -60,27 +60,45 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({ onLayoutChange, onCarro
           <div className="flex gap-4 justify-center">
             <button
               type="button"
-              className={`py-2 px-4 rounded ${modCarrosel === "padrao" ? "bg-red-500" : "bg-gray-600"}`}
+              className={`py-2 px-4 rounded ${modCarrosel === "padrao" ? "bg-red-500" : "border"}`}
               onClick={() => handleChangeCarrosel("padrao")}
             >
               Padrão
             </button>
             <button
               type="button"
-              className={`py-2 px-4 rounded ${modCarrosel === "cards" ? "bg-red-500" : "bg-gray-600"}`}
+              className={`py-2 px-4 rounded ${modCarrosel === "cards" ? "bg-red-500" : "border"}`}
               onClick={() => handleChangeCarrosel("cards")}
             >
               Cards
             </button>
             <button
               type="button"
-              className={`py-2 px-4 rounded ${modCarrosel === "cubo" ? "bg-red-500" : "bg-gray-600"}`}
+              className={`py-2 px-4 rounded ${modCarrosel === "cubo" ? "bg-red-500" : "border"}`}
               onClick={() => handleChangeCarrosel("cubo")}
             >
               Cubo
             </button>
           </div>
-        </div>
+
+      {/* <h3 className="text-lg font-bold text-center mb-2 mt-4">Escolha Modelo de Data</h3>
+      <div className="flex gap-4 justify-center">
+        <button
+          type="button"
+          className={`py-2 px-4 rounded ${modCarrosel === "padrao" ? "bg-red-500" : "border"}`}
+          onClick={() => handleChangeCarrosel("padrao")}
+        >
+          Padrão
+        </button>
+        <button
+          type="button"
+          className={`py-2 px-4 rounded ${modCarrosel === "classico" ? "bg-red-500" : "border"}`}
+          onClick={() => handleChangeCarrosel("classico")}
+        >
+          Clássico
+        </button>
+      </div> */}
+      </div>
       )}
     </div>
   );

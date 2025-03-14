@@ -472,7 +472,7 @@ const RegisterStep = () => {
 
         {currentStep === 4 && (
           <div>
-            <h2 className="text-lg font-bold">Escolha o Layout do Site</h2>
+            <h2 className="text-lg font-bold text-center">Escolha o Layout do Site</h2>
             <LayoutSelector 
               onLayoutChange={(selectedLayout) => {
                 setFormData((prev) => ({
@@ -521,7 +521,7 @@ const RegisterStep = () => {
               <button
                 type="button"
                 onClick={handleBack}
-                className="flex items-center justify-center bg-gray-500 text-white py-2 px-4 rounded"
+                className="flex items-center justify-center border text-white py-2 px-4 rounded"
               >
                 <ChevronLeftIcon className="text-white mr-2 h-5 w-5"/>
                 Back

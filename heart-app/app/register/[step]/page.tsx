@@ -135,8 +135,8 @@ const RegisterStep = () => {
     const files = Array.from(e.target.files || []);
     setPreviewImages(files.map((file) => URL.createObjectURL(file)));
     
-    if (files.length > 5) {
-      alert("Você só pode enviar no máximo 5 fotos.");
+    if (files.length > 6) {
+      alert("Você só pode enviar no máximo 6 fotos.");
       return;
     }
     setFormData((prev) => ({ ...prev, photo: files }));
@@ -379,11 +379,11 @@ const RegisterStep = () => {
                       <PhotoIcon aria-hidden="true" className="mx-auto size-12 text-gray-300" />
                       <div className="mt-4 flex text-sm/6 text-white">
                         <span className="relative cursor-pointer rounded-md font-semibold text-red-600 hover:text-red-800">
-                          Envie suas fotos
+                          Click aqui
                         </span>
                         <p className="pl-1">ou arraste aqui</p>
                       </div>
-                      <p className="text-xs/5 text-white">PNG, JPG (max. 5 fotos)</p>
+                      <p className="text-xs/5 text-white">PNG, JPG (max. 6 fotos)</p>
                     </div>
                     
                     <input

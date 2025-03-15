@@ -1,10 +1,8 @@
 "use client"
 import HeadingTop from "@/components/HeadingTop"
 import Link from "next/link";
-import { useEffect, useRef } from "react";
 
 export default function LandingPage() {
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   
   return (

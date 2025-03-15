@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
 import imageCompression from 'browser-image-compression';
+import { useEffect } from 'react';
 require('dotenv').config();
 
 
@@ -105,6 +106,19 @@ export const saveRegisterUserData = async (data: any) => {
 };
 
 export const getUsernameFromToken = (): string | null => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenUrl = urlParams.get('token');
+  
+    if (tokenUrl) {
+        localStorage.setItem('token', tokenUrl);
+        const decoded: any = jwtDecode(tokenUrl);
+        console.log('tokenUrl', decoded)
+        // Redirecione ou faça outras ações necessárias
+    } else {
+        console.error('Token not found in URL');
+    }
+   
+    
   if (typeof window === "undefined") return null; // Evita erro no Next.js SSR
   
   const token = localStorage.getItem("token");
@@ -112,7 +126,9 @@ export const getUsernameFromToken = (): string | null => {
 
   try {
     const decoded: any = jwtDecode(token);
+    console.log('tokenLogin', decoded)
     return decoded?.username || null;
+    
   } catch (error) {
     console.error("Erro ao decodificar o token:", error);
     return null;
@@ -142,4 +158,6 @@ export async function searchYouTubeMusic(query: string) {
     return [];
   }
 }
+
+
 

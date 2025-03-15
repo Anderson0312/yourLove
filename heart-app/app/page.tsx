@@ -6,13 +6,6 @@ import { useEffect, useRef } from "react";
 export default function LandingPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch((error:any) => {
-        console.error("Autoplay foi bloqueado:", error);
-      });
-    }
-  }, []);
   
   return (
     <div className="container">

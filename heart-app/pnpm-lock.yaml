@@ -41,6 +41,9 @@ importers:
       primereact:
         specifier: ^10.9.2
         version: 10.9.2(@types/react@19.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      qrcode.react:
+        specifier: ^4.2.0
+        version: 4.2.0(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -1527,6 +1530,11 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
+  qrcode.react@4.2.0:
+    resolution: {integrity: sha512-QpgqWi8rD9DsS9EP3z7BT+5lY5SFhsqGjpgW5DY/i3mK4M9DTBNz3ErMi8BWYEfI3L0d8GIbGmcdFAS1uIRGjA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   qs@6.14.0:
     resolution: {integrity: sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==}
     engines: {node: '>=0.6'}
@@ -2975,6 +2983,7 @@ snapshots:
   heart-app@file:(@types/react@19.0.5):
     dependencies:
       '@heroicons/react': 2.2.0(react@19.0.0)
+      '@stripe/stripe-js': 5.10.0
       axios: 1.7.9
       bcryptjs: 3.0.1
       dotenv: 16.4.7
@@ -2986,6 +2995,7 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       react-icons: 5.5.0(react@19.0.0)
+      stripe: 17.7.0
     transitivePeerDependencies:
       - '@auth/core'
       - '@babel/core'
@@ -3474,6 +3484,10 @@ snapshots:
   proxy-from-env@1.1.0: {}
 
   punycode@2.3.1: {}
+
+  qrcode.react@4.2.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
 
   qs@6.14.0:
     dependencies:

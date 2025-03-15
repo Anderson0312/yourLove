@@ -6,6 +6,7 @@ import { getRegisterUserData } from "@/services/api";
 import Link from "next/link";
 import FallingHearts from "@/components/FallingHearts";
 import Image from "next/image";
+import GoogleButton from "@/components/GoogleButton";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -118,7 +119,7 @@ export default function Login() {
         
       {errorMessage && <p className="text-red-600 text-center">💔 {errorMessage}</p>}
 
-        <div>
+        <div >
           <button
             type="submit"
             className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
@@ -128,6 +129,18 @@ export default function Login() {
           </button>
         </div>
       </form>
+
+      <div className="relative my-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="bg-[#1a1a1a] px-2 text-gray-300">OU</span>
+          </div>
+        </div>
+
+
+      <GoogleButton />
 
       <p className="mt-10 text-center text-sm/6 text-white">
         Não tem conta?{' '}

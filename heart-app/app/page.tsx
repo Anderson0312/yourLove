@@ -53,7 +53,8 @@ export default function LandingPage() {
           </h2>
 
 
-          <p className="max-w-xl text-left text-base relative md:text-lg text-neutral-300">
+          <p className="max-w-xl text-left text-base relative md:text-lg text-neutral-300" style={{
+              zIndex: 4}}>
             Pequenos gestos fazem toda a diferença. Mostre seu carinho de uma forma inesperada, criando uma página dedicada para alguém especial.
           </p>
 

@@ -179,6 +179,7 @@ export default function LandingPage() {
                   preload="metadata"
                   loop
                   autoPlay
+                  playsInline
                   muted
                   src="videos/video1.mp4"
                   className="absolute inset-0 w-full h-full object-cover"
@@ -200,6 +201,7 @@ export default function LandingPage() {
                   preload="metadata"
                   loop
                   autoPlay
+                  playsInline
                   muted
                   src="videos/video1.mp4"
                   className="absolute inset-0 w-full h-full object-cover"
@@ -223,6 +225,7 @@ export default function LandingPage() {
                   preload="metadata"
                   loop
                   autoPlay
+                  playsInline
                   muted
                   src="videos/video1.mp4"
                   className="absolute inset-0 w-full h-full object-cover"
@@ -396,7 +399,7 @@ export default function LandingPage() {
                     "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
                 }}
               >
-                <video data-sentry-element="Image" loop data-sentry-source-file="themes.tsx" autoPlay muted width="1000" height="1000" data-nimg="1" className="w-full rounded-xl group-hover/card:shadow-xl" src="videos/videoweb.mp4" style={{color: 'transparent'}}/>
+                <video data-sentry-element="Image" loop data-sentry-source-file="themes.tsx" autoPlay muted playsInline width="1000" height="1000" data-nimg="1" className="w-full rounded-xl group-hover/card:shadow-xl" src="videos/videoweb.mp4" style={{color: 'transparent'}}/>
               </div>
 
 
@@ -451,7 +454,7 @@ export default function LandingPage() {
                     "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
                 }}
               >
-                <video  autoPlay muted loop data-sentry-element="Image" data-sentry-source-file="themes.tsx"  width="1000" height="1000" data-nimg="1" className="w-full rounded-xl group-hover/card:shadow-xl" src="videos/videoweb2.mp4" style={{color: 'transparent'}}/>
+                <video  autoPlay muted loop data-sentry-element="Image" playsInline data-sentry-source-file="themes.tsx"  width="1000" height="1000" data-nimg="1" className="w-full rounded-xl group-hover/card:shadow-xl" src="videos/videoweb2.mp4" style={{color: 'transparent'}}/>
               </div>
 
               

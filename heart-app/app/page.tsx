@@ -156,7 +156,7 @@ export default function LandingPage() {
                 </svg>
 
               </div>
-              <div className="text-neutral-300 text-xs mt-2">Aprovado por 37.412 pessoas</div>
+              <div className="text-neutral-300 text-xs mt-2">Aprovado por 3.412 pessoas</div>
             </div>
           </div>
         </div>

@@ -1,4 +1,6 @@
 "use client"
+import ChoicePlanLandigPage from "@/components/ChoicePlanLandigPage";
+import Footer from "@/components/Footer";
 import HeadingTop from "@/components/HeadingTop"
 import Link from "next/link";
 
@@ -15,9 +17,9 @@ export default function LandingPage() {
         data-sentry-source-file="hero.tsx"
       >
 
-        <div className="w-full pt-[100px] lg:w-1/2 lg:pt-8">
+        <div className="w-full pt-[80px] lg:w-1/2 lg:pt-8">
 
-          <button
+          {/* <button
             className="relative flex border content-center bg-black/20 hover:bg-black/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit rounded-full"
             data-sentry-element="Tag"
             data-sentry-source-file="hover-border-gradient.tsx"
@@ -40,7 +42,7 @@ export default function LandingPage() {
               }}
             ></div>
             <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[100px]"></div>
-          </button>
+          </button> */}
 
 
           <h1 className="text-white text-5xl lg:text-6xl font-sans pt-3 relative z-20 font-bold tracking-tight">
@@ -63,7 +65,7 @@ export default function LandingPage() {
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#ffcbcb_0%,#b23939_50%,#ffcbcb_100%)]"></span>
             <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-black px-3 py-1 text-sm font-semibold text-white backdrop-blur-3xl">
               <Link href='https://our-love-app.vercel.app/login'>
-              Começar
+              Criar Agora
               </Link>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +87,7 @@ export default function LandingPage() {
 
           <div className="flex flex-row items-center mt-6 w-full">
             <div className="-mr-4 relative group">
-              <img
+              {/* <img
                 height="60"
                 width="60"
                 alt="João & Maria"
@@ -136,11 +138,63 @@ export default function LandingPage() {
                 alt="Clara & Rafael"
                 className="object-cover !m-0 !p-0 object-top rounded-full h-10 w-10 border-2 group-hover:scale-105 group-hover:z-30 border-white relative transition duration-500"
                 src="/images/approved/6.webp"
-              />
-            </div>
+              />*/}
+            </div> 
             <div className="relative ml-8 md:ml-12">
               <div className="flex flex-row items-center gap-2">
 
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="#FFD700"
+                  stroke="none"
+                  className="tabler-icon tabler-icon-star-filled"
+                  data-sentry-element="IconStarFilled"
+                  data-sentry-source-file="hero.tsx"
+                >
+                  <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"></path>
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="#FFD700"
+                  stroke="none"
+                  className="tabler-icon tabler-icon-star-filled"
+                  data-sentry-element="IconStarFilled"
+                  data-sentry-source-file="hero.tsx"
+                >
+                  <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"></path>
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="#FFD700"
+                  stroke="none"
+                  className="tabler-icon tabler-icon-star-filled"
+                  data-sentry-element="IconStarFilled"
+                  data-sentry-source-file="hero.tsx"
+                >
+                  <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"></path>
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="#FFD700"
+                  stroke="none"
+                  className="tabler-icon tabler-icon-star-filled"
+                  data-sentry-element="IconStarFilled"
+                  data-sentry-source-file="hero.tsx"
+                >
+                  <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"></path>
+                </svg>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -240,7 +294,7 @@ export default function LandingPage() {
       </div>
       </div>
 
-      <div className="pt-40 lg:pt-8 pb-12 flex container flex-col items-center justify-center md: p-10" data-sentry-component="HowWork" data-sentry-source-file="how-work.tsx">
+      <div className="pt-40 lg:pt-8 pb-12 flex container flex-col items-center justify-center md: p-10 " data-sentry-component="HowWork" data-sentry-source-file="how-work.tsx">
 
       <button className="relative flex border content-center bg-black/20 hover:bg-black/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit rounded-full" data-sentry-element="Tag" data-sentry-source-file="hover-border-gradient.tsx" data-sentry-component="HoverBorderGradient">
         <div className="w-auto z-10 px-4 py-2 rounded-[inherit] bg-black text-white text-xs flex items-center space-x-2">
@@ -301,7 +355,7 @@ export default function LandingPage() {
             <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-700 group-hover/feature:bg-red-500 transition-all duration-200 origin-center"></div>
             <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-neutral-100">2. Pagamento seguro</span>
           </div>
-          <p className="text-sm text-neutral-300 max-w-xs relative z-10 px-10">Faça o pagamento de forma segura com Cartão de Crédito ou PIX.</p>
+          <p className="text-sm text-neutral-300 max-w-xs relative z-10 px-10">Faça o pagamento de forma segura com Cartão de Crédito.</p>
         </div>
 
 
@@ -371,13 +425,13 @@ export default function LandingPage() {
 
       <div className="lg:grid lg:grid-cols-2 lg:gap-6">
 
-        <div className="py-20 flex items-center justify-center" style={{perspective: '1000px'}}>
+        <div className="py-20 flex items-center justify-center lg:transition-all duration-300 hover:z-50 hover:scale-105" style={{perspective: '1000px'}}>
                   <div className="flex items-center justify-center relative transition-all duration-200 ease-linear inter-var"  style={{
                 transform:
                   "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
               }}
             >
-            <div className="[transform-style:preserve-3d] [&amp;>*]:[transform-style:preserve-3d] relative group/card hover:shadow-2xl hover:shadow-emerald-500/[0.1] bg-black border-white/[0.2] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border" data-sentry-component="CardBody" data-sentry-source-file="3d-card.tsx">
+            <div className="grid justify-items-center [transform-style:preserve-3d] [&amp;>*]:[transform-style:preserve-3d] relative group/card hover:shadow-2xl hover:shadow-emerald-500/[0.1] bg-black border-white/[0.2] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border" data-sentry-component="CardBody" data-sentry-source-file="3d-card.tsx">
             
               <div className="w-fit transition duration-200 ease-linear text-xl font-bold text-white" data-sentry-element="Tag" data-sentry-source-file="3d-card.tsx" data-sentry-component="CardItem" style={{
                       transform:
@@ -407,19 +461,14 @@ export default function LandingPage() {
 
 
               <div className="flex justify-between items-center mt-14">
-                <div className="w-fit transition duration-200 ease-linear px-4 py-2 rounded-xl text-xs font-normal text-white" data-sentry-element="Tag" data-sentry-source-file="3d-card.tsx" data-sentry-component="CardItem"  style={{
-                  transform:
-                    "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
-                }}
-              >
-                  Experimentar agora
-                </div>
                 <div className="w-fit transition duration-200 ease-linear px-4 py-2 rounded-xl bg-white text-black text-xs font-bold cursor-pointer" data-sentry-element="Tag" data-sentry-source-file="3d-card.tsx" data-sentry-component="CardItem"  style={{
                   transform:
                     "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
                 }}
               >
-                  Começar agora
+                  <Link href='https://our-love-app.vercel.app/login'>
+                  Criar Agora
+                  </Link>
                 </div>
               </div>
             </div>
@@ -427,19 +476,19 @@ export default function LandingPage() {
         </div>
 
 
-        <div className="py-20 flex items-center justify-center" style={{perspective: '1000px'}}>
+        <div className="py-20 flex items-center justify-center lg:transition-all duration-300 hover:z-50 hover:scale-105" style={{perspective: '1000px'}}>
           <div className="flex items-center justify-center relative transition-all duration-200 ease-linear inter-var" style={{
               transform:
                 "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
             }}>
-            <div className="[transform-style:preserve-3d] [&amp;>*]:[transform-style:preserve-3d] relative group/card hover:shadow-2xl hover:shadow-emerald-500/[0.1] bg-black border-white/[0.2] w-auto sm:w-[30rem] h-auto -mt-32 lg:mt-0 rounded-xl p-6 border" data-sentry-component="CardBody" data-sentry-source-file="3d-card.tsx">
+            <div className="grid justify-items-center [transform-style:preserve-3d] [&amp;>*]:[transform-style:preserve-3d] relative group/card hover:shadow-2xl hover:shadow-emerald-500/[0.1] bg-black border-white/[0.2] w-auto sm:w-[30rem] h-auto -mt-32 lg:mt-0 rounded-xl p-6 border" data-sentry-component="CardBody" data-sentry-source-file="3d-card.tsx">
             
               <div className="w-fit transition duration-200 ease-linear text-xl font-bold text-white" data-sentry-element="Tag" data-sentry-source-file="3d-card.tsx" data-sentry-component="CardItem" style={{
                   transform:
                     "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
                 }}
               >
-                Netflix
+                loveflix
               </div>
 
             
@@ -462,17 +511,13 @@ export default function LandingPage() {
 
               
               <div className="flex justify-between items-center mt-14">
-                <div className="w-fit transition duration-200 ease-linear px-4 py-2 rounded-xl text-xs font-normal text-white" data-sentry-element="Tag" data-sentry-source-file="3d-card.tsx" data-sentry-component="CardItem" style={{
-                    transform:
-                      "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
-                  }}>
-                  Experimentar agora
-                </div>
                 <div className="w-fit transition duration-200 ease-linear px-4 py-2 rounded-xl bg-white text-black text-xs font-bold cursor-pointer" data-sentry-element="Tag" data-sentry-source-file="3d-card.tsx" data-sentry-component="CardItem" style={{
                   transform:
                     "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
                 }}>
-                  Começar agora
+                  <Link href='https://our-love-app.vercel.app/login'>
+                  Criar Agora
+                  </Link>
                 </div>
               </div>
             </div>
@@ -480,6 +525,11 @@ export default function LandingPage() {
         </div>
       </div>
     </div>
+
+
+    <ChoicePlanLandigPage/>
+
+    <Footer/>
 
     
     </div>

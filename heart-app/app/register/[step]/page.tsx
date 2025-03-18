@@ -76,7 +76,11 @@ const RegisterStep = () => {
     if (formData.names) {
       setUsername(formData.names);
       localStorage.setItem('username', formData.names); // Mudamos a chave para 'username' para ficar mais semântico
-    }
+    } 
+      const savedUsername = localStorage.getItem('username');
+      console.log('savedUsername: ',savedUsername)
+      setUsername(savedUsername); 
+
   }, [formData.names]);
 
 

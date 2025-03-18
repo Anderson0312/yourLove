@@ -50,12 +50,16 @@ export default function ChoicePlan() {
 
   const handleCheckout = async (tier: Tier) => {
     setLoading(true);
+
+    const savedUsername = localStorage.getItem('username');
+
     try {
         const response = await fetch('/api/checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 items: [{ priceId: tier.priceId, quantity: tier.quantity }],
+                userId: savedUsername
             }),
           });
 

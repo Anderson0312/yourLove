@@ -4,6 +4,8 @@ import Carousel from "@/components/Carousel";
 import Countdown from "@/components/Countdown";
 import TextDatting from "@/components/TextDatting";
 import { getRegistrationData } from '@/services/api';
+import MusicPlayerPreview from './MusicPlayerPreview';
+
 // import HeartLoader from './HeartLoader';
 
 interface FormData {
@@ -11,6 +13,9 @@ interface FormData {
     names: string;
     date: Date;
     text: string;
+    music: string;
+    musicThumbnail: string;
+    musicVideoId: string;
     photoPaths: string[];
     modelo_carrosel: string;
 }
@@ -31,6 +36,9 @@ interface PropsPreview {
         names: '',
         date: now,
         text: '',
+        music:'',
+        musicThumbnail:'',
+        musicVideoId:'',
         photoPaths: [],
         modelo_carrosel: '',
     });
@@ -38,7 +46,6 @@ interface PropsPreview {
     
   useEffect(() => {
     const savedUsername = localStorage.getItem('username');
-    console.log('savedUsername: ',savedUsername)
     setUsername(savedUsername); 
   }, []);
 
@@ -106,6 +113,12 @@ interface PropsPreview {
                 <p className="text-xs text-center font-bold text-gray-700">
                     desde {new Date(data?.date || now).toLocaleDateString('pt-BR')}
                 </p>
+
+                <MusicPlayerPreview selectedMusicUser={{
+                  title: data.music || "Musica favorita do casal",
+                  thumbnail: data.musicThumbnail || "",
+                  videoId: data.musicVideoId || "",
+                }}/>
                 
             </div>
         </div>

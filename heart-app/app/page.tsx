@@ -17,7 +17,7 @@ export default function LandingPage() {
         data-sentry-source-file="hero.tsx"
       >
 
-        <div className="w-full pt-[80px] lg:w-1/2 lg:pt-8">
+        <div className="w-full pt-[50px] lg:w-1/2 lg:pt-8">
 
           {/* <button
             className="relative flex border content-center bg-black/20 hover:bg-black/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit rounded-full"

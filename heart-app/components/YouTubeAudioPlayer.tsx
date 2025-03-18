@@ -81,9 +81,9 @@ function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
       <div id="youtube-audio" style={{ display: "none" }}></div>
       <button type="button" onClick={togglePlayPause}>
         {isPlaying ? (
-          <PauseCircleIcon className="size-8 text-red-500 hover:text-red-700" />
+          <PauseCircleIcon className="size-8 text-black hover:text-red-200" />
         ) : (
-          <PlayCircleIcon className="size-8 text-red-500 hover:text-red-700" />
+          <PlayCircleIcon className="size-8 text-black hover:text-red-200" />
         )}
       </button>
     </div>

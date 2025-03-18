@@ -52,6 +52,7 @@ interface PropsPreview {
     useEffect(() => {
         if (username) {
             const fetchData = async () => {
+                if (!username) return; 
                 try {
                     const response = await getRegistrationData(username);
                     setData(response);

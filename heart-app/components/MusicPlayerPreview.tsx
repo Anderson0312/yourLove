@@ -12,7 +12,6 @@ interface MusicPlayerProps {
 
 const MusicPlayerPreview = ({ selectedMusicUser }: MusicPlayerProps) => {
   useEffect(() => {
-    console.log('MusicPlayer' + selectedMusicUser.title)
   }, [selectedMusicUser]);
 
 

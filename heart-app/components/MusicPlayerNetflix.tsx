@@ -11,7 +11,6 @@ interface MusicPlayerProps {
 
 const MusicPlayerNetflix = ({ selectedMusicUser }: MusicPlayerProps) => {
   useEffect(() => {
-    console.log('MusicPlayer = ' + selectedMusicUser.videoId)
   }, [selectedMusicUser]);
 
   return (

@@ -2,15 +2,15 @@
 
 import HeartButton from "@/components/HeartButton";
 import QRCodeGenerator from "@/components/QrCodeGnerator";
-import { getUsernameFromToken } from "@/services/api";
 import { useEffect, useState } from "react";
 
 const Success = () => {
     const [username, setUsername] = useState<string | null>(null);
   
     useEffect(() => {
-      const user = getUsernameFromToken();
-      setUsername(user);
+      const savedUsername = localStorage.getItem('username');
+      setUsername(savedUsername); 
+
     }, []);
     
   return (

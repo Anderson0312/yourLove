@@ -1,7 +1,7 @@
 'use client';
 
 import PreviewLayoutPadrao from '@/components/previewLayoutPadrao';
-import { getRegistrationData, saveRegistrationData, uploadPhotos, getUsernameFromToken } from '@/services/api';
+import { getRegistrationData, saveRegistrationData, uploadPhotos } from '@/services/api';
 import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { PhotoIcon, ChevronRightIcon, ChevronLeftIcon, CalendarDateRangeIcon} from '@heroicons/react/24/solid'

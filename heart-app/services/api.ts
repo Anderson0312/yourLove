@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
 import imageCompression from 'browser-image-compression';
-import { useEffect } from 'react';
 require('dotenv').config();
 
 

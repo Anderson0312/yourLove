@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import Carousel from "@/components/Carousel";
 import Countdown from "@/components/Countdown";
 import TextDatting from "@/components/TextDatting";
-import { getRegistrationData, getUsernameFromToken } from '@/services/api';
-import HeartLoader from './HeartLoader';
+import { getRegistrationData } from '@/services/api';
+// import HeartLoader from './HeartLoader';
 
 interface FormData {
     title: string;
@@ -22,7 +22,7 @@ interface PropsPreview {
   export default function PreviewLayoutPadrao({ modeloCarrosel }: PropsPreview) {
     const [username, setUsername] = useState<string | null>(null);
     const [modCarrosel, setModCarrosel] = useState<string>(modeloCarrosel);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const now = new Date(
         new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
       );

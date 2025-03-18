@@ -1,6 +1,5 @@
 import { CheckIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
-import { useState } from 'react';
 
 const tiers = [
   {
@@ -36,11 +35,6 @@ const tiers = [
   },
 ]
 
-type Tier = {
-    id: string;
-    priceId: string;
-    quantity: number;
-  };
 
 function classNames(...classes: (string | undefined | null | boolean)[]) {
     return classes.filter(Boolean).join(' ');

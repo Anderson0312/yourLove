@@ -33,8 +33,6 @@ export const saveRegistrationData = async (userId: string, step: number, data: a
   }
 };
 
-
-
 const compressImage = async (file: File) => {
   const options = { maxSizeMB: 1, maxWidthOrHeight: 1024, useWebWorker: true };
   return await imageCompression(file, options);
@@ -119,7 +117,7 @@ export const getUsernameFromToken = (): string | null => {
     }
    
     
-  if (typeof window === "undefined") return null; // Evita erro no Next.js SSR
+  if (typeof window === "undefined") return null; 
   
   const token = localStorage.getItem("token");
   if (!token) return null;

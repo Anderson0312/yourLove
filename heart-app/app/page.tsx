@@ -65,7 +65,7 @@ export default function LandingPage() {
           >
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#ffcbcb_0%,#b23939_50%,#ffcbcb_100%)]"></span>
             <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-black px-3 py-1 text-sm font-semibold text-white backdrop-blur-3xl">
-              <Link href='https://our-love-app.vercel.app/login'>
+              <Link href='https://our-love-app.vercel.app/register/1'>
               Criar Agora
               </Link>
               <svg
@@ -467,7 +467,7 @@ export default function LandingPage() {
                     "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
                 }}
               >
-                  <Link href='https://our-love-app.vercel.app/login'>
+                  <Link href='https://our-love-app.vercel.app/register/1'>
                   Criar Agora
                   </Link>
                 </div>
@@ -516,7 +516,7 @@ export default function LandingPage() {
                   transform:
                     "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
                 }}>
-                  <Link href='https://our-love-app.vercel.app/login'>
+                  <Link href='https://our-love-app.vercel.app/register/1'>
                   Criar Agora
                   </Link>
                 </div>

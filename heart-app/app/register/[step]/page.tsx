@@ -32,8 +32,8 @@ interface FormData {
   music: string;
   musicThumbnail: string;
   musicVideoId: string;
-  photo: File[] | null ; // Objetos File originais
-  photoPaths: string[] | null; // Caminhos das fotos retornados pelo backend
+  photo: File[] | null ; 
+  photoPaths: string[] | null; 
   modelo_carrosel: string; 
 }
 
@@ -67,27 +67,28 @@ const RegisterStep = () => {
   const [layout, setLayout] = useState(formData.layout || "padrao");
   const [modCarrosel, setModCarrosel] = useState(formData.modelo_carrosel || "padrao");
 
-  useEffect(() => {
-    const user = getUsernameFromToken();
-    setUsername(user); 
-  }, []);
+  // useEffect(() => {
+  //   const user = getUsernameFromToken();
+  //   setUsername(user); 
+  // }, []);
 
   useEffect(() => {
-    if (stepParam >= 1 && stepParam <= steps.length) {
-      setCurrentStep(stepParam);
-    } else {
-      router.push('/register/1'); // Redireciona para o primeiro step caso o step seja inválido
+    if (formData.names) {
+      setUsername(formData.names);
+      localStorage.setItem('username', formData.names); // Mudamos a chave para 'username' para ficar mais semântico
     }
-  }, [stepParam, router]);
+  }, [formData.names]);
+
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!userId) return; // Evita chamadas se userId for indefinido
+
       try {
         const data = await getRegistrationData(userId);
-        // Atualiza apenas os campos presentes na resposta da API
         setFormData((prevData) => ({
-          ...prevData, // Mantém os valores existentes
-          ...data,     // Atualiza com os novos dados
+          ...prevData, 
+          ...data, 
         }));
       } catch (error) {
         console.error('Erro ao recuperar os dados:', error);
@@ -98,7 +99,14 @@ const RegisterStep = () => {
   }, [userId]);
 
   useEffect(() => {
-    // Sincroniza query com o valor de formData.music
+    if (stepParam >= 1 && stepParam <= steps.length) {
+      setCurrentStep(stepParam);
+    } else {
+      router.push('/register/1');
+    }
+  }, [stepParam, router]);
+
+  useEffect(() => {
     if (!query && formData.music) {
       setQuery(formData.music);
     }
@@ -109,7 +117,6 @@ const RegisterStep = () => {
       setLayout(formData.layout);
     }
   }, [formData.layout]); 
-
 
   useEffect(() => {
     return () => {
@@ -128,7 +135,7 @@ const RegisterStep = () => {
     }
   
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Retorna `true` se não houver erros
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -147,31 +154,27 @@ const RegisterStep = () => {
       try {        
         if (currentStep === 1) {
           const isValid = validateFields();
-          setShowErrors(true); // Exibe erros apenas ao clicar em "Next"
+          setShowErrors(true); 
       
-          if (!isValid) return; // Impede o avanço se houver erros
+          if (!isValid) return; 
         }
 
         if (currentStep === 3 && formData.photo) {
           setIsUploading(true);
-          // Faz o upload das fotos
           const uploadResponse = await uploadPhotos(userId, formData.photo);
-  
-          // Atualiza o formData com os caminhos das fotos, mas mantém os objetos File
+
           setFormData((prev) => ({
             ...prev,
-            photoPaths: uploadResponse.filePaths, // Armazena os caminhos das fotos
+            photoPaths: uploadResponse.filePaths, 
           }));
 
           console.log(formData)
   
-          // Salva os dados do passo atual
           await saveRegistrationData(userId, currentStep, {
             ...formData,
-            photoPaths: uploadResponse.filePaths, // Envia os caminhos das fotos
+            photoPaths: uploadResponse.filePaths, 
           });
         } else {
-          // Salva os dados do passo atual (sem fotos)
           await saveRegistrationData(userId, currentStep, formData);
         }
 
@@ -180,7 +183,7 @@ const RegisterStep = () => {
       } catch (error) {
         console.error('Erro ao salvar os dados:', error);
       }finally {
-        setIsUploading(false); // Desativa o feedback de carregamento
+        setIsUploading(false);
       }
     }
   };
@@ -203,7 +206,7 @@ const RegisterStep = () => {
       await saveRegistrationData(userId, currentStep, formData);
       alert('Dados enviados com sucesso!');
       setPreviewImages([]);
-      router.push('/success'); // Redireciona para uma página de sucesso
+      router.push('/success');
     } catch (error) {
       console.error('Erro ao enviar os dados:', error);
     }
@@ -218,7 +221,7 @@ const RegisterStep = () => {
     try {
       await saveRegistrationData(userId, currentStep, {
         ...formData,
-        photoPaths: updatedPaths, // Enviar lista atualizada de fotos
+        photoPaths: updatedPaths, 
       });
     } catch (error) {
       console.error('Erro ao remover a foto:', error);

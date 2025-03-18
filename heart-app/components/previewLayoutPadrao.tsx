@@ -15,7 +15,11 @@ interface FormData {
     modelo_carrosel: string;
 }
 
-export default function PreviewLayoutPadrao({ modeloCarrosel }: { modeloCarrosel: string }) {
+interface PropsPreview {
+    modeloCarrosel: string;
+  }
+  
+  export default function PreviewLayoutPadrao({ modeloCarrosel }: PropsPreview) {
     const [username, setUsername] = useState<string | null>(null);
     const [modCarrosel, setModCarrosel] = useState<string>(modeloCarrosel);
     const [loading, setLoading] = useState(true);
@@ -32,10 +36,11 @@ export default function PreviewLayoutPadrao({ modeloCarrosel }: { modeloCarrosel
     });
 
     
-    useEffect(() => {
-        const user = getUsernameFromToken();
-        setUsername(user);
-      }, []);
+  useEffect(() => {
+    const savedUsername = localStorage.getItem('username');
+    console.log('savedUsername: ',savedUsername)
+    setUsername(savedUsername); 
+  }, []);
 
     useEffect(() => {
         if (username) {
@@ -48,8 +53,6 @@ export default function PreviewLayoutPadrao({ modeloCarrosel }: { modeloCarrosel
                     }
                 } catch (error) {
                     console.error('Erro ao buscar dados:', error);
-                } finally {
-                    setLoading(false);
                 }
             };
             fetchData();
@@ -60,9 +63,9 @@ export default function PreviewLayoutPadrao({ modeloCarrosel }: { modeloCarrosel
         setModCarrosel(modeloCarrosel);
     }, [modeloCarrosel]);
 
-    if (loading) {
-        return <HeartLoader/>;// Exibe um loading enquanto os dados são buscados
-    }
+    // if (loading) {
+    //     return <HeartLoader/>;// Exibe um loading enquanto os dados são buscados
+    // }
     return (
 
 

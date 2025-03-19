@@ -125,7 +125,7 @@ export default function ChoicePlanLandigPage() {
               )}
             >
 
-              <Link href='https://our-love-app.vercel.app/login'>
+              <Link href='https://our-love-app.vercel.app/'>
               Criar Agora
               </Link>
             </button>

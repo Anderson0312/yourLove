@@ -1,5 +1,4 @@
-import { CheckIcon } from '@heroicons/react/20/solid'
-import Link from 'next/link';
+import { CheckIcon } from '@heroicons/react/20/solid';
 import { useRouter } from "next/navigation";
 
 const tiers = [

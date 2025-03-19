@@ -3,7 +3,7 @@ import ChoicePlanLandigPage from "@/components/ChoicePlanLandigPage";
 import FallingHearts from "@/components/FallingHearts";
 import Footer from "@/components/Footer";
 import HeadingTop from "@/components/HeadingTop"
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
@@ -481,9 +481,9 @@ export default function LandingPage() {
                 onClick={handleClick}
 
               >
-                  <Link href='https://our-love-app.vercel.app/register/1'>
+
                   Criar Agora
-                  </Link>
+                  
                 </button>
               </div>
             </div>
@@ -534,9 +534,9 @@ export default function LandingPage() {
                   onClick={handleClick}
 
                 >
-                  <Link href='https://our-love-app.vercel.app/register/1'>
+
                   Criar Agora
-                  </Link>
+            
                 </button>
               </div>
             </div>

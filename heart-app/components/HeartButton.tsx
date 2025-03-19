@@ -8,7 +8,8 @@ export default function HeartButton() {
   const router = useRouter();
   const [isClicked, setIsClicked] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
-
+  const [loading, setLoading] = useState(false);
+  
   useEffect(() => {
     const savedUsername = localStorage.getItem('username');
     setUsername(savedUsername); 
@@ -29,6 +30,9 @@ export default function HeartButton() {
     } catch (error) {
       console.error('Erro ao enviar os dados de pagamento:', error);
     }
+    finally {
+      setLoading(false);
+    }
   };
 
     const handleClick = async () => {
@@ -38,7 +42,7 @@ export default function HeartButton() {
     setTimeout(() => {
       router.push(`/yourDatting/${username}`);
       localStorage.clear();
-    }, 300);
+    }, 50);
   };
 
   return (
@@ -50,6 +54,7 @@ export default function HeartButton() {
       style={{
         boxShadow: '0 0 15px rgba(255, 0, 0, 0.5)',
       }}
+      disabled={loading}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

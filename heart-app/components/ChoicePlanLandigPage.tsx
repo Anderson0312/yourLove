@@ -1,5 +1,6 @@
 import { CheckIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 const tiers = [
   {
@@ -41,6 +42,11 @@ function classNames(...classes: (string | undefined | null | boolean)[]) {
   }
 
 export default function ChoicePlanLandigPage() {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/register/1");
+  };
 
   return (
     <div className="relative isolate md: p-10">
@@ -123,11 +129,13 @@ export default function ChoicePlanLandigPage() {
                   : 'w-full text-red-600 ring-1 ring-red-200 ring-inset hover:ring-red-300 focus-visible:outline-red-600',
                 'mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10',
               )}
+              onClick={handleClick}
+
             >
 
-              <Link href='https://our-love-app.vercel.app/register/1'>
+              
               Criar Agora
-              </Link>
+              
             </button>
           </div>
         ))}

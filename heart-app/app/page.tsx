@@ -4,8 +4,14 @@ import FallingHearts from "@/components/FallingHearts";
 import Footer from "@/components/Footer";
 import HeadingTop from "@/components/HeadingTop"
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/register/1'); 
+  };
 
   
   return (
@@ -66,12 +72,13 @@ export default function LandingPage() {
           <button
             type="button"
             className="relative mt-6 w-full lg:w-[50%] inline-flex h-[3.2rem] overflow-hidden rounded-lg p-[2px] focus:outline-none focus:ring-0"
+            onClick={handleClick}
           >
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#ffcbcb_0%,#b23939_50%,#ffcbcb_100%)]"></span>
             <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-black px-3 py-1 text-sm font-semibold text-white backdrop-blur-3xl">
-              <Link href='https://our-love-app.vercel.app/register/1'>
+              
               Criar Agora
-              </Link>
+              
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -466,15 +473,18 @@ export default function LandingPage() {
 
 
               <div className="flex justify-between items-center mt-14">
-                <div className="w-fit transition duration-200 ease-linear px-4 py-2 rounded-xl bg-white text-black text-xs font-bold cursor-pointer" data-sentry-element="Tag" data-sentry-source-file="3d-card.tsx" data-sentry-component="CardItem"  style={{
+                <button className="w-fit transition duration-200 ease-linear px-4 py-2 rounded-xl bg-white text-black text-xs font-bold cursor-pointer" data-sentry-element="Tag" data-sentry-source-file="3d-card.tsx" data-sentry-component="CardItem"  style={{
                   transform:
                     "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
                 }}
+                type="button"
+                onClick={handleClick}
+
               >
                   <Link href='https://our-love-app.vercel.app/register/1'>
                   Criar Agora
                   </Link>
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -516,14 +526,18 @@ export default function LandingPage() {
 
               
               <div className="flex justify-between items-center mt-14">
-                <div className="w-fit transition duration-200 ease-linear px-4 py-2 rounded-xl bg-white text-black text-xs font-bold cursor-pointer" data-sentry-element="Tag" data-sentry-source-file="3d-card.tsx" data-sentry-component="CardItem" style={{
-                  transform:
-                    "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
-                }}>
+                <button className="w-fit transition duration-200 ease-linear px-4 py-2 rounded-xl bg-white text-black text-xs font-bold cursor-pointer" data-sentry-element="Tag" data-sentry-source-file="3d-card.tsx" data-sentry-component="CardItem"  style={{
+                    transform:
+                      "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
+                  }}
+                  type="button"
+                  onClick={handleClick}
+
+                >
                   <Link href='https://our-love-app.vercel.app/register/1'>
                   Criar Agora
                   </Link>
-                </div>
+                </button>
               </div>
             </div>
           </div>

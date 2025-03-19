@@ -1,5 +1,6 @@
 "use client"
 import ChoicePlanLandigPage from "@/components/ChoicePlanLandigPage";
+import FallingHearts from "@/components/FallingHearts";
 import Footer from "@/components/Footer";
 import HeadingTop from "@/components/HeadingTop"
 import Link from "next/link";
@@ -9,6 +10,9 @@ export default function LandingPage() {
   
   return (
     <div className="container">
+      <div className="hearts-container fixed inset-0 z-0 overflow-hidden">
+         <FallingHearts />
+    </div>
       <HeadingTop/>
     <div className="w-full flex container flex-col h-screen items-center justify-center md: p-10">
       <div

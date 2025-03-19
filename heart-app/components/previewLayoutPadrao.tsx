@@ -47,12 +47,12 @@ interface PropsPreview {
   useEffect(() => {
     const savedUsername = localStorage.getItem('username');
     setUsername(savedUsername); 
+    console.log(savedUsername);
   }, []);
 
     useEffect(() => {
         if (username) {
             const fetchData = async () => {
-                if (!username) return; 
                 try {
                     const response = await getRegistrationData(username);
                     setData(response);

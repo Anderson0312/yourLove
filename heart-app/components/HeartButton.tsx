@@ -15,18 +15,13 @@ export default function HeartButton() {
     setUsername(savedUsername); 
   }, []);
 
-
   const handleSubmitPayment = async () => {
     const currentStep = 5;
     const formDataPayment = 'PAGO';
   
     if (!username) return;
-  
     try {
-      // Buscar os dados já salvos no banco para esse usuário
       const existingData = await getRegistrationData(username);
-  
-      // Garantir que os dados anteriores sejam preservados
       await saveRegistrationData(username, currentStep, {
         ...existingData, // Mantém os dados anteriores
         payment: formDataPayment, // Atualiza apenas o campo de pagamento

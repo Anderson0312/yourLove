@@ -9,7 +9,7 @@ export default function Modal({ children, onClose }: ModalProps) {
             <div className="bg-transparent rounded-lg p-4 w-11/12 max-w-md shadow-lg relative rounded-lg border border-gray-700">
                 <button
                     onClick={onClose}
-                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+                    className="absolute top-2 right-2 text-gray-200 hover:text-gray-500"
                 >
                     ×
                 </button>

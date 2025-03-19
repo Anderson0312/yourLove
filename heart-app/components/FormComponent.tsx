@@ -1,7 +1,7 @@
 import { saveRegistrationData } from '@/services/api';
 import { useParams } from 'next/navigation';
 import {  useEffect, useState } from 'react';
-import Image from "next/image";
+// import Image from "next/image";
 import LayoutSelector from '@/components/LayoutSelector';
 
 interface FormData {
@@ -26,7 +26,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
         ...formData,
         date: formData.date ? new Date(formData.date) : new Date(), // Garante que seja um objeto Date válido
     });
-    const [previewImages, setPreviewImages] = useState<string[]>([]); // Para mostrar a pré-visualização das imagens
+    // const [previewImages, setPreviewImages] = useState<string[]>([]); // Para mostrar a pré-visualização das imagens
     const [isSubmitting, setIsSubmitting] = useState(false); // Para desabilitar o botão durante o envio
     const [error, setError] = useState<string | null>(null); // Para exibir erros
     const params = useParams(); // Captura os parâmetros da URL
@@ -45,25 +45,25 @@ export default function FormComponent({ formData }: FormComponentProps) {
         }
     };
 
-    const handleRemovePhotoPreview = (indexToRemove: number) => {
-        setPreviewImages((prevImages) =>
-          prevImages.filter((_, index) => index !== indexToRemove)
-        );
-      };
+    // const handleRemovePhotoPreview = (indexToRemove: number) => {
+    //     setPreviewImages((prevImages) =>
+    //       prevImages.filter((_, index) => index !== indexToRemove)
+    //     );
+    //   };
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files;
-        if (files) {
-            const fileArray = Array.from(files);
-            setPreviewImages(fileArray.map((file) => URL.createObjectURL(file))); // Criar URL de pré-visualização
+    // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const files = e.target.files;
+    //     if (files) {
+    //         const fileArray = Array.from(files);
+    //         setPreviewImages(fileArray.map((file) => URL.createObjectURL(file))); // Criar URL de pré-visualização
 
-            // Para enviar para o back-end, você pode armazenar os arquivos ou enviar como FormData
-            setFormState((prev) => ({
-                ...prev,
-                photoPaths: fileArray.map((file) => file.name), // Aqui você pode armazenar apenas os nomes ou URLs reais
-            }));
-        }
-    };
+    //         // Para enviar para o back-end, você pode armazenar os arquivos ou enviar como FormData
+    //         setFormState((prev) => ({
+    //             ...prev,
+    //             photoPaths: fileArray.map((file) => file.name), // Aqui você pode armazenar apenas os nomes ou URLs reais
+    //         }));
+    //     }
+    // };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -89,7 +89,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
                 photoPaths: [],
                 modelo_carrosel: '',
             });
-            setPreviewImages([]);
+            // setPreviewImages([]);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Erro desconhecido');
             console.error('Erro ao enviar os dados:', err);
@@ -158,7 +158,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
                 />
             </div>
 
-            <div>
+            {/* <div>
                 <label className="block text-sm font-medium">Imagens</label>
                 <input
                     type="file"
@@ -169,7 +169,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
                     className="w-full px-2 py-1 rounded bg-gray-500"
                 />
 
-                {/* Exibir pré-visualização das imagens selecionadas */}
+
                 {previewImages.length > 0 && (
                     <div className="mt-4 grid grid-cols-3 gap-2 ">
                         {previewImages.map((image, index) => (
@@ -205,7 +205,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
                         ))}
                     </div>
                 )}
-            </div>
+            </div> */}
 
             <div className=''>
             <label className="block text-sm font-medium mb-2">Escolha o Layout</label>

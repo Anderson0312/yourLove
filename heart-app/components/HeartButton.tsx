@@ -1,6 +1,6 @@
 'use client';
 
-// import { saveRegistrationData } from '@/services/api';
+import { saveRegistrationData } from '@/services/api';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -15,23 +15,30 @@ export default function HeartButton() {
   }, []);
 
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //     e.preventDefault();
-  //     const currentStep = 5;
-  //     try {
-  //       await saveRegistrationData(username, currentStep, formData);
-  //       router.push('/success');
-  //     } catch (error) {
-  //       console.error('Erro ao enviar os dados:', error);
-  //     }
-  // };
+  const handleSubmitPayment = async () => {
+    const currentStep = 6;
+    const formDataPayment = 'PAGO';
+    if (!username) return;
+    try {
+      const existingData = {};
+      await saveRegistrationData(username, currentStep, {
+        ...existingData,
+        payment: formDataPayment, 
+      });
+      console.log('Pagamento registrado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao enviar os dados de pagamento:', error);
+    }
+  };
 
-  const handleClick = () => {
+    const handleClick = async () => {
     setIsClicked(true);
+    await handleSubmitPayment(); 
+
     setTimeout(() => {
-      router.push(`/yourDatting/${username}`); // Altere para a rota desejada
-    }, 300); // Tempo para sincronizar com a animação
-    localStorage.clear()
+      router.push(`/yourDatting/${username}`);
+      localStorage.clear();
+    }, 300);
   };
 
   return (

@@ -387,7 +387,7 @@ export default function LandingPage() {
         <div>
           <p className="text-white font-bold text-3xl lg:text-4xl lg:max-w-md">É <span className="text-red-600">fácil e rápido</span> de criar, veja um exemplo de página.</p>
         </div>
-        <img alt="example image" data-sentry-element="Image" data-sentry-source-file="how-work.tsx" loading="lazy" width="540" height="520" decoding="async" data-nimg="1" className="lg:mt-14 w-auto h-auto" src="1.png" style={{color: "transparent"}}/>
+        <img alt="example image" data-sentry-element="Image" data-sentry-source-file="how-work.tsx" loading="lazy" width="540" height="520" decoding="async" data-nimg="1" className="lg:mt-14 w-auto h-auto" src="1-removebg.png" style={{color: "transparent"}}/>
       </div>
     </div>
 

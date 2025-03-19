@@ -1,6 +1,5 @@
 'use client';
 
-import { getUsernameFromToken } from '@/services/api';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 

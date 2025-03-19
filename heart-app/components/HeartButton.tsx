@@ -10,8 +10,8 @@ export default function HeartButton() {
   const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
-    const user = getUsernameFromToken();
-    setUsername(user);
+    const savedUsername = localStorage.getItem('username');
+    setUsername(savedUsername); 
   }, []);
 
   const handleClick = () => {

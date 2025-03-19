@@ -10,7 +10,6 @@ const Success = () => {
     useEffect(() => {
       const savedUsername = localStorage.getItem('username');
       setUsername(savedUsername); 
-      localStorage.clear()
     }, []);
     
   return (

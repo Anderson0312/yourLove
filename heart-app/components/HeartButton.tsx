@@ -1,5 +1,6 @@
 'use client';
 
+// import { saveRegistrationData } from '@/services/api';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -13,11 +14,24 @@ export default function HeartButton() {
     setUsername(savedUsername); 
   }, []);
 
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //     e.preventDefault();
+  //     const currentStep = 5;
+  //     try {
+  //       await saveRegistrationData(username, currentStep, formData);
+  //       router.push('/success');
+  //     } catch (error) {
+  //       console.error('Erro ao enviar os dados:', error);
+  //     }
+  // };
+
   const handleClick = () => {
     setIsClicked(true);
     setTimeout(() => {
       router.push(`/yourDatting/${username}`); // Altere para a rota desejada
     }, 300); // Tempo para sincronizar com a animação
+    localStorage.clear()
   };
 
   return (

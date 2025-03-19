@@ -47,7 +47,6 @@ const RegisterStep = () => {
   const [currentStep, setCurrentStep] = useState<number>(stepParam);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
-  const userId = username ?? ""; 
   const [formData, setFormData] = useState<FormData>({
     title: '',
     username: '',
@@ -85,10 +84,10 @@ const RegisterStep = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!userId) return; // Evita chamadas se userId for indefinido
+      if (!username) return; // Evita chamadas se username for indefinido
 
       try {
-        const data = await getRegistrationData(userId);
+        const data = await getRegistrationData(username);
         setFormData((prevData) => ({
           ...prevData, 
           ...data, 
@@ -99,7 +98,7 @@ const RegisterStep = () => {
     };
   
     fetchData();
-  }, [userId]);
+  }, [username]);
 
   useEffect(() => {
     if (stepParam >= 1 && stepParam <= steps.length) {
@@ -155,6 +154,7 @@ const RegisterStep = () => {
   const handleNext = async () => {
     if (currentStep < steps.length) {
       try {        
+        if (!username) return; 
         if (currentStep === 1) {
           const isValid = validateFields();
           setShowErrors(true); 
@@ -164,7 +164,7 @@ const RegisterStep = () => {
 
         if (currentStep === 3 && formData.photo) {
           setIsUploading(true);
-          const uploadResponse = await uploadPhotos(userId, formData.photo);
+          const uploadResponse = await uploadPhotos(username, formData.photo);
 
           setFormData((prev) => ({
             ...prev,
@@ -173,12 +173,12 @@ const RegisterStep = () => {
 
           console.log(formData)
   
-          await saveRegistrationData(userId, currentStep, {
+          await saveRegistrationData(username, currentStep, {
             ...formData,
             photoPaths: uploadResponse.filePaths, 
           });
         } else {
-          await saveRegistrationData(userId, currentStep, formData);
+          await saveRegistrationData(username, currentStep, formData);
         }
 
         const nextStep = currentStep + 1;
@@ -193,8 +193,9 @@ const RegisterStep = () => {
 
   const handleBack = async () => {
     if (currentStep > 1) {
+      if (!username) return; 
       try {
-        await saveRegistrationData(userId, currentStep, formData);
+        await saveRegistrationData(username, currentStep, formData);
         const prevStep = currentStep - 1;
         router.push(`/register/${prevStep}`);
       } catch (error) {
@@ -205,8 +206,9 @@ const RegisterStep = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!username) return; 
     try {
-      await saveRegistrationData(userId, currentStep, formData);
+      await saveRegistrationData(username, currentStep, formData);
       alert('Dados enviados com sucesso!');
       setPreviewImages([]);
       router.push('/success');
@@ -220,9 +222,10 @@ const RegisterStep = () => {
   
     const updatedPaths = formData.photoPaths.filter((_, i) => i !== index);
     setFormData((prev) => ({ ...prev, photoPaths: updatedPaths }));
-  
+    
+    if (!username) return;
     try {
-      await saveRegistrationData(userId, currentStep, {
+      await saveRegistrationData(username, currentStep, {
         ...formData,
         photoPaths: updatedPaths, 
       });

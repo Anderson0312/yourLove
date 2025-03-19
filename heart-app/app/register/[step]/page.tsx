@@ -73,8 +73,9 @@ const RegisterStep = () => {
 
   useEffect(() => {
     if (formData.names) {
-      setUsername(formData.names);
-      localStorage.setItem('username', formData.names); // Mudamos a chave para 'username' para ficar mais semântico
+      const names = formData.names.replace(/\s+/g, '');
+      setUsername(names);
+      localStorage.setItem('username', names); // Mudamos a chave para 'username' para ficar mais semântico
     } 
       const savedUsername = localStorage.getItem('username');
       setUsername(savedUsername); 
@@ -222,7 +223,7 @@ const RegisterStep = () => {
   
     const updatedPaths = formData.photoPaths.filter((_, i) => i !== index);
     setFormData((prev) => ({ ...prev, photoPaths: updatedPaths }));
-    
+
     if (!username) return;
     try {
       await saveRegistrationData(username, currentStep, {

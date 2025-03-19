@@ -9,8 +9,9 @@ const Success = () => {
   
     useEffect(() => {
       const savedUsername = localStorage.getItem('username');
+      console.log(savedUsername)
       setUsername(savedUsername); 
-
+      localStorage.clear()
     }, []);
     
   return (

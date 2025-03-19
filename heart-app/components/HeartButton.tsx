@@ -1,6 +1,6 @@
 'use client';
 
-import { saveRegistrationData } from '@/services/api';
+import { getRegistrationData, saveRegistrationData } from '@/services/api';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -17,24 +17,29 @@ export default function HeartButton() {
 
 
   const handleSubmitPayment = async () => {
-    const currentStep = 6;
+    const currentStep = 5;
     const formDataPayment = 'PAGO';
+  
     if (!username) return;
+  
     try {
-      const existingData = {};
+      // Buscar os dados já salvos no banco para esse usuário
+      const existingData = await getRegistrationData(username);
+  
+      // Garantir que os dados anteriores sejam preservados
       await saveRegistrationData(username, currentStep, {
-        ...existingData,
-        payment: formDataPayment, 
+        ...existingData, // Mantém os dados anteriores
+        payment: formDataPayment, // Atualiza apenas o campo de pagamento
       });
+  
       console.log('Pagamento registrado com sucesso!');
     } catch (error) {
       console.error('Erro ao enviar os dados de pagamento:', error);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };
-
+  
     const handleClick = async () => {
     setIsClicked(true);
     await handleSubmitPayment(); 

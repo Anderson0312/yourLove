@@ -3,6 +3,7 @@ import ButtonCustom from "@/components/Button";
 import ChoicePlanLandigPage from "@/components/ChoicePlanLandigPage";
 import FallingHearts from "@/components/FallingHearts";
 import Footer from "@/components/Footer";
+import Image from 'next/image'
 import HeadingTop from "@/components/HeadingTop"
 
 
@@ -387,7 +388,14 @@ export default function LandingPage() {
         <div>
           <p className="text-white font-bold text-3xl lg:text-4xl lg:max-w-md">É <span className="text-red-600">fácil e rápido</span> de criar, veja um exemplo de página.</p>
         </div>
-        <img alt="example image" data-sentry-element="Image" data-sentry-source-file="how-work.tsx" loading="lazy" width="540" height="520" decoding="async" data-nimg="1" className="lg:mt-14 w-auto h-auto" src="1-removebg.png" style={{color: "transparent"}}/>
+        <Image
+          src="/1-removebg.png" // caminho da imagem
+          alt="example image"
+          width={540} // largura
+          height={520} // altura
+          layout="intrinsic" // o layout que se adapta ao seu caso
+          priority // se você quiser dar prioridade no carregamento desta imagem
+        />
       </div>
     </div>
 

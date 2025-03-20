@@ -1,5 +1,4 @@
 import { CheckIcon } from '@heroicons/react/20/solid';
-import { useRouter } from "next/navigation";
 import ButtonCustom from './Button';
 
 const tiers = [
@@ -44,11 +43,6 @@ function classNames(...classes: (string | undefined | null | boolean)[]) {
   }
 
 export default function ChoicePlanLandigPage() {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push("/register/1");
-  };
 
   return (
     <div className="relative isolate md: p-10">

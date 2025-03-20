@@ -103,7 +103,7 @@ export default function ChoicePlan() {
           <div
             key={tier.id}
             className={classNames(
-              tier.featured ? 'relative bg-gray-900 shadow-2xl' : 'bg-white sm:mx-8 lg:mx-0',
+              tier.featured ? 'border-2 border-white-500/50 relative bg-dark shadow-2xl  hover:shadow-2xl hover:shadow-emerald-500/[0.1]  border-white/[0.2]' : 'bg-white sm:mx-8 lg:mx-0 shadow-2xl border-2 border-red-500/50 hover:shadow-2xl hover:shadow-emerald-500/[0.1]  border-white/[0.2]',
               tier.featured
                 ? ''
                 : tierIdx === 0

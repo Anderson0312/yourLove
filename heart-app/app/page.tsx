@@ -393,8 +393,7 @@ export default function LandingPage() {
           alt="example image"
           width={540} // largura
           height={520} // altura
-          layout="intrinsic" // o layout que se adapta ao seu caso
-          priority // se você quiser dar prioridade no carregamento desta imagem
+          priority
         />
       </div>
     </div>

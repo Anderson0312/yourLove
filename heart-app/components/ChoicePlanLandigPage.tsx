@@ -7,10 +7,11 @@ const tiers = [
     id: 'tier-Anual',
     href: '#',
     priceMonthly: '15',
+    oldPriceMonthly: '30', // Preço antes do desconto
     priceId : 'price_1R03syCmHaaYVWvZsbny3ljD',
     quantity:1,
     description: "O plano perfeito se você está começando a usar nosso site",
-    features: ['Texto Dedicado', 'Contador Tempo Real', 'Data De Inicio', 'Máximo de 6 Imagens', 'Suport 24h','Música Escolhida'],
+    features: ['Texto Dedicado', 'Contador Tempo Real', 'Data De Inicio', 'Máximo de 5 Imagens', 'Suport 24h','Música Escolhida'],
     featured: false,
   },
   {
@@ -18,6 +19,7 @@ const tiers = [
     id: 'tier-lifetime',
     href: '#',
     priceMonthly: '25',
+    oldPriceMonthly: '50', // Preço antes do desconto
     priceId : 'price_1R04PnCmHaaYVWvZDnHnELJe',
     quantity:1,
     description: 'Ideal para você que quer um site para lembrar da pessoa amanha para toda vida.',
@@ -25,7 +27,7 @@ const tiers = [
       'Texto Dedicado',
       'Contador Tempo Real',
       'Data De Inicios',
-      'Máximo de 6 Imagens',
+      'Máximo de 5 Imagens',
       'Suport 24hs',
       'Música Escolhida',
       'URL Customisada',
@@ -88,6 +90,7 @@ export default function ChoicePlanLandigPage() {
               {tier.name}
             </h3>
             <p className="mt-4 flex items-baseline gap-x-2">
+              
               <span
                 className={classNames(
                   tier.featured ? 'text-white' : 'text-gray-900',
@@ -97,6 +100,9 @@ export default function ChoicePlanLandigPage() {
                 R$
                 {tier.priceMonthly}
               </span>
+              {tier.oldPriceMonthly && (
+                <span className="text-lg line-through text-red-400">R${tier.oldPriceMonthly}</span>
+              )}
               <span className={classNames(tier.featured ? 'text-gray-400' : 'text-gray-500', 'text-base')}></span>
             </p>
             <p className={classNames(tier.featured ? 'text-gray-300' : 'text-gray-600', 'mt-6 text-base/7')}>

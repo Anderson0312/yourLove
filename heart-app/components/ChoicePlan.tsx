@@ -10,7 +10,7 @@ const tiers = [
     priceId : 'price_1R03syCmHaaYVWvZsbny3ljD',
     quantity:1,
     description: "O plano perfeito se você está começando a usar nosso site",
-    features: ['Texto Dedicado', 'Contador Tempo Real', 'Data De Inicio', 'Máximo de 6 Imagens', 'Suport 24h','Música Escolhida'],
+    features: ['Texto Dedicado', 'Contador Tempo Real', 'Data De Inicio', 'Máximo de 5 Imagens', 'Suport 24h','Música Escolhida'],
     featured: false,
   },
   {
@@ -25,7 +25,7 @@ const tiers = [
       'Texto Dedicado',
       'Contador Tempo Real',
       'Data De Inicios',
-      'Máximo de 6 Imagens',
+      'Máximo de 5 Imagens',
       'Suport 24hs',
       'Música Escolhida',
       'URL Customisada',

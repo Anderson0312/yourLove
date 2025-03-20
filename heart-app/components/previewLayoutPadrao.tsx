@@ -47,7 +47,6 @@ interface PropsPreview {
   useEffect(() => {
     const savedUsername = localStorage.getItem('username');
     setUsername(savedUsername); 
-    console.log(savedUsername);
   }, []);
 
     useEffect(() => {

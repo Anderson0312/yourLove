@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { FaSearch, FaBell,  FaPlus } from 'react-icons/fa';
-import { getRegistrationData, getUsernameFromToken } from '@/services/api';
+import { getRegistrationData } from '@/services/api';
 import HeartLoader from './HeartLoader';
 import Carousel from './Carousel';
 import MusicPlayerNetflix from './MusicPlayerNetflix';
@@ -19,12 +19,11 @@ interface FormData {
 export default function PreviewLayoutNetfilx() {
     const [username, setUsername] = useState<string | null>(null);
     
-      useEffect(() => {
-        const user = getUsernameFromToken();
-        setUsername(user);
-      }, []);
+    useEffect(() => {
+      const savedUsername = localStorage.getItem('username');
+      setUsername(savedUsername); 
+    }, []);
 
-    const userId = username; 
     const now = new Date(
         new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
       );
@@ -48,10 +47,10 @@ export default function PreviewLayoutNetfilx() {
 
 
     useEffect(() => {
-        if (userId) {
+        if (username) {
             const fetchData = async () => {
                 try {
-                    const response = await getRegistrationData(userId); // Busca os dados da API
+                    const response = await getRegistrationData(username); // Busca os dados da API
                     setData(response); // Atualiza o estado com os dados recebidos
                 } catch (error) {
                     console.error('Erro ao buscar dados:', error);
@@ -62,7 +61,7 @@ export default function PreviewLayoutNetfilx() {
 
             fetchData();
         }
-    }, [userId]);
+    }, [username]);
 
     if (loading) {
         return <HeartLoader/>;// Exibe um loading enquanto os dados são buscados

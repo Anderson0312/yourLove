@@ -10,7 +10,6 @@ interface YouTubeMusicSearchProps {
 
 function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSearchProps) {
     const [searchTerm, setSearchTerm] = useState("");
-    const [videoId, setVideoId] = useState("");
     const [searchResults, setSearchResults] = useState<{ videoId: string; title: string; thumbnail: string }[]>([]);
     const [selectedMusic, setSelectedMusic] = useState<{ videoId: string; title: string; thumbnail: string } | null>(null);
 
@@ -30,7 +29,6 @@ function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSe
     }
 
     function handleSelectMusic(music: { videoId: string; title: string; thumbnail: string }) {
-        setVideoId(music.videoId);
         setSelectedMusic(music);
         setSearchResults([]); // Limpa os resultados da busca
         onMusicSelect(music);

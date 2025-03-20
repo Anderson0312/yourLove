@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Footer = () => {
     return (
       <footer className="w-full pt-24 bg-gradient-to-r from-red-600 to-red-500 grid grid-cols-1 gap-12 px-12 box-border md:grid-cols-3">
@@ -42,9 +44,9 @@ const Footer = () => {
         </div>
         
         <div className="col-span-full text-center text-white mt-12 text-sm py-2 flex items-center justify-center gap-2 max-md:flex-col">
-          <a className="text-white" href="/termos">Termos de uso</a>
+          <Link className="text-white z-10" href="/termos">Termos de uso</Link>
           <span>•</span>
-          <a className="text-white" href="/privacidade">Política de Privacidade</a>
+          <Link className="text-white z-10" href="/privacidade">Política de Privacidade</Link>
           <span>•</span>
           <p>Todos os direitos reservados - Our Love 2025</p>
         </div>

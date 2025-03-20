@@ -1,5 +1,6 @@
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { useRouter } from "next/navigation";
+import ButtonCustom from './Button';
 
 const tiers = [
   {
@@ -125,23 +126,8 @@ export default function ChoicePlanLandigPage() {
                 </li>
               ))}
             </ul>
-            <button
-              aria-describedby={tier.id}
-              type='button'
-              className={classNames(
-                tier.featured
-                  ? 'w-full bg-red-500 text-white shadow-xs hover:bg-red-400 focus-visible:outline-red-500'
-                  : 'w-full text-red-600 ring-1 ring-red-200 ring-inset hover:ring-red-300 focus-visible:outline-red-600',
-                'mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10',
-              )}
-              onClick={handleClick}
 
-            >
-
-              
-              Criar Agora
-              
-            </button>
+            <ButtonCustom text={'Criar Agora'}/>
           </div>
         ))}
       </div>

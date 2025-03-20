@@ -39,6 +39,9 @@ function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSe
   
     return (
       <div className="">
+        <label htmlFor="about" className="poppins-thin block text-lg font-bold text-withe mb-2">
+                  Selecione a música
+        </label>
         <div className="flex gap-2">
           <input
             type="text"
@@ -58,7 +61,7 @@ function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSe
   
         {/* Lista de resultados */}
         {searchResults.length > 0 && (
-          <ul className="mt-4 space-y-2">
+          <ul className="mt-4 space-y-2" >
             {searchResults.map((result) => (
               <li
                 key={result.videoId}
@@ -73,16 +76,21 @@ function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSe
         )}
 
          {/* Música selecionada */}
-         {selectedMusic && (
+         {selectedMusic && selectedMusic.videoId ? (
           <div className="mt-4 p-4 bg-gray-800 rounded-md flex items-center gap-3 justify-between">
-            <div className="flex justify-between items-center  gap-3 ">
-              <Image width={12} height={12} src={selectedMusic.thumbnail} alt={selectedMusic.title} className="w-12 h-12 rounded" />
+            <div className="flex justify-between items-center gap-3">
+              <Image
+                width={12}
+                height={12}
+                src={selectedMusic.thumbnail}
+                alt={selectedMusic.title}
+                className="w-12 h-12 rounded"
+              />
               <span className="text-white">{selectedMusic.title}</span>
             </div>
-            {/* Player */}
-            {videoId && <YouTubeAudioPlayer videoId={videoId} />}
+            {selectedMusic.videoId && <YouTubeAudioPlayer videoId={selectedMusic.videoId} />}
           </div>
-      )}
+        ) : null}
   
         
       </div>

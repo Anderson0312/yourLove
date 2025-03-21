@@ -294,7 +294,7 @@ const RegisterStep = () => {
                     value={formData.names}
                     onChange={(e) => setFormData({ ...formData, names: e.target.value })}
                     placeholder="Nomes do casal"
-                    className="block w-full rounded-md bg-gray-700 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
+                    className="block w-full rounded-md bg-transparent border px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
                   />
                   {showErrors && errors.names && <p className="text-red-500 text-sm mt-1">{errors.names}</p>}
 
@@ -312,7 +312,7 @@ const RegisterStep = () => {
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     placeholder="Titulo do site"
-                    className="block w-full rounded-md bg-gray-700 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
+                    className="block w-full rounded-md bg-transparent border px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
                   />
                   {showErrors && errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
                 </div>
@@ -335,7 +335,7 @@ const RegisterStep = () => {
                     placeholder="Texto do casal"
                     rows={3}
                     onChange={(e) => setFormData({ ...formData, text: e.target.value })}
-                    className="block w-full rounded-md bg-gray-700 px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-red-300 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/7"
+                    className="block w-full rounded-md bg-transparent border px-3 py-1.5 text-base text-withe outline-1 -outline-offset-1 outline-red-300 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/7"
                     value={formData.text}
                   />
                 </div>
@@ -376,7 +376,7 @@ const RegisterStep = () => {
                     type="datetime-local"
                     value={formData.date ? formData.date.toLocaleString('sv-SE').slice(0, 16) : ''} 
                     onChange={handleDateChange}
-                    className="block w-full rounded-md bg-gray-700 px-3 py-2 text-base text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600 sm:text-sm pl-10"
+                    className="block w-full rounded-md bg-transparent border px-3 py-2 text-base text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600 sm:text-sm pl-10"
                     style={{ width: '100%' }}
                   />
                   <CalendarDateRangeIcon className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400 w-5 h-5"/>
@@ -389,7 +389,7 @@ const RegisterStep = () => {
                 </label>
                 <label
                     htmlFor="file-upload"
-                    className="mt-2 flex cursor-pointer justify-center bg-gray-700 rounded-lg border border-dashed border-gray-900/25 px-3 py-5"
+                    className="mt-2 flex cursor-pointer justify-center bg-transparent rounded-lg border px-3 py-5"
                   >
                     <div className="text-center">
                       <PhotoIcon aria-hidden="true" className="mx-auto size-12 text-gray-300" />

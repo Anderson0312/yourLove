@@ -41,9 +41,10 @@ export default function Home() {
 
     useEffect(() => {
         if (userId) {
+            const decodedUsername = decodeURIComponent(userId as string);
             const fetchData = async () => {
                 try {
-                    const response = await getRegistrationData(userId);
+                    const response = await getRegistrationData(decodedUsername);
                     setData(response);
                 } catch (error) {
                     console.error('Erro ao buscar dados:', error);

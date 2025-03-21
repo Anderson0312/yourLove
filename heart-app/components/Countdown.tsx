@@ -62,10 +62,11 @@ const Countdown: React.FC<CountdownProps> = ({ startDate }) => {
       {Object.entries(timeDiff).map(([label, value]) => (
         <div
           key={label}
-          className="flex flex-col items-center justify-center w-20 h-20 bg-zinc-950 border border-gray-800 rounded shadow"
-          style={{ width: "8rem" }}>
+          className="flex flex-col items-center justify-center w-20 h-20   rounded-lg shadow"
+          style={{ width: "8rem", backgroundColor:'#131313'}}
+          >
           <span className="text-2xl font-bold text-white-700">{value}</span>
-          <span className="text-sm text-white-500 uppercase">{label}</span>
+          <span className="text-sm font-medium text-white-500 uppercase" style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}>{label}</span>
         </div>
       ))}
     </div>

@@ -71,10 +71,10 @@ export default function FormComponent({ formData }: FormComponentProps) {
         setError(null);
 
         const currentStep = 5;
-
+        const decodedUsername = decodeURIComponent(userId as string);
         try {
             // Enviar os dados para a API
-            await saveRegistrationData(userId, currentStep, formState);
+            await saveRegistrationData(decodedUsername, currentStep, formState);
 
             // Limpar o formulário ou redirecionar o usuário
             setFormState({

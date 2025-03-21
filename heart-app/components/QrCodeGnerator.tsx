@@ -30,7 +30,18 @@ const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ dynamicPath }) => {
   return (
     <div className="flex flex-col items-center gap-4 p-4 border rounded-lg shadow-md">
       <div ref={qrRef}>
-        <QRCodeCanvas value={fullUrl} size={200} />
+      <QRCodeCanvas
+        value={fullUrl}
+        size={220} // Aumente o tamanho total
+        level="H" // Máximo nível de correção de erro
+        imageSettings={{
+          src: "/heart.png",
+          height: 60, // Diminua um pouco o tamanho da imagem
+          width: 60,
+          excavate: true,
+        }}
+      />
+
       </div>
       <p className="text-sm text-gray-500 break-words">{fullUrl}</p>
       <button

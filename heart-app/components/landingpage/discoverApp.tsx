@@ -3,11 +3,14 @@ import Countdown from "../Countdown";
 
 export default function DiscoverApp() {
   const data = new Date();
+  data.setFullYear(data.getFullYear() -2); // Adiciona 1 ano
+  data.setMonth(data.getMonth() + 3);
+
     return (
       <div className=" bg-gradient-to-r from-red-600 to-red-500 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         <div>
-          <h2 className="text-center text-base/7 font-semibold">O que oferecemos</h2>
+          <h2 className="text-center text-base/7 font-semibold text-black">O que oferecemos</h2>
           <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
           Vários Recursos
           </p>

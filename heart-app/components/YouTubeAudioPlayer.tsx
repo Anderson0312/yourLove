@@ -21,20 +21,29 @@ function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
     const initializePlayer = () => {
       if (window.YT && window.YT.Player) {
         const newPlayer = new window.YT.Player("youtube-audio", {
-          height: "0",
-          width: "0",
+          height: "1",
+          width: "1",
           videoId: videoId,
           playerVars: {
-            autoplay: 1, // Não iniciar automaticamente
+            autoplay: 1,
             controls: 0,
             modestbranding: 1,
             showinfo: 0,
             rel: 0,
-            mute: 0, 
           },
           events: {
             onReady: (event) => {
               setPlayer(event.target);
+
+              // Disparar um clique fantasma para tentar ativar o áudio
+              const fakeClick = document.createElement("button");
+              fakeClick.style.position = "absolute";
+              fakeClick.style.opacity = "0";
+              document.body.appendChild(fakeClick);
+              fakeClick.click();
+              document.body.removeChild(fakeClick);
+
+              // Tentar iniciar o vídeo após um pequeno delay
               setTimeout(() => {
                 event.target.playVideo();
               }, 500);
@@ -63,25 +72,27 @@ function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
       initializePlayer();
     };
 
+    // Método alternativo usando IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && player && !isPlaying) {
+          player.playVideo();
+        }
+      });
+    });
 
-    // Estratégia de burlar autoplay detectando movimento do usuário
-    const handleUserInteraction = () => {
-      if (player && !isPlaying) {
-        player.playVideo();
-        document.removeEventListener("mousemove", handleUserInteraction);
-        document.removeEventListener("click", handleUserInteraction);
-      }
-    };
-
-    document.addEventListener("mousemove", handleUserInteraction);
-    document.addEventListener("click", handleUserInteraction);
+    const hiddenDiv = document.createElement("div");
+    hiddenDiv.style.position = "absolute";
+    hiddenDiv.style.bottom = "-100px";
+    document.body.appendChild(hiddenDiv);
+    observer.observe(hiddenDiv);
 
     return () => {
       if (player) {
         player.destroy();
       }
-      document.removeEventListener("mousemove", handleUserInteraction);
-      document.removeEventListener("click", handleUserInteraction);
+      observer.disconnect();
+      document.body.removeChild(hiddenDiv);
     };
   }, [videoId]);
 
@@ -97,7 +108,7 @@ function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
 
   return (
     <div className="flex">
-      <div id="youtube-audio" style={{ display: "none" }}></div>
+      <div id="youtube-audio" style={{ position: "absolute", width: "1px", height: "1px" }}></div>
       <button type="button" onClick={togglePlayPause}>
         {isPlaying ? (
           <PauseCircleIcon className="size-8 text-black hover:text-red-200" />

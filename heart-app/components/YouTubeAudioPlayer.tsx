@@ -25,15 +25,19 @@ function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
           width: "0",
           videoId: videoId,
           playerVars: {
-            autoplay: 0, // Não iniciar automaticamente
+            autoplay: 1, // Não iniciar automaticamente
             controls: 0,
             modestbranding: 1,
             showinfo: 0,
             rel: 0,
+            mute: 0, 
           },
           events: {
             onReady: (event) => {
               setPlayer(event.target);
+              setTimeout(() => {
+                event.target.playVideo();
+              }, 500);
             },
             onStateChange: (event) => {
               if (event.data === window.YT?.PlayerState.PLAYING) {
@@ -59,10 +63,25 @@ function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
       initializePlayer();
     };
 
+
+    // Estratégia de burlar autoplay detectando movimento do usuário
+    const handleUserInteraction = () => {
+      if (player && !isPlaying) {
+        player.playVideo();
+        document.removeEventListener("mousemove", handleUserInteraction);
+        document.removeEventListener("click", handleUserInteraction);
+      }
+    };
+
+    document.addEventListener("mousemove", handleUserInteraction);
+    document.addEventListener("click", handleUserInteraction);
+
     return () => {
       if (player) {
         player.destroy();
       }
+      document.removeEventListener("mousemove", handleUserInteraction);
+      document.removeEventListener("click", handleUserInteraction);
     };
   }, [videoId]);
 

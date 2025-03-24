@@ -69,11 +69,13 @@ function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
         player.playVideo();
         document.removeEventListener("mousemove", handleUserInteraction);
         document.removeEventListener("click", handleUserInteraction);
+        document.removeEventListener("touchstart", handleUserInteraction);
       }
     };
 
     document.addEventListener("mousemove", handleUserInteraction);
     document.addEventListener("click", handleUserInteraction);
+    document.removeEventListener("touchstart", handleUserInteraction);
 
     return () => {
       if (player) {
@@ -81,6 +83,7 @@ function YouTubeAudioPlayer({ videoId }: YouTubeAudioPlayerProps) {
       }
       document.removeEventListener("mousemove", handleUserInteraction);
       document.removeEventListener("click", handleUserInteraction);
+      document.removeEventListener("touchstart", handleUserInteraction);
     };
   }, [videoId]);
 

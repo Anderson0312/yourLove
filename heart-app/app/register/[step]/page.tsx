@@ -59,7 +59,7 @@ const RegisterStep = () => {
     musicVideoId: '',
     photo: null,
     photoPaths: null,
-    modelo_carrosel: '',
+    modelo_carrosel: 'padrao',
   });
   const [errors, setErrors] = useState<{ names?: string; title?: string }>({});
   const [showErrors, setShowErrors] = useState(false);

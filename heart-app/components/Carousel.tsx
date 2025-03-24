@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSwipeable } from "react-swipeable";
 
 interface CarouselProps {
   images?: string[] | null; // Permite que seja null
@@ -26,6 +27,12 @@ const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, inter
       setCurrentIndex((prevIndex) => (prevIndex - 1 + totalImages) % totalImages);
     }
   };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => setCurrentIndex((prev) => (prev + 1) % totalImages),
+    onSwipedRight: () => setCurrentIndex((prev) => (prev - 1 + totalImages) % totalImages),
+    trackMouse: true,
+  });
 
   // Efeito para o autoPlay
   useEffect(() => {
@@ -107,7 +114,7 @@ const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, inter
 
 <div className="relative w-full max-w-3xl mx-auto overflow-hidden">
       {variant === "padrao" && (
-        <div className="relative h-64" style={{ height: preview ? "21em" : "30rem" }}>
+        <div  {...handlers} className="relative h-64" style={{ height: preview ? "21em" : "30rem" }}>
           {totalImages > 0 ? (
             validImages.map((image, index) => (
               <div
@@ -132,6 +139,7 @@ const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, inter
       {variant === "cubo" && (
         <div className="perspective">
         <div 
+         {...handlers} 
           className="cube h-64 "
           style={{
             transform: `rotateY(${currentIndex * -90}deg)`,
@@ -160,6 +168,7 @@ const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, inter
 
       {variant === "cards" && (
         <div
+        {...handlers} 
           className="flex transition-transform duration-700 ease-in-out relative h-64"
           style={{ height: preview ? "21em" : "30rem", transform: `translateX(-${currentIndex * 105}%)` }}
         >

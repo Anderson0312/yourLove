@@ -222,7 +222,7 @@ export default function LandingPage() {
                   controls={false}
                   muted
                   src="videos/video1.mp4"
-                  className="absolute inset-0 w-full h-full object-cover filter blur-[2px]"
+                  className="absolute inset-0 w-full h-full object-cover filter blur-[1px]"
                 ></video>
               </div>
             </div>
@@ -245,7 +245,7 @@ export default function LandingPage() {
                   controls={false}
                   muted
                   src="videos/video2.mp4"
-                  className="absolute inset-0 w-full h-full object-cover filter blur-[2px]"
+                  className="absolute inset-0 w-full h-full object-cover filter blur-[1px]"
                 ></video>
               </div>
             </div>
@@ -270,7 +270,7 @@ export default function LandingPage() {
                   controls={false}
                   muted
                   src="videos/video3.mp4"
-                  className="absolute inset-0 w-full h-full object-cover filter blur-[2px]"
+                  className="absolute inset-0 w-full h-full object-cover filter blur-[1px]"
                 ></video>
               </div>
             </div>

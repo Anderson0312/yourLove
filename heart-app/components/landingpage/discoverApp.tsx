@@ -1,3 +1,4 @@
+import { QRCodeCanvas } from "qrcode.react";
 import Countdown from "../Countdown";
 
 
@@ -5,7 +6,7 @@ export default function DiscoverApp() {
   const data = new Date();
   data.setFullYear(data.getFullYear() -2); // Adiciona 1 ano
   data.setMonth(data.getMonth() + 3);
-
+  const fullUrl = `https://our-love-app.vercel.app/register/1`
     return (
       <div className=" bg-gradient-to-r from-red-600 to-red-500 py-24 sm:py-32">
         <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
@@ -71,11 +72,15 @@ export default function DiscoverApp() {
                   </p>
                 </div>
                 <div className="flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
-                  <img
-                    className="w-full rounded-xl max-lg:max-w-xs "
-                    src="\qrcode.png"
-                    alt=""
-                  />
+                  <QRCodeCanvas value={fullUrl}
+                    size={170} 
+                    level="H" 
+                    imageSettings={{
+                      src: "/heart.png",
+                      height: 60, 
+                      width: 60,
+                      excavate: true,
+                    }}/>
                 </div>
               </div>
               <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5"></div>

@@ -49,7 +49,7 @@ export default function ChoiceTema() {
                   "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
               }}
             >
-              <video data-sentry-element="Image" loop data-sentry-source-file="themes.tsx" autoPlay muted playsInline controls={false} width="1000" height="1000" data-nimg="1" className="w-full rounded-xl group-hover/card:shadow-xl" src="videos/videoweb.mp4" style={{color: 'transparent'}}/>
+              <video data-sentry-element="Image" loop data-sentry-source-file="themes.tsx" autoPlay muted playsInline controls={false} width="1000" height="1000" data-nimg="1" className="w-full rounded-xl group-hover/card:shadow-xl filter blur-[2px]" src="videos/videoweb3.mp4" style={{color: 'transparent'}}/>
             </div>
 
 
@@ -91,7 +91,7 @@ export default function ChoiceTema() {
                   "translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)",
               }}
             >
-              <video  autoPlay muted loop data-sentry-element="Image" playsInline data-sentry-source-file="themes.tsx" controls={false} width="1000" height="1000" data-nimg="1" className="w-full rounded-xl group-hover/card:shadow-xl" src="videos/videoweb2.mp4" style={{color: 'transparent'}}/>
+              <video  autoPlay muted loop data-sentry-element="Image" playsInline data-sentry-source-file="themes.tsx" controls={false} width="1000" height="1000" data-nimg="1" className="w-full rounded-xl group-hover/card:shadow-xl filter blur-[2px]" src="videos/videoweb2.mp4" style={{color: 'transparent'}}/>
             </div>
 
             

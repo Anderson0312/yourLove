@@ -21,7 +21,7 @@ const Footer = () => {
               <rect width="20" height="16" x="2" y="4" rx="2"></rect>
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
             </svg>
-            suporte@our-love.com
+            suporte@our-lovee.com
           </a>
         </div>
         
@@ -48,7 +48,7 @@ const Footer = () => {
           <span>•</span>
           <Link className="text-white z-10" href="/privacidade">Política de Privacidade</Link>
           <span>•</span>
-          <p>Todos os direitos reservados - Our Love 2025</p>
+          <p>Todos os direitos reservados - Our Lovee 2025</p>
         </div>
       </footer>
     );

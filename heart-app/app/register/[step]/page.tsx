@@ -205,18 +205,18 @@ const RegisterStep = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!username) return; 
-    try {
-      await saveRegistrationData(username, currentStep, formData);
-      alert('Dados enviados com sucesso!');
-      setPreviewImages([]);
-      router.push('/success');
-    } catch (error) {
-      console.error('Erro ao enviar os dados:', error);
-    }
-  };
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   if (!username) return; 
+  //   try {
+  //     await saveRegistrationData(username, currentStep, formData);
+  //     alert('Dados enviados com sucesso!');
+  //     setPreviewImages([]);
+  //     router.push('/success');
+  //   } catch (error) {
+  //     console.error('Erro ao enviar os dados:', error);
+  //   }
+  // };
 
   const handleRemovePhoto = async (index: number) => {
     if (!formData.photoPaths) return;
@@ -279,7 +279,7 @@ const RegisterStep = () => {
         </div>
 
         {/* Form Content */}
-        <form onSubmit={handleSubmit}>
+        <form>
           {currentStep === 1 && (
             <div className="space-y-4 ">
             <div className="sm:col-span-4">

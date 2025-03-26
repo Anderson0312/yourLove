@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AnimationGrid from "./animations/animacoes";
 
 interface LayoutSelectorProps {
   onLayoutChange: (layout: string) => void;
@@ -8,6 +9,7 @@ interface LayoutSelectorProps {
 const LayoutSelector: React.FC<LayoutSelectorProps> = ({ onLayoutChange, onCarrouselChange }) => {
   const [layout, setLayout] = useState("padrao");
   const [modCarrosel, setModCarrosel] = useState("padrao");
+  
 
   useEffect(() => {
     const savedLayout = localStorage.getItem("userLayout");
@@ -37,49 +39,113 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({ onLayoutChange, onCarro
 
   return (
     <div className="container p-4">
-      <div className="flex gap-4 justify-center mb-4">
+      <h2 className="text-lg font-bold m-2">Escolha o Layout do Site</h2>
+     <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 overflow-hidden">
         <button
           type="button"
-          className={`py-2 px-4 rounded ${layout === "padrao" ? "bg-red-500" : "border"}`}
+          className={`transform relative bg-neutral-800 rounded-xl h-20 overflow-hidden duration-300 hover:opacity-100 cursor-pointer
+          ${layout === "padrao" ? "border-2 border-red-500 opacity-100" : "opacity-80"}`}
           onClick={() => handleChange("padrao")}
         >
           Padrão Layout
         </button>
         <button
           type="button"
-          className={`py-2 px-4 rounded ${layout === "netflix" ? "bg-red-500" : "border"}`}
+          className={`transform relative bg-neutral-800 rounded-xl h-20 overflow-hidden duration-300 hover:opacity-100 cursor-pointer ${layout === "netflix"  ? "border-2 border-red-500 opacity-100" : "opacity-80"}`}
           onClick={() => handleChange("netflix")}
         >
+          <div className="bg-black text-yellow-500 text-xs font-semibold flex items-center rounded-full px-2 py-[2px] z-50 absolute bottom-2 right-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-sparkles"
+              >
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                <path d="M20 3v4" />
+                <path d="M22 5h-4" />
+                <path d="M4 17v2" />
+                <path d="M5 18H3" />
+              </svg>
+            </div>
           Loveflix Layout
         </button>
       </div>
 
       {layout === "padrao" && (
         <div>
-          <h3 className="text-lg font-bold text-center mb-2">Escolha o Carrossel</h3>
-          <div className="flex gap-4 justify-center">
+          <h2 className="text-lg font-bold  m-2">Escolha o Carrossel</h2>
+          <div className="grid grid-cols-3 lg:grid-cols-3 gap-4 overflow-hidden">
             <button
               type="button"
-              className={`py-2 px-4 rounded ${modCarrosel === "padrao" ? "bg-red-500" : "border"}`}
+               className={`transform relative bg-neutral-800 rounded-xl h-20 overflow-hidden duration-300 hover:opacity-100 cursor-pointer ${modCarrosel === "padrao" ? "border-2 border-red-500 opacity-100" : "opacity-80"}`}
               onClick={() => handleChangeCarrosel("padrao")}
             >
               Padrão
             </button>
             <button
               type="button"
-              className={`py-2 px-4 rounded ${modCarrosel === "cards" ? "bg-red-500" : "border"}`}
+              className={`transform relative bg-neutral-800 rounded-xl h-20 overflow-hidden duration-300 hover:opacity-100 cursor-pointer ${modCarrosel === "cards" ? "border-2 border-red-500 opacity-100" : "opacity-80"}`}
               onClick={() => handleChangeCarrosel("cards")}
             >
+              <div className="bg-black text-yellow-500 text-xs font-semibold flex items-center rounded-full px-2 py-[2px] z-50 absolute bottom-2 right-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-sparkles"
+              >
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                <path d="M20 3v4" />
+                <path d="M22 5h-4" />
+                <path d="M4 17v2" />
+                <path d="M5 18H3" />
+              </svg>
+            </div>
               Cards
             </button>
             <button
               type="button"
-              className={`py-2 px-4 rounded ${modCarrosel === "cubo" ? "bg-red-500" : "border"}`}
+              className={`transform relative bg-neutral-800 rounded-xl h-20 overflow-hidden duration-300 hover:opacity-100 cursor-pointer ${modCarrosel === "cubo" ? "border-2 border-red-500 opacity-100" : "opacity-80"}`}
               onClick={() => handleChangeCarrosel("cubo")}
             >
+              <div className="bg-black text-yellow-500 text-xs font-semibold flex items-center rounded-full px-2 py-[2px] z-50 absolute bottom-2 right-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-sparkles"
+              >
+                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                <path d="M20 3v4" />
+                <path d="M22 5h-4" />
+                <path d="M4 17v2" />
+                <path d="M5 18H3" />
+              </svg>
+            </div>
               Cubo
             </button>
           </div>
+
+          <AnimationGrid onSelect={''}/>
 
       {/* <h3 className="text-lg font-bold text-center mb-2 mt-4">Escolha Modelo de Data</h3>
       <div className="flex gap-4 justify-center">

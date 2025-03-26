@@ -12,6 +12,10 @@ import LayoutSelector from '@/components/LayoutSelector';
 import PreviewLayoutNetfilx from '@/components/previewLayoutNetflix';
 import ChoicePlan from '@/components/ChoicePlan';
 import HeadingTop from '@/components/HeadingTop';
+import MeteorShower from '@/components/animations/MeteorShow';
+import CometShower from '@/components/animations/CometasShow';
+import AuroraBorealis from '@/components/animations/Aurora';
+import ColorVortex from '@/components/animations/VorticeCores';
 
 
 const steps = [
@@ -354,11 +358,7 @@ const RegisterStep = () => {
                   musicVideoId: music.videoId 
                 })}
               />
-
-
-              </div>
-
-              
+              </div>        
 
           )}
 
@@ -490,7 +490,6 @@ const RegisterStep = () => {
 
         {currentStep === 4 && (
           <div>
-            <h2 className="text-lg font-bold text-center">Escolha o Layout do Site</h2>
             <LayoutSelector 
               onLayoutChange={(selectedLayout) => {
                 setFormData((prev) => ({
@@ -507,6 +506,11 @@ const RegisterStep = () => {
                 setModCarrosel(selectedCarrosel);
               }}
             />
+
+          {/* <div className="hearts-container fixed inset-0 z-0 overflow-hidden"> */}
+          {/* <ColorVortex/> */}
+                {/* </div> */}
+        
 
           </div>
         )}

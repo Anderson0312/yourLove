@@ -3,7 +3,7 @@ import { useState } from "react";
 import bcrypt from "bcryptjs";
 import { saveRegisterUserData } from "@/services/api";
 import Link from "next/link";
-import FallingHearts from "@/components/FallingHearts";
+import FallingHearts from "@/components/animations/FallingHearts";
 import Image from "next/image";
 
 

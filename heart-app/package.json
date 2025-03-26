@@ -17,6 +17,7 @@
     "bcryptjs": "^3.0.1",
     "browser-image-compression": "^2.0.2",
     "dotenv": "^16.4.7",
+    "framer-motion": "^12.6.0",
     "heart-app": "file:",
     "heroicons": "^2.2.0",
     "jwt-decode": "^4.0.0",

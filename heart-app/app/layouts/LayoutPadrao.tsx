@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import Carousel from "@/components/Carousel";
 import Countdown from "@/components/Countdown";
-import FallingHearts from "@/components/FallingHearts";
+import FallingHearts from "@/components/animations/FallingHearts";
 import MusicPlayer from "@/components/MusicPlayer";
 import TextDatting from "@/components/TextDatting";
 import { useParams } from 'next/navigation';

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation"; // Correção na importação
 import { getRegisterUserData } from "@/services/api";
 import Link from "next/link";
-import FallingHearts from "@/components/FallingHearts";
+import FallingHearts from "@/components/animations/FallingHearts";
 import Image from "next/image";
 import GoogleButton from "@/components/GoogleButton";
 

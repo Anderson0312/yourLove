@@ -54,8 +54,11 @@ export default function DiscoverApp() {
                   escolha uma música especial para vocês.
                   </p>
                 </div>
-                <div className="bg-black m-1 rounded-xl flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
-                <YouTubeMusicSearch/>
+                <div className="@container relative min-h-[10rem] w-full grow max-lg:mx-auto max-lg:max-w-sm">
+                  <div className="flex justify-center items-center absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[4cqw] border-x-[0.6cqw] border-t-[0.8cqw] border-gray-700 shadow-2xl"
+                  style={{ backgroundColor:'#0A0A0A'}}>
+                  <YouTubeMusicSearch/>
+                  </div>
                 </div>
               </div>
               <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-t-[2rem]"></div>

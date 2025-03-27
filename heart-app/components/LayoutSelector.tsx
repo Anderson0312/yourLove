@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import AnimationGrid from "./animations/animacoes";
 
+
 interface LayoutSelectorProps {
-  onLayoutChange: (layout: string) => void;
-  onCarrouselChange: (carrousel: string) => void;
-  onAnimatedChange: (animation: string) => void; 
+  onLayoutChange?: (layout: string) => void;
+  onCarrouselChange?: (carrousel: string) => void;
+  onAnimatedChange?: (animation: string) => void;
 }
 
 const LayoutSelector: React.FC<LayoutSelectorProps> = ({ 
@@ -19,38 +20,38 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   useEffect(() => {
     const savedLayout = localStorage.getItem("userLayout");
     const savedCarrousel = localStorage.getItem("userCarrosel");
-    const savedAnimation = localStorage.getItem("userAnimation"); // Adicione esta linha
-    
+    const savedAnimation = localStorage.getItem("userAnimation");
+
     if (savedLayout) {
       setLayout(savedLayout);
-      onLayoutChange(savedLayout);
+      onLayoutChange?.(savedLayout); // Usa ?. para evitar erro caso onLayoutChange seja undefined
     }
     if (savedCarrousel) {
       setModCarrosel(savedCarrousel);
-      onCarrouselChange(savedCarrousel);
+      onCarrouselChange?.(savedCarrousel);
     }
-    if (savedAnimation) { // Adicione este bloco
+    if (savedAnimation) {
       setSelectedAnimation(savedAnimation);
-      onAnimatedChange(savedAnimation);
+      onAnimatedChange?.(savedAnimation);
     }
   }, []);
 
   const handleChange = (selectedLayout: string) => {
     setLayout(selectedLayout);
     localStorage.setItem("userLayout", selectedLayout);
-    onLayoutChange(selectedLayout);
+    onLayoutChange?.(selectedLayout); // Usa ?. para evitar erro
   };
 
   const handleChangeCarrosel = (selectedCarrosel: string) => {
     setModCarrosel(selectedCarrosel);
     localStorage.setItem("userCarrosel", selectedCarrosel);
-    onCarrouselChange(selectedCarrosel);
+    onCarrouselChange?.(selectedCarrosel);
   };
 
   const handleAnimationSelect = (title: string) => {
     setSelectedAnimation(title);
     localStorage.setItem("userAnimation", title); 
-    onAnimatedChange(title); 
+    onAnimatedChange?.(title); 
   };
 
   return (

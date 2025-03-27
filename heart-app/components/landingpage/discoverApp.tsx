@@ -1,5 +1,7 @@
 import { QRCodeCanvas } from "qrcode.react";
 import Countdown from "../Countdown";
+import LayoutSelector from "../LayoutSelector";
+import YouTubeMusicSearch from "../YouTubeMusicSearch";
 
 
 export default function DiscoverApp() {
@@ -47,17 +49,13 @@ export default function DiscoverApp() {
               <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem]"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Layout Customizável</p>
+                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Música Escolhida</p>
                   <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                  Customize o layout da sua pagina da maneira que mais gostar.
+                  escolha uma música especial para vocês.
                   </p>
                 </div>
-                <div className="flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
-                  <img
-                    className="w-full rounded-xl max-lg:max-w-xs "
-                    src="/choicelayout.png"
-                    alt=""
-                  />
+                <div className="bg-black m-1 rounded-xl flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
+                <YouTubeMusicSearch/>
                 </div>
               </div>
               <div className="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-t-[2rem]"></div>
@@ -92,10 +90,10 @@ export default function DiscoverApp() {
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
                 <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
                   <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
-                  Música dedicada
+                  Layout Customizável
                   </p>
                   <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                  Dedique uma música especial. A música será reproduzida automaticamente na página.
+                  Customize o layout da sua pagina da maneira que mais gostar.
                   </p>
                 </div>
 
@@ -104,11 +102,7 @@ export default function DiscoverApp() {
                   <div className="@container relative min-h-[30rem] w-full grow max-lg:mx-auto max-lg:max-w-sm">
                   <div className="absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[4cqw] border-x-[0.6cqw] border-t-[0.8cqw] border-gray-700 bg-gray-900 shadow-2xl"
                   style={{ backgroundColor:'#0A0A0A'}}>
-                    <img
-                      className="size-full mt-2"
-                      src="/musicselect.png"
-                      alt=""
-                    />
+                    <LayoutSelector />
                   </div>
                 </div>
                     

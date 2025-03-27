@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, Transition } from 'framer-motion';
 
 interface Firefly {
   id: string;
@@ -47,7 +47,7 @@ const Fireflies = () => {
         coreColor: coreColors[colorIndex],
         glowColor: glowColors[colorIndex],
         opacity: Math.random() * 0.5 + 0.5, // Opacidade entre 0.5-1
-        duration: Math.random() * 15 + 15, // Duração mais longa
+        duration: Math.random() * 8 + 15, // Duração mais longa
         delay: Math.random() * 3
       };
     };
@@ -79,6 +79,14 @@ const Fireflies = () => {
       x: start.x + (Math.random() - 2) * 20,
       y: start.y + (Math.random() - 1) * 20
     };
+
+  const transition: Transition = {
+      duration: firefly.duration,
+      delay: firefly.delay,
+      ease: "easeInOut",
+      repeat: Infinity,
+      repeatType: "reverse" as const // Tipo correto para repeatType
+    };
     
     return {
       initial: { x: start.x, y: start.y, opacity: 0 },
@@ -87,13 +95,7 @@ const Fireflies = () => {
         y: end.y, 
         opacity: [0, firefly.opacity, 0],
       },
-      transition: {
-        duration: firefly.duration,
-        delay: firefly.delay,
-        ease: "easeInOut",
-        repeat: Infinity,
-        repeatType: "reverse"
-      }
+      transition
     };
   };
 

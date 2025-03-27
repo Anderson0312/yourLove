@@ -12,11 +12,6 @@ import LayoutSelector from '@/components/LayoutSelector';
 import PreviewLayoutNetfilx from '@/components/previewLayoutNetflix';
 import ChoicePlan from '@/components/ChoicePlan';
 import HeadingTop from '@/components/HeadingTop';
-import MeteorShower from '@/components/animations/MeteorShow';
-import CometShower from '@/components/animations/CometasShow';
-import AuroraBorealis from '@/components/animations/Aurora';
-import ColorVortex from '@/components/animations/VorticeCores';
-
 
 const steps = [
   { id: 1, name: 'Title and Date' },
@@ -39,6 +34,7 @@ interface FormData {
   photo: File[] | null ; 
   photoPaths: string[] | null; 
   modelo_carrosel: string; 
+  modelo_date: string; 
 }
 
 
@@ -64,16 +60,14 @@ const RegisterStep = () => {
     photo: null,
     photoPaths: null,
     modelo_carrosel: 'padrao',
+    modelo_date: 'nenhum',
   });
   const [errors, setErrors] = useState<{ names?: string; title?: string }>({});
   const [showErrors, setShowErrors] = useState(false);
   const [layout, setLayout] = useState(formData.layout || "padrao");
   const [modCarrosel, setModCarrosel] = useState(formData.modelo_carrosel || "padrao");
+  const [modAnimation, setModAnimation] = useState(formData.modelo_date || "nenhum");
 
-  // useEffect(() => {
-  //   const user = getUsernameFromToken();
-  //   setUsername(user); 
-  // }, []);
 
   useEffect(() => {
     if (formData.names) {
@@ -85,7 +79,6 @@ const RegisterStep = () => {
       setUsername(savedUsername); 
 
   }, [formData.names]);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -501,16 +494,19 @@ const RegisterStep = () => {
               onCarrouselChange={(selectedCarrosel) => {
                 setFormData((prev) => ({
                   ...prev,
-                  modelo_carrosel: selectedCarrosel, // Atualiza o formData com o carrossel
+                  modelo_carrosel: selectedCarrosel, 
                 }));
                 setModCarrosel(selectedCarrosel);
               }}
+              onAnimatedChange={(selectedAnimation) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  modelo_date: selectedAnimation, 
+                }));
+                setModAnimation(selectedAnimation);
+              }}
             />
 
-          {/* <div className="hearts-container fixed inset-0 z-0 overflow-hidden"> */}
-          {/* <ColorVortex/> */}
-                {/* </div> */}
-        
 
           </div>
         )}
@@ -573,7 +569,7 @@ const RegisterStep = () => {
       </div>
 
       {layout === "padrao" ? (
-          <PreviewLayoutPadrao modeloCarrosel={modCarrosel}/>
+          <PreviewLayoutPadrao modeloCarrosel={modCarrosel} modeloAnimeted={modAnimation}/>
         ) : (
           <PreviewLayoutNetfilx/>
         )}

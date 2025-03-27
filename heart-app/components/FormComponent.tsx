@@ -15,6 +15,7 @@ interface FormData {
     musicVideoId: string;
     photoPaths: string[];
     modelo_carrosel: string;
+    modelo_date: string;
 }
 interface FormComponentProps {
     formData: FormData;
@@ -33,6 +34,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
     const userId = params.id as string;
     const [layout, setLayout] = useState(formData.layout || "padrao");
     const [modcarrosel, setModCarrosel] = useState(formData.modelo_carrosel || "padrao");
+    const [modAnimation, setModAnimation] = useState(formData.modelo_date || "nenhum");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -88,6 +90,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
                 musicVideoId: '',
                 photoPaths: [],
                 modelo_carrosel: '',
+                modelo_date: '',
             });
             // setPreviewImages([]);
         } catch (err) {
@@ -114,7 +117,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
 
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 p-4 rounded shadow">
+        <form onSubmit={handleSubmit} className="space-y-4 p-4 rounded shadow overflow-y-auto max-h-[80vh]">
             <div>
                 <label className="block text-sm font-medium">Título</label>
                 <input
@@ -224,6 +227,13 @@ export default function FormComponent({ formData }: FormComponentProps) {
                                 }));
                                 setModCarrosel(selectedCarrosel);
                           }} 
+                          onAnimatedChange={(selectedAnimation) => {
+                            setFormState((prev) => ({
+                              ...prev,
+                              modelo_date: selectedAnimation, 
+                            }));
+                            setModAnimation(selectedAnimation);
+                          }}
                         />
 
                         

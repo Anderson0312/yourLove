@@ -23,6 +23,7 @@ interface FormData {
     musicThumbnail: string;
     musicVideoId: string;
     modelo_carrosel: string;
+    modelo_date: string;
 }
 
 export default function LayoutNetflix() {
@@ -44,7 +45,8 @@ export default function LayoutNetflix() {
       music:'',
       musicThumbnail:'',
       musicVideoId:'',
-      modelo_carrosel: ''
+      modelo_carrosel: '',
+      modelo_date: ''
 
   });
 

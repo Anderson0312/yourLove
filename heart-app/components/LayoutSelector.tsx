@@ -15,7 +15,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({
 }) => {
   const [layout, setLayout] = useState("padrao");
   const [modCarrosel, setModCarrosel] = useState("padrao");
-  const [selectedAnimation, setSelectedAnimation] = useState("");
+  const [selectedAnimation, setSelectedAnimation] = useState("Nenhuma");
 
   useEffect(() => {
     const savedLayout = localStorage.getItem("userLayout");

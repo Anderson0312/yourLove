@@ -60,7 +60,7 @@ const animations:AnimationType[] = [
 
 
 const AnimationGrid: React.FC<AnimationGridProps> = ({ onSelect }) => {
-  const [selectedAnimation, setSelectedAnimation] = useState<string | null>(null);
+  const [selectedAnimation, setSelectedAnimation] = useState<string | null>('Nenhuma');
 
   const handleSelect = (anim: AnimationType) => {
     setSelectedAnimation(anim.title);

@@ -52,7 +52,7 @@ interface PropsPreview {
         modelo_date: '',
     });
 
-    
+
   useEffect(() => {
     const savedUsername = localStorage.getItem('username');
     setUsername(savedUsername); 
@@ -80,8 +80,8 @@ interface PropsPreview {
 
     useEffect(() => {
         setModCarrosel(modeloCarrosel);
-        setModAnimation(modAnimation)
-    }, [modeloCarrosel, modAnimation]);
+        setModAnimation(modeloAnimeted);
+    }, [modeloCarrosel, modeloAnimeted]);
 
     const renderBackgroundAnimation = () => {
         switch (modAnimation) {

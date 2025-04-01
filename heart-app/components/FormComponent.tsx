@@ -98,6 +98,7 @@ export default function FormComponent({ formData }: FormComponentProps) {
             console.error('Erro ao enviar os dados:', err);
         } finally {
             setIsSubmitting(false);
+            window.location.reload();
         }
     };
 

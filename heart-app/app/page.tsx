@@ -1,6 +1,6 @@
 "use client"
 import ButtonCustom from "@/components/Button";
-import ChoicePlanLandigPage from "@/components/ChoicePlanLandigPage";
+import ChoicePlanLandigPage from "@/components/landingpage/ChoicePlanLandigPage";
 import FallingHearts from "@/components/animations/FallingHearts";
 import Footer from "@/components/Footer";
 

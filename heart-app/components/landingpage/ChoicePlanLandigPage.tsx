@@ -1,5 +1,5 @@
 import { CheckIcon } from '@heroicons/react/20/solid';
-import ButtonCustom from './Button';
+import ButtonCustom from '../Button';
 
 const tiers = [
   {
@@ -11,7 +11,7 @@ const tiers = [
     priceId : 'price_1R03syCmHaaYVWvZsbny3ljD',
     quantity:1,
     description: "O plano perfeito se você está começando a usar nosso site",
-    features: ['Texto Dedicado', 'Contador Tempo Real', 'Data De Inicio', 'Máximo de 5 Imagens', 'Suport 24h','Música Escolhida'],
+    features: ['Texto Dedicado', 'Contador Tempo Real','Data De Inicio', 'animações de fundo','Máximo de 5 Imagens', 'Suport 24h','Música Escolhida'],
     featured: false,
   },
   {
@@ -30,8 +30,10 @@ const tiers = [
       'Máximo de 5 Imagens',
       'Suport 24hs',
       'Música Escolhida',
-      'URL Customisada',
-      'Layout Escolhido',
+      'URL com seu nome',
+      'Edição Pós site feito',
+      'animações de fundo',
+      'Layout da escolha ',
     ],
     featured: true,
   },

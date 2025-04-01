@@ -27,7 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <link rel="icon" href="/heart.svg" />
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap"
+        />
+        <link rel="icon" href="/heart.svg" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

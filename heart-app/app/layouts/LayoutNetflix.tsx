@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { FaSearch, FaBell,  FaPlus } from 'react-icons/fa';
+import { FaSearch, FaBell,  FaCheckDouble, FaList } from 'react-icons/fa';
 import { getRegistrationData } from '@/services/api';
 import Carousel from '@/components/Carousel';
 import { useParams } from 'next/navigation';
@@ -11,6 +11,7 @@ import HeartLoader from '@/components/HeartLoader';
 import Modal from '@/components/Modal';
 import FormComponent from '@/components/FormComponent';
 import { PencilIcon } from '@heroicons/react/24/solid';
+import Top10Badge from '@/components/Top10Badge';
 
 interface FormData {
     title: string;
@@ -46,7 +47,7 @@ export default function LayoutNetflix() {
       musicThumbnail:'',
       musicVideoId:'',
       modelo_carrosel: '',
-      modelo_date: ''
+      modelo_date: '',
 
   });
 
@@ -139,22 +140,23 @@ export default function LayoutNetflix() {
         <Carousel images={data?.photoPaths} autoPlay={true} interval={5000} preview={true} />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
         <div className="absolute bottom-8 left-8">
-          <h1 className="text-4xl font-bold">{data?.title || "Título"}</h1>
+        <h1 className="text-4xl font-bold" style={{ fontFamily: "Dancing Script,Dancing Script Fallback" }}>{data?.title || "Título"}</h1>
           <div className="flex items-center space-x-2 mt-2">
             <span className="text-green-500 font-semibold">100% Match</span>
             <span className="text-gray-400">Since</span>
             <span className="text-gray-400">{ano}</span>
             <span className="px-2 py-1 border border-gray-400 rounded">{mes}</span>
             <span className="text-gray-400">{dia}</span>
+            {/* <span className="text-gray-400"><Top10Badge/> Em alta no momento</span> */}
           </div>
           <div className="flex space-x-4 mt-4">
-            <div className="flex items-center bg-white text-black px-4 py-2 rounded">
+            <div className="flex items-center bg-red-500 text-black px-4 py-2 rounded">
             <MusicPlayerNetflix selectedMusicUser={{
                   videoId: data.musicVideoId || "",
-                }}/> Play  
+                }}/> Reproduzir  
             </div>
             <button className="flex items-center bg-gray-700 bg-opacity-75 px-4 py-2 rounded">
-              <FaPlus className="mr-2" /> Minha lista
+              <FaCheckDouble className="mr-2" /> Favorito
             </button>
           </div>
         </div>
@@ -173,18 +175,21 @@ export default function LayoutNetflix() {
             <p className="text-gray-300 mb-4">Adventure, Drama, Romance</p>
           </div>
           <div className="md:w-1/3">
-            <h2 className="text-2xl font-bold mb-4">Mais como este</h2>
-            <div className="grid grid-cols-2 gap-3">
+            <div className='flex '>
+              <FaList className='w-10 h-5 mt-1'/>
+              <h2 className="text-2xl font-bold mb-4">Mais episódios</h2>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
             {data?.photoPaths?.map((path, index) => (
               <div key={index}>
                 <Image
                   src={path} // Se os caminhos estiverem completos no array, use diretamente
                   alt={`Movie ${index + 1} poster`}
-                  width={150}
+                  width={180}
                   height={225}
                   className="w-25 h-24 object-cover rounded"
                 />
-                <p className="text-gray-300 mt-2">Nosso Filme❤️{index + 1}</p>
+                {/* <p className="text-gray-300 mt-2">Nosso Filme❤️{index + 1}</p> */}
               </div>
             ))}
             </div>

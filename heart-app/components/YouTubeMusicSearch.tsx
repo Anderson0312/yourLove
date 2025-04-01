@@ -5,8 +5,8 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai"; // Ícone de loading
 import Image from "next/image";
 
 interface YouTubeMusicSearchProps {
-  selectedMusicUser: { title: string; thumbnail: string; videoId: string } | null;
-  onMusicSelect: (music: { title: string; thumbnail: string; videoId: string }) => void;
+  selectedMusicUser?: { title: string; thumbnail: string; videoId: string } | null;
+  onMusicSelect?: (music: { title: string; thumbnail: string; videoId: string }) => void;
 }
 
 function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSearchProps) {
@@ -45,7 +45,7 @@ function YouTubeMusicSearch({ selectedMusicUser, onMusicSelect }: YouTubeMusicSe
   function handleSelectMusic(music: { videoId: string; title: string; thumbnail: string }) {
     setSelectedMusic(music);
     setSearchResults([]); // Limpa os resultados após seleção
-    onMusicSelect(music);
+    onMusicSelect?.(music);
   }
 
   return (

@@ -36,7 +36,7 @@ const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ dynamicPath }) => {
         level="H" // Máximo nível de correção de erro
         imageSettings={{
           src: "/heart.png",
-          height: 60, // Diminua um pouco o tamanho da imagem
+          height: 60, 
           width: 60,
           excavate: true,
         }}

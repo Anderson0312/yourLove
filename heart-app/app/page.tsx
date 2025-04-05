@@ -1,6 +1,6 @@
 "use client"
 import ButtonCustom from "@/components/Button";
-import ChoicePlanLandigPage from "@/components/landingpage/ChoicePlanLandigPage";
+
 import FallingHearts from "@/components/animations/FallingHearts";
 import Footer from "@/components/Footer";
 
@@ -8,6 +8,8 @@ import HeadingTop from "@/components/HeadingTop"
 import DiscoverApp from "@/components/landingpage/discoverApp";
 import ChoiceTema from "@/components/landingpage/choiceTema";
 import { FourSteps } from "@/components/landingpage/foursteps";
+import Header from "@/components/Header";
+import ChoicePlanLandigPage from "@/components/landingpage/ChoicePlanLandigPage";
 
 
 export default function LandingPage() {
@@ -16,41 +18,22 @@ export default function LandingPage() {
     <div className="container">
       <div className="hearts-container fixed inset-0 z-0 overflow-hidden">
          <FallingHearts />
-    </div>
+      </div>
       <HeadingTop/>
-    <div className="w-full flex container flex-col h-screen items-center justify-center md: p-10">
+
+      <Header/>
+
+
+
+    <div className="w-full flex container flex-col h-screen items-center justify-center md: p-5">
       <div
         className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-36 relative z-50"
         data-sentry-component="Hero"
         data-sentry-source-file="hero.tsx"
       >
 
-        <div className="w-full pt-[50px] lg:w-1/2 lg:pt-8">
+        <div className="w-full pt-[20px] lg:w-1/2 lg:pt-8">
 
-          {/* <button
-            className="relative flex border content-center bg-black/20 hover:bg-black/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit rounded-full"
-            data-sentry-element="Tag"
-            data-sentry-source-file="hover-border-gradient.tsx"
-            data-sentry-component="HoverBorderGradient"
-          >
-            <div className="w-auto z-10 px-4 py-2 rounded-[inherit] bg-black text-white text-xs flex items-center space-x-2">
-              <span>Vamos começar?</span>
-            </div>
-            <div
-              className="flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]"
-              data-sentry-element="unknown"
-              data-sentry-source-file="hover-border-gradient.tsx"
-              style={{
-                filter: "blur(2px)",
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                background:
-                  "radial-gradient(19.5501% 47.7815% at 60.2043% 12.8957%, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)",
-              }}
-            ></div>
-            <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[100px]"></div>
-          </button> */}
 
 
           <h1 className="text-white text-5xl lg:text-6xl font-sans pt-3 relative z-20 font-bold tracking-tight">
@@ -67,64 +50,10 @@ export default function LandingPage() {
           </p>
 
 
-          <ButtonCustom text={'Criar Agora'} width={50}/>
+          <ButtonCustom text={'Criar Agora'} width={100}/>
 
 
           <div className="flex flex-row items-center mt-6 w-full">
-            <div className="-mr-4 relative group">
-              {/* <img
-                height="60"
-                width="60"
-                alt="João & Maria"
-                className="object-cover !m-0 !p-0 object-top rounded-full h-10 w-10 border-2 group-hover:scale-105 group-hover:z-30 border-white relative transition duration-500"
-                src="/images/approved/1.webp"
-              />
-            </div>
-            <div className="-mr-4 relative group">
-              <img
-                height="60"
-                width="60"
-                alt="Ana & Pedro"
-                className="object-cover !m-0 !p-0 object-top rounded-full h-10 w-10 border-2 group-hover:scale-105 group-hover:z-30 border-white relative transition duration-500"
-                src="/images/approved/2.webp"
-              />
-            </div>
-            <div className="-mr-4 relative group">
-              <img
-                height="60"
-                width="60"
-                alt="Lucas & Carol"
-                className="object-cover !m-0 !p-0 object-top rounded-full h-10 w-10 border-2 group-hover:scale-105 group-hover:z-30 border-white relative transition duration-500"
-                src="/images/approved/3.webp"
-              />
-            </div>
-            <div className="-mr-4 relative group">
-              <img
-                height="60"
-                width="60"
-                alt="Camila & Felipe"
-                className="object-cover !m-0 !p-0 object-top rounded-full h-10 w-10 border-2 group-hover:scale-105 group-hover:z-30 border-white relative transition duration-500"
-                src="/images/approved/4.webp"
-              />
-            </div>
-            <div className="-mr-4 relative group">
-              <img
-                height="60"
-                width="60"
-                alt="Bia & Henrique"
-                className="object-cover !m-0 !p-0 object-top rounded-full h-10 w-10 border-2 group-hover:scale-105 group-hover:z-30 border-white relative transition duration-500"
-                src="/images/approved/5.webp"
-              />
-            </div>
-            <div className="-mr-4 relative group">
-              <img
-                height="60"
-                width="60"
-                alt="Clara & Rafael"
-                className="object-cover !m-0 !p-0 object-top rounded-full h-10 w-10 border-2 group-hover:scale-105 group-hover:z-30 border-white relative transition duration-500"
-                src="/images/approved/6.webp"
-              />*/}
-            </div> 
             <div className="relative ml-8 md:ml-12">
               <div className="flex flex-row items-center gap-2">
 

@@ -25,14 +25,14 @@ export default function LandingPage() {
 
 
 
-    <div className="w-full flex container flex-col h-screen items-center justify-center md: p-5">
+    <div className="w-full flex container flex-col h-screen items-center justify-center md: p-6">
       <div
         className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-36 relative z-50"
         data-sentry-component="Hero"
         data-sentry-source-file="hero.tsx"
       >
 
-        <div className="w-full pt-[20px] lg:w-1/2 lg:pt-8">
+        <div className="w-full lg:w-1/2 lg:pt-8">
 
 
 

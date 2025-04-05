@@ -129,7 +129,7 @@ const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, inter
               />
             ))
           ) : (
-            <div className="flex items-center justify-center w-full h-full bg-gray-300 rounded-lg">
+            <div className="flex items-center justify-center w-full h-full bg-slate-900 rounded-lg">
               <p className="text-gray-500">Nenhuma imagem disponível</p>
             </div>
           )}
@@ -158,7 +158,7 @@ const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, inter
             />
           ))
         ) : (
-          <div className="flex items-center justify-center w-full h-full bg-gray-300 rounded-lg">
+          <div className="flex items-center justify-center w-full h-full bg-slate-900 rounded-lg">
             <p className="text-gray-500">Nenhuma imagem disponível</p>
           </div>
         )}
@@ -183,7 +183,7 @@ const Carousel: React.FC<CarouselProps> = ({ images = [], autoPlay = true, inter
               />
             ))
           ) : (
-            <div className="flex items-center justify-center w-full h-full bg-gray-300 rounded-lg">
+            <div className="flex items-center justify-center w-full h-full bg-slate-900 rounded-lg">
               <p className="text-gray-500">Nenhuma imagem disponível</p>
             </div>
           )}

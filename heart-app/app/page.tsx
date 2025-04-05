@@ -15,7 +15,7 @@ import ChoicePlanLandigPage from "@/components/landingpage/ChoicePlanLandigPage"
 export default function LandingPage() {
   
   return (
-    <div className="container">
+    <div className="">
       <div className="hearts-container fixed inset-0 z-0 overflow-hidden">
          <FallingHearts />
       </div>

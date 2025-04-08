@@ -25,11 +25,11 @@ const FallingHearts = () => {
     });
 
     // Inicializa com corações
-    const initialHearts = Array.from({ length: 15 }, createHeart);
+    const initialHearts = Array.from({ length: 10 }, createHeart);
     setHearts(initialHearts);
 
     const interval = setInterval(() => {
-      setHearts(prev => [...prev.slice(-50), createHeart()]); // Mantém máximo de 50 corações
+      setHearts(prev => [...prev.slice(-30), createHeart()]); // Mantém máximo de 30corações
     }, 300);
 
     return () => clearInterval(interval);

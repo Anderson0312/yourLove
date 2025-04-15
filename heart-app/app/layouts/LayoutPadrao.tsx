@@ -101,7 +101,7 @@ export default function LayoutPadrao() {
             </div>
 
             {/* Conteúdo principal */}
-            <div className="relative z-10 min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+            <div className="relative z-10 min-h-screen p-2 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
                 {isEditing && (
                     <Modal onClose={() => setIsEditing(false)}>
                         <FormComponent formData={data} onUpdate={handleUpdate} />

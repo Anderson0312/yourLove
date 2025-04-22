@@ -7,7 +7,7 @@ const tiers = [
     id: 'tier-Anual',
     href: '#',
     priceMonthly: '12',
-    priceId : 'prod_RtuMACOk0ThfRC',
+    priceId : 'price_1R06XwCmHaaYVWvZGX8L7wTz',
     quantity:1,
     description: "O plano perfeito se você está começando a usar nosso site",
     features: [
@@ -24,7 +24,7 @@ const tiers = [
     id: 'tier-lifetime',
     href: '#',
     priceMonthly: '25',
-    priceId : 'prod_RtuL8q93ipjXkA',
+    priceId : 'price_1R06X0CmHaaYVWvZ6OVY78pO',
     quantity:1,
     description: 'Ideal para você que quer um site para lembrar da pessoa amanha para toda vida.',
     features: [

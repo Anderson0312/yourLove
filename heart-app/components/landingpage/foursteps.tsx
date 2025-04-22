@@ -45,7 +45,7 @@ export function FourSteps() {
                   </div>
                   <div className="text-lg font-bold mb-2 relative z-10 px-10">
                     <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-700 group-hover/feature:bg-red-500 transition-all duration-200 origin-center"></div>
-                    <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-neutral-100">1. Formulário de criação</span>
+                    <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-red-500">1. Formulário de criação</span>
                   </div>
                   <p className="text-sm text-neutral-300 max-w-xs relative z-10 px-10">Siga as etapas preenchendo o formulário.</p>
                 </div>
@@ -62,7 +62,7 @@ export function FourSteps() {
                   </div>
                   <div className="text-lg font-bold mb-2 relative z-10 px-10">
                     <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-700 group-hover/feature:bg-red-500 transition-all duration-200 origin-center"></div>
-                    <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-neutral-100">2. Pagamento seguro</span>
+                    <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-red-500">2. Pagamento seguro</span>
                   </div>
                   <p className="text-sm text-neutral-300 max-w-xs relative z-10 px-10">Faça o pagamento de forma segura com Cartão de Crédito.</p>
                 </div>
@@ -88,7 +88,7 @@ export function FourSteps() {
                   </div>
                   <div className="text-lg font-bold mb-2 relative z-10 px-10">
                     <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-700 group-hover/feature:bg-red-500 transition-all duration-200 origin-center"></div>
-                    <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-neutral-100">3. Código QR e link</span>
+                    <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-red-500">3. Código QR e link</span>
                   </div>
                   <p className="text-sm text-neutral-300 max-w-xs relative z-10 px-10">Você receberá um QR code e um link via email para acessar a página personalizada.</p>
                 </div>
@@ -104,7 +104,7 @@ export function FourSteps() {
                   </div>
                   <div className="text-lg font-bold mb-2 relative z-10 px-10">
                     <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-700 group-hover/feature:bg-red-500 transition-all duration-200 origin-center"></div>
-                    <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-neutral-100">4. Faça a surpresa</span>
+                    <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-red-500">4. Faça a surpresa</span>
                   </div>
                   <p className="text-sm text-neutral-300 max-w-xs relative z-10 px-10">Faça uma surpresa para alguém especial compartilhando o link ou o QR code.</p>
                 </div>
@@ -113,7 +113,7 @@ export function FourSteps() {
         
               <div className="flex flex-col lg:flex-row items-center justify-center gap-16 mt-12 lg:mt-0">
                 <div>
-                  <p className="text-white font-bold text-3xl lg:text-4xl lg:max-w-md">É <span className="text-red-600">fácil e rápido</span> de criar, veja um exemplo de página.</p>
+                  <p className="text-white font-bold text-3xl lg:text-4xl lg:max-w-md">É <span className="text-red-500">fácil e rápido</span> de criar, veja um exemplo de página.</p>
                 </div>
                 <Image
                   src="/1-removebg.png" // caminho da imagem

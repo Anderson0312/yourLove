@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export class Header extends Component {
   render() {
     return (
-      <header className="container flex flex-col lg:flex-row items-center justify-center lg:justify-between mt-4 gap-2 max-w-[95%] lg:max-w-7xl mx-auto">
+      <header className="container flex flex-col lg:flex-row items-center justify-center lg:justify-between pt-2 gap-2 max-w-[95%] lg:max-w-7xl mx-auto">
         <a href="/">
           <div className="flex gap-2 items-center">
             <img src="favicon.png" alt="logo" className="w-7 h-7 rounded-md" />

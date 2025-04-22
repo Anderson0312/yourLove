@@ -6,7 +6,7 @@ const tiers = [
     name: 'Anual',
     id: 'tier-Anual',
     href: '#',
-    priceMonthly: '15',
+    priceMonthly: '12',
     priceId : 'price_1R03syCmHaaYVWvZsbny3ljD',
     quantity:1,
     description: "O plano perfeito se você está começando a usar nosso site",

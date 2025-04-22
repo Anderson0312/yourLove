@@ -6,8 +6,8 @@ const tiers = [
     name: 'Anual',
     id: 'tier-Anual',
     href: '#',
-    priceMonthly: '15',
-    oldPriceMonthly: '30', // Preço antes do desconto
+    priceMonthly: '12',
+    oldPriceMonthly: '24', // Preço antes do desconto
     priceId : 'price_1R03syCmHaaYVWvZsbny3ljD',
     quantity:1,
     description: "O plano perfeito se você está começando a usar nosso site",

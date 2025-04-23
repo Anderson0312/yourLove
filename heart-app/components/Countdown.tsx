@@ -19,7 +19,7 @@ const Countdown: React.FC<CountdownProps> = ({ startDate }) => {
 
   useEffect(() => {
     const updateCountdown = () => {
-      const start = new Date(startDate);
+      const start = new Date(new Date(startDate).getTime() - 3 * 60 * 60 * 1000);
       const now = new Date(
         new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
       );
@@ -62,8 +62,8 @@ const Countdown: React.FC<CountdownProps> = ({ startDate }) => {
       {Object.entries(timeDiff).map(([label, value]) => (
         <div
           key={label}
-          className="flex flex-col items-center justify-center w-20 h-20   rounded-lg shadow"
-          style={{ width: "8rem", backgroundColor:'#131313'}}
+          className="flex flex-col items-center justify-center w-20 h-20 rounded-lg shadow"
+          style={{ width: "90%", backgroundColor:'#131313'}}
           >
           <span className="text-2xl font-bold text-white-700">{value}</span>
           <span className="text-sm font-medium text-white-500 uppercase" style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}>{label}</span>

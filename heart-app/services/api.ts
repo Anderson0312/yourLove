@@ -3,13 +3,14 @@ import { jwtDecode } from "jwt-decode";
 import imageCompression from 'browser-image-compression';
 require('dotenv').config();
 
+export const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL ||'http://localhost:3001/api',
+});
 
-const API_BASE_URL = 'https://heart-app-backend.vercel.app/api'; // Ajuste conforme necessário
-const API_BASE_URL2 = 'http://192.168.2.3:4000/api'
 
 export const getRegistrationData = async (userId: string) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/registration/${userId}`);
+    const response = await api.get(`/registration/${userId}`);
     return response.data.data;
   } catch (error) {
     console.error('Erro ao recuperar os dados:', error);
@@ -19,7 +20,7 @@ export const getRegistrationData = async (userId: string) => {
 
 export const saveRegistrationData = async (userId: string, step: number, data: any) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/registration/${userId}/step`, {
+    const response = await api.post(`/registration/${userId}/step`, {
       ...data,
       step,
       username: userId
@@ -45,7 +46,7 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
     compressedFiles.forEach((file) => formData.append(`files`, file));
 
     // alert(`Enviando requisição para o servidor... ${compressedFiles}`); 
-    const response = await axios.post(`${API_BASE_URL}/registration/${userId}/upload`, formData, {
+    const response = await api.post(`/registration/${userId}/upload`, formData, {
       timeout: 120000, // 30 segundos de timeout
       headers: {},
     });
@@ -79,7 +80,7 @@ export const uploadPhotos = async (userId: string, files: File[]) => {
 
 export const getRegisterUserData = async (data: any) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/auth/login`, {
+    const response = await api.post(`/auth/login`, {
       ...data,
     });
     return response.data;
@@ -91,7 +92,7 @@ export const getRegisterUserData = async (data: any) => {
 
 export const saveRegisterUserData = async (data: any) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/users/register`, {
+    const response = await api.post(`/users/register`, {
       ...data,
     });
     return response.data;

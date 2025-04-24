@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-const API_BASE_URL = 'https://heart-app-backend.vercel.app/api';
-const API_BASE_URL2 = 'http://localhost:4000/api'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ||'http://localhost:3001/api';
 
 export async function POST(req: Request) {
     try {

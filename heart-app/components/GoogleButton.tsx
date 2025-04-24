@@ -3,7 +3,7 @@
 const GoogleButton = () => {
   const handleGoogleLogin = () => {
     // Redirect to backend Google auth endpoint
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
+    window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`;
   };
 
   return (

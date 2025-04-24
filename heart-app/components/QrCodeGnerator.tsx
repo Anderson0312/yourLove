@@ -6,7 +6,7 @@ interface QRCodeGeneratorProps {
 }
 
 const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ dynamicPath }) => {
-  const urlBase = "https://our-love-app.vercel.app/yourDatting";
+  const urlBase = "https://ourlovee.vercel.app/yourDatting";
   const fullUrl = `${urlBase}/${dynamicPath}`;
   const qrRef = useRef<HTMLDivElement | null>(null);
 

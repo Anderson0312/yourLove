@@ -55,14 +55,14 @@ export default function SendQRCodeEmail() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-800 shadow-sm focus:border-pink-500 focus:ring-pink-500 p-2 border"
+            className="mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-800 shadow-sm focus:border-red-500 focus:ring-red-500 p-2 border"
             required
           />
         </div>
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isLoading ? 'Enviando...' : 'Receber QRCode por Email'}
         </button>

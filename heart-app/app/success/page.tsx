@@ -3,6 +3,7 @@
 import Header from "@/components/Header";
 import HeartButton from "@/components/HeartButton";
 import QRCodeGenerator from "@/components/QrCodeGnerator";
+import SendQRCodeEmail from "@/components/SendQrCodeEmail";
 import { useEffect, useState } from "react";
 
 const Success = () => {
@@ -26,6 +27,7 @@ const Success = () => {
         <div className="border-t border-gray-200 dark:border-gray-700 pt-6 space-y-4">
         <span className="text-gray-500 dark:text-gray-400">Baixe o Qr code após CLICK no coração para ser redirecionado para sua pagina</span>
         <QRCodeGenerator dynamicPath={username}/>
+        <SendQRCodeEmail/>
         </div>
         </div>
       <HeartButton/>

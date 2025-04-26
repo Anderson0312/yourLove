@@ -1,12 +1,14 @@
 'use client'
 import ButtonCustom from "@/components/Button";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import HeadingTop from "@/components/HeadingTop";
 
 export default function TermosDeUso() {
-    return (
-      <>
-     <HeadingTop/>
+  return (
+    <>
+      <HeadingTop />
+      <Header />
       <div className="max-w-4xl mx-auto p-6 mt-5 mb-5">
         <h1 className="text-3xl font-bold mb-4">Termos de Uso</h1>
         <p>
@@ -26,9 +28,9 @@ export default function TermosDeUso() {
         <h2 className="text-xl font-semibold mt-4">3. Contato</h2>
         <p>Se tiver dúvidas, entre em contato conosco pelo suporte.</p>
 
-        <ButtonCustom text={'Começar Agora'}/>
+        <ButtonCustom text={'Começar Agora'} />
       </div>
-      <Footer/>
-      </>
-    );
-  }
+      <Footer />
+    </>
+  );
+}

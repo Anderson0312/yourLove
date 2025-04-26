@@ -5,6 +5,7 @@ import LayoutNetflix from '@/app/layouts/LayoutNetflix';
 import LayoutPadrao from '@/app/layouts/LayoutPadrao';
 import { useParams } from 'next/navigation';
 import HeartLoader from '@/components/HeartLoader';
+import { TrialExpirationCheck } from '@/components/trial-expiration-check';
 
 interface FormData {
     title: string;
@@ -71,6 +72,9 @@ export default function Home() {
 
     return (
         <>
+            {/* Trial expiration check will show alerts if needed */}
+            <TrialExpirationCheck redirectTo="/pricing" />
+            {/* Your existing layout content */}
             {layout === "padrao" ? (
               
                 <LayoutPadrao/>

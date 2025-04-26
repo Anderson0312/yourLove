@@ -15,6 +15,8 @@ import CometShower from '@/components/animations/CometasShow';
 import MeteorShower from '@/components/animations/MeteorShow';
 import AuroraBorealis from '@/components/animations/Aurora';
 import VorticeCores from '@/components/animations/VorticeCores';
+import { TrialCountdown } from '@/components/trial-countdown';
+import { FeatureRestriction } from '@/components/feature-restriction';
 
 interface FormData {
     title: string;
@@ -28,12 +30,12 @@ interface FormData {
     musicVideoId: string;
     modelo_carrosel: string;
     modelo_date: string;
+    payment?: string;
 }
 
 export default function LayoutPadrao() {
     const params = useParams();
     const userId = Array.isArray(params.id) ? params.id[0] : params.id;
-
     const [data, setData] = useState<FormData>({
         title: '',
         names: '',
@@ -41,15 +43,15 @@ export default function LayoutPadrao() {
         text: '',
         layout: '',
         photoPaths: [],
-        music:'',
-        musicThumbnail:'',
-        musicVideoId:'',
-        modelo_carrosel:'',
-        modelo_date:'',
+        music: '',
+        musicThumbnail: '',
+        musicVideoId: '',
+        modelo_carrosel: '',
+        modelo_date: '',
     });
-
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
+    const [isPlanFree, setIsPlanFree] = useState(false)
 
     useEffect(() => {
         if (userId) {
@@ -57,6 +59,8 @@ export default function LayoutPadrao() {
                 try {
                     const response = await getRegistrationData(userId);
                     setData(response);
+                    const planTypeUser = response.payment;
+                    setIsPlanFree(planTypeUser === "free-trial")
                 } catch (error) {
                     console.error('Erro ao buscar dados:', error);
                 } finally {
@@ -90,11 +94,12 @@ export default function LayoutPadrao() {
     };
 
     if (loading) {
-        return <HeartLoader/>;
+        return <HeartLoader />;
     }
 
     return (
         <div className="relative min-h-screen w-full ">
+            {isPlanFree && <TrialCountdown />}
             {/* Camada de animação de fundo */}
             <div className="fixed inset-0 -z-10 overflow-hidden">
                 {renderBackgroundAnimation()}
@@ -104,7 +109,9 @@ export default function LayoutPadrao() {
             <div className="relative z-10 min-h-screen p-2 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
                 {isEditing && (
                     <Modal onClose={() => setIsEditing(false)}>
-                        <FormComponent formData={data} onUpdate={handleUpdate} />
+                        <FeatureRestriction feature="edit">
+                            <FormComponent formData={data} onUpdate={handleUpdate} />
+                        </FeatureRestriction>
                     </Modal>
                 )}
 
@@ -115,41 +122,41 @@ export default function LayoutPadrao() {
                     >
                         {data.title}
                     </h1>
-                    
-                    <Carousel 
-                        images={data?.photoPaths} 
-                        autoPlay={true} 
-                        interval={5000} 
+
+                    <Carousel
+                        images={data?.photoPaths}
+                        autoPlay={true}
+                        interval={5000}
                         variant={data?.modelo_carrosel}
                     />
-                    
+
                     <TextDatting name={data.names} text={data.text} />
-                    
+
                     <h3
                         className="text-lg font-semi-bold mt-2 mb-6 text-white text-center"
                         style={{ fontFamily: "'Lora ', serif" }}
                     >
                         Compartilhando momentos há
                     </h3>
-                    
+
                     <Countdown startDate={data.date} />
-                    
+
                     <p className="text-xs text-center font-bold text-gray-300">
                         desde {new Date(data.date).toLocaleDateString('pt-BR')}
                     </p>
-                    
+
                     <div className="fixed top-5 right-3 p-4 rounded-lg flex items-center justify-center max-w-md">
                         <button
                             onClick={() => setIsEditing(true)}
                             className="p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
                         >
-                            <PencilIcon className="size-4 text-black"/>
+                            <PencilIcon className="size-4 text-black" />
                         </button>
                     </div>
 
-                    
+
                 </div>
-                <MusicPlayer 
+                    <MusicPlayer
                         selectedMusicUser={{
                             title: data.music || "",
                             thumbnail: data.musicThumbnail || "",

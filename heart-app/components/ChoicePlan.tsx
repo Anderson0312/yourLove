@@ -33,7 +33,7 @@ const tiers = [
     id: "tier-Anual",
     href: "#",
     priceMonthly: process.env.NEXT_PUBLIC_VALOR_ANUAL,
-    priceId: "price_1R06XwCmHaaYVWvZGX8L7wTz",
+    priceId: "price_1RHxRrCmHaaYVWvZEaqnZgx0",
     quantity: 1,
     description: "O plano perfeito se você está começando a usar nosso site",
     features: [

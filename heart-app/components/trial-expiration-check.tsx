@@ -14,66 +14,78 @@ interface TrialExpirationCheckProps {
 
 export function TrialExpirationCheck({ redirectTo = "/pricing" }: TrialExpirationCheckProps) {
   const router = useRouter()
-  const params = useParams();
-  const userId = Array.isArray(params.id) ? params.id[0] : params.id;
+  const params = useParams()
+  const userId = Array.isArray(params.id) ? params.id[0] : params.id
   const [expired, setExpired] = useState(false)
   const [remaining, setRemaining] = useState<{ hours: number; minutes: number } | null>(null)
   const [showAlert, setShowAlert] = useState(false)
+  const [isFreeTrial, setIsFreeTrial] = useState(false)
+  const [trialStartDate, setTrialStartDate] = useState<Date | null>(null)
 
   useEffect(() => {
-    if (!userId) return;
-  
-    const checkFreeTrial = async () => {  
+    if (!userId) return
+
+    const checkFreeTrial = async () => {
       try {
-        const response = await getRegistrationData(userId);
-        const planTypeUser = response?.payment;
-  
+        const response = await getRegistrationData(userId)
+        const planTypeUser = response?.payment
+
+        // Armazena a data de início do teste e se é um teste gratuito
+        setTrialStartDate(response?.trialStartDate || null)
+        setIsFreeTrial(planTypeUser === "free-trial")
+
         if (planTypeUser === "free-trial") {
-          const expired = isTrialExpired();
-          setExpired(expired);
-  
+          // Verifica se o teste expirou usando a data da API
+          const expired = isTrialExpired(response?.trialStartDate)
+          setExpired(expired)
+
           if (expired) {
-            setShowAlert(true);
-  
+            setShowAlert(true)
+
             const timer = setTimeout(() => {
-              router.push(redirectTo);
-            }, 5000);
-  
-            return () => clearTimeout(timer);
+              router.push(redirectTo)
+            }, 5000)
+
+            return () => clearTimeout(timer)
           } else {
-            setRemaining(getRemainingTrialTime());
-  
+            // Calcula o tempo restante usando a data da API
+            const remainingTime = getRemainingTrialTime(response?.trialStartDate)
+            setRemaining(remainingTime)
+
+            // Configura um intervalo para atualizar o tempo restante
             const interval = setInterval(() => {
-              const newRemaining = getRemainingTrialTime();
-              setRemaining(newRemaining);
-  
-              if (isTrialExpired()) {
-                setExpired(true);
-                setShowAlert(true);
-                clearInterval(interval);
-  
+              const newRemaining = getRemainingTrialTime(response?.trialStartDate)
+              setRemaining(newRemaining)
+
+              // Verifica se o teste expirou durante este intervalo
+              if (isTrialExpired(response?.trialStartDate)) {
+                setExpired(true)
+                setShowAlert(true)
+                clearInterval(interval)
+
                 setTimeout(() => {
-                  router.push(redirectTo);
-                }, 5000);
+                  router.push(redirectTo)
+                }, 5000)
               }
-            }, 60000); // a cada minuto
-  
-            return () => clearInterval(interval);
+            }, 60000) // a cada minuto
+
+            return () => clearInterval(interval)
           }
         }
       } catch (error) {
-        console.error("Erro ao checar plano do usuário:", error);
+        console.error("Erro ao checar plano do usuário:", error)
       }
-    };
-  
-    checkFreeTrial();
-  }, [userId, router, redirectTo]);
-  
+    }
 
-  if (!showAlert && !remaining) {
-    return null // Not on trial or no need to show anything
+    checkFreeTrial()
+  }, [userId, router, redirectTo])
+
+  // Se não for teste gratuito ou não tiver dados para mostrar, não renderiza nada
+  if (!isFreeTrial || (!showAlert && !remaining)) {
+    return null
   }
 
+  // Se o teste expirou e devemos mostrar o alerta
   if (expired && showAlert) {
     return (
       <Alert variant="destructive" className="mb-4">
@@ -89,8 +101,8 @@ export function TrialExpirationCheck({ redirectTo = "/pricing" }: TrialExpiratio
     )
   }
 
+  // Se o teste está prestes a expirar (menos de 3 horas restantes)
   if (remaining && remaining.hours < 3) {
-    // Show warning when less than 3 hours remaining
     return (
       <Alert variant="default" className="mb-4 border-amber-500 bg-amber-50 text-amber-800">
         <Clock className="h-4 w-4" />

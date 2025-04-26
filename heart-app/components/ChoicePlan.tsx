@@ -99,14 +99,12 @@ export default function ChoicePlan() {
         if (pathname !== "/pricing") {
           const currentStep = 5;
           const formDataPayment = 'free-trial';
-          // Store free trial information in localStorage
-          localStorage.setItem("planType", "free-trial")
-          localStorage.setItem("trialStartDate", new Date().toISOString())
 
           const existingData = await getRegistrationData(savedUsername);
           await saveRegistrationData(savedUsername, currentStep, {
             ...existingData, // Mantém os dados anteriores
             payment: formDataPayment, // Atualiza apenas o campo de pagamento
+            trialStartDate: new Date().toISOString(),
           });
         }
 

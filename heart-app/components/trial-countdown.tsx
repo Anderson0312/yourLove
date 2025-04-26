@@ -5,52 +5,57 @@ import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/card"
 import { Clock } from "lucide-react"
 import { useParams, useRouter } from "next/navigation"
-import { getRemainingTrialTime } from "@/utils/trial-utils"
+import { formatRemainingTime, getRemainingTrialTime } from "@/utils/trial-utils"
 import { Button } from "./buttonv2"
 import { getRegistrationData } from "@/services/api"
 
+
 export function TrialCountdown() {
   const router = useRouter()
-  const params = useParams();
-  const userId = Array.isArray(params.id) ? params.id[0] : params.id;
+  const params = useParams()
+  const userId = Array.isArray(params.id) ? params.id[0] : params.id
   const [remaining, setRemaining] = useState<{ hours: number; minutes: number } | null>(null)
   const [showCountdown, setShowCountdown] = useState(false)
+  const [trialStartDate, setTrialStartDate] = useState<Date | null>(null)
 
   useEffect(() => {
-    if (!userId) return;
-  
-    const checkPlanType = async () => {
+    if (!userId) return
+
+    const checkFreeTrial = async () => {
       try {
-        const response = await getRegistrationData(userId);
-        const planTypeUser = response?.payment;
-  
+        const response = await getRegistrationData(userId)
+        const planTypeUser = response?.payment
+
         if (planTypeUser === "free-trial") {
-          setShowCountdown(true);
-          setRemaining(getRemainingTrialTime());
-  
+          setShowCountdown(true)
+          setTrialStartDate(response?.trialStartDate || null)
+
+          // Calcula o tempo restante inicial
+          const remainingTime = getRemainingTrialTime(response?.trialStartDate)
+          setRemaining(remainingTime)
+
+          // Atualiza o contador a cada minuto
           const interval = setInterval(() => {
-            const newRemaining = getRemainingTrialTime();
-            setRemaining(newRemaining);
-          }, 60000); // a cada minuto
-  
-          return () => clearInterval(interval);
+            const newRemaining = getRemainingTrialTime(response?.trialStartDate)
+            setRemaining(newRemaining)
+          }, 60000) // a cada minuto
+
+          return () => clearInterval(interval)
         }
       } catch (error) {
-        console.error("Erro ao verificar tipo de plano:", error);
+        console.error("Erro ao checar plano do usuário:", error)
       }
-    };
-  
-    checkPlanType();
-  }, [userId]);
-  
+    }
+
+    checkFreeTrial()
+  }, [userId])
 
   if (!showCountdown || !remaining) {
     return null
   }
 
-  // Format the time remaining
-  const formattedTime =
-    remaining.hours > 0 ? `${remaining.hours}h ${remaining.minutes}m` : `${remaining.minutes} minutos`
+  // Formata o tempo restante
+  const formattedTime = formatRemainingTime(remaining)
 
   return (
     <Card className="mb-4 border-red-200 bg-red-600">

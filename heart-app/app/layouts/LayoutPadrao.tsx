@@ -156,13 +156,13 @@ export default function LayoutPadrao() {
 
 
                 </div>
-                    <MusicPlayer
-                        selectedMusicUser={{
-                            title: data.music || "",
-                            thumbnail: data.musicThumbnail || "",
-                            videoId: data.musicVideoId || "",
-                        }}
-                    />
+                <MusicPlayer
+                    selectedMusicUser={{
+                        title: data.music || "",
+                        thumbnail: data.musicThumbnail || "",
+                        videoId: data.musicVideoId || "",
+                    }}
+                />
             </div>
         </div>
     );

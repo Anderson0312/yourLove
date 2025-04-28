@@ -13,6 +13,7 @@ import FormComponent from '@/components/FormComponent';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import Top10Badge from '@/components/Top10Badge';
 import { TrialCountdown } from '@/components/trial-countdown';
+import { FeatureRestriction } from '@/components/feature-restriction';
 
 interface FormData {
   title: string;
@@ -63,7 +64,7 @@ export default function LayoutNetflix() {
       const fetchData = async () => {
         try {
           const response = await getRegistrationData(userId); // Busca os dados da API
-          setData(response); 
+          setData(response);
           const planTypeUser = response.payment;
           setIsPlanFree(planTypeUser === "free-trial")
         } catch (error) {
@@ -88,11 +89,13 @@ export default function LayoutNetflix() {
 
   return (
     <div className="bg-black text-white font-roboto min-h-screen">
-       {isPlanFree && <TrialCountdown />}
+      {isPlanFree && <TrialCountdown />}
       {/* Modal com formulário */}
       {isEditing && (
         <Modal onClose={() => setIsEditing(false)}>
-          <FormComponent formData={data} onUpdate={handleUpdate} />
+          <FeatureRestriction feature="edit">
+            <FormComponent formData={data} onUpdate={handleUpdate} />
+          </FeatureRestriction>
         </Modal>
       )}
 
@@ -107,7 +110,7 @@ export default function LayoutNetflix() {
         </button>
       </div>
       {/* Header */}
-      <header className="flex items-center justify-between p-4 bg-black bg-opacity-75 fixed w-full z-10">
+      <header className="flex items-center justify-between p-4 bg-black bg-opacity-75 fixed w-full">
         <div className="flex items-center space-x-4">
           <Image
             src="/loveflix.png"

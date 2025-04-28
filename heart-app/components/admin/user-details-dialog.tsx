@@ -2,10 +2,10 @@
 
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
-import { Calendar, ExternalLink, ImageIcon, Music } from 'lucide-react'
+import { ExternalLink, ImageIcon, Music } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/buttonv2"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/dialog"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Register } from "@/lib/mock-data"
+import type { Register } from "@/lib/mock-data"
 
 interface UserDetailsDialogProps {
   user: Register
@@ -30,9 +30,7 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Detalhes do Casal</DialogTitle>
-          <DialogDescription>
-            Informações completas sobre {user.names || user.username}
-          </DialogDescription>
+          <DialogDescription>Informações completas sobre {user.names || user.username}</DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
@@ -40,44 +38,42 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
             <div className="flex-1">
               <h3 className="text-lg font-medium">Informações Básicas</h3>
               <Separator className="my-2" />
-              
+
               <div className="space-y-2">
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">ID:</span>
                   <span className="text-sm col-span-2">{user.id}</span>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">Username:</span>
                   <span className="text-sm col-span-2">{user.username}</span>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">Nomes:</span>
                   <span className="text-sm col-span-2">{user.names || "-"}</span>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">Título:</span>
                   <span className="text-sm col-span-2">{user.title || "-"}</span>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">Data de Criação:</span>
                   <span className="text-sm col-span-2">
                     {format(new Date(user.created_at), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
                   </span>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">Data do Casamento:</span>
                   <span className="text-sm col-span-2">
-                    {user.date 
-                      ? format(new Date(user.date), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })
-                      : "-"}
+                    {user.date ? format(new Date(user.date), "dd 'de' MMMM 'de' yyyy", { locale: ptBR }) : "-"}
                   </span>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">Etapa:</span>
                   <span className="text-sm col-span-2">
@@ -86,11 +82,11 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
                 </div>
               </div>
             </div>
-            
+
             <div className="flex-1">
               <h3 className="text-lg font-medium">Status e Pagamento</h3>
               <Separator className="my-2" />
-              
+
               <div className="space-y-2">
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">Status:</span>
@@ -104,26 +100,24 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
                     )}
                   </span>
                 </div>
-                
+
                 {user.trialStartDate && (
                   <div className="grid grid-cols-3 gap-1">
                     <span className="text-sm font-medium text-muted-foreground">Início do Teste:</span>
-                    <span className="text-sm col-span-2">
-                      {format(new Date(user.trialStartDate), "dd/MM/yyyy")}
-                    </span>
+                    <span className="text-sm col-span-2">{format(new Date(user.trialStartDate), "dd/MM/yyyy")}</span>
                   </div>
                 )}
-                
+
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">Layout:</span>
                   <span className="text-sm col-span-2">{user.layout || "-"}</span>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">Modelo Carrossel:</span>
                   <span className="text-sm col-span-2">{user.modelo_carrosel || "-"}</span>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">Modelo Data:</span>
                   <span className="text-sm col-span-2">{user.modelo_date || "-"}</span>
@@ -131,14 +125,14 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
               </div>
             </div>
           </div>
-          
+
           <Tabs defaultValue="content" className="mt-4">
             <TabsList>
               <TabsTrigger value="content">Conteúdo</TabsTrigger>
               <TabsTrigger value="photos">Fotos</TabsTrigger>
               <TabsTrigger value="music">Música</TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="content" className="mt-2">
               <div className="rounded-md border p-4">
                 <h4 className="font-medium mb-2">Texto do Convite</h4>
@@ -147,13 +141,13 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
                 </p>
               </div>
             </TabsContent>
-            
+
             <TabsContent value="photos" className="mt-2">
               <div className="rounded-md border p-4">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-medium">Fotos ({user.photoPaths.length})</h4>
                 </div>
-                
+
                 {user.photoPaths.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-8 text-center">
                     <ImageIcon className="h-10 w-10 text-muted-foreground mb-2" />
@@ -171,7 +165,7 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
                 )}
               </div>
             </TabsContent>
-            
+
             <TabsContent value="music" className="mt-2">
               <div className="rounded-md border p-4">
                 {user.music ? (
@@ -184,9 +178,7 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
                       )}
                       <div>
                         <h4 className="font-medium">{user.music}</h4>
-                        {user.musicVideoId && (
-                          <p className="text-sm text-muted-foreground">ID: {user.musicVideoId}</p>
-                        )}
+                        {user.musicVideoId && <p className="text-sm text-muted-foreground">ID: {user.musicVideoId}</p>}
                       </div>
                     </div>
                   </div>

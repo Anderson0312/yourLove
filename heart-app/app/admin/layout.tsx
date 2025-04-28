@@ -1,29 +1,20 @@
-import { AdminDashboardSidebar } from "@/components/admin/admin-dashboard-sidebar";
-import { Metadata } from "next"
-import toast, { Toaster } from 'react-hot-toast';
+import type { Metadata } from 'next'
+import '../globals.css'
 
 export const metadata: Metadata = {
-  title: "Painel Administrativo",
-  description: "Painel de controle para administração do site",
+  title: 'v0 App',
 }
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
-    <div className="flex min-h-screen flex-col md:flex-row bg-background">
-      <AdminDashboardSidebar/>
+    <html lang="pt-br" >
+      <body>
         {children}
-        <Toaster />
-    </div>
+        </body>
+    </html>
   )
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 
-import { Button } from "@/components/buttonv2"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -73,7 +73,7 @@ export function SendEmailDialog({ user, open, onOpenChange }: SendEmailDialogPro
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Enviar E-mail</DialogTitle>
           <DialogDescription>Envie um e-mail para {user.names || user.username}</DialogDescription>

@@ -35,7 +35,7 @@ export default function RootLayout({
         <link rel="icon" href="/heart.svg" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} `}
       >
         <Analytics/>
         <SpeedInsights/>

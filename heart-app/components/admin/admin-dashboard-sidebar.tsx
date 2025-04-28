@@ -15,7 +15,7 @@ import {
   Users,
 } from "lucide-react"
 
-import { Button } from "@/components/buttonv2"
+import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 export function AdminDashboardSidebar() {
@@ -32,7 +32,7 @@ export function AdminDashboardSidebar() {
   ]
 
   const SidebarContent = () => (
-    <div className="flex flex-col h-full ">
+    <div className="flex flex-col h-full">
       <div className="flex h-14 items-center border-b px-4">
         <Link href="#" className="flex items-center gap-2 font-semibold">
           <Heart className="h-6 w-6 text-rose-500" />

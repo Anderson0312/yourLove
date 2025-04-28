@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { Calendar } from "lucide-react"
 
-import { Button } from "@/components/buttonv2"
+import { Button } from "@/components/ui/button"
 import { Calendar as CalendarComponent } from "@/components/ui/calendar"
 import {
   Dialog,

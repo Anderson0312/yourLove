@@ -360,12 +360,13 @@ const RegisterStep = () => {
               
               <div className="sm:col-span-4">
               <label htmlFor="Titulo" className=" poppins-thin block text-lg font-bold text-withe">
-                  Data Inicial
+                Data De Início Relacionamento
                 </label>
                 <div className="mt-2 relative">
                   <input
                     id="date"
                     name="date"
+                    placeholder='Data de quando se conheceram'
                     type="datetime-local"
                     value={formData.date ? formData.date.toLocaleString('sv-SE').slice(0, 16) : ''} 
                     onChange={handleDateChange}

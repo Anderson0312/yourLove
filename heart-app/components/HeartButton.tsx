@@ -27,7 +27,6 @@ export default function HeartButton() {
         payment: formDataPayment, // Atualiza apenas o campo de pagamento
       });
   
-      console.log('Pagamento registrado com sucesso!');
     } catch (error) {
       console.error('Erro ao enviar os dados de pagamento:', error);
     } finally {

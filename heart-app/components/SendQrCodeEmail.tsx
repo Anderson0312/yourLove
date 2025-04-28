@@ -1,4 +1,5 @@
-'use client'; 
+'use client';
+import { getRegistrationData, saveRegistrationData } from '@/services/api';
 import { useEffect, useState } from 'react';
 
 export default function SendQRCodeEmail() {
@@ -6,13 +7,13 @@ export default function SendQRCodeEmail() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' });
   const [username, setUsername] = useState<string | null>(null);
-    
-    useEffect(() => {
-        const savedUsername = localStorage.getItem('username');
-        setUsername(savedUsername); 
-      }, []);
 
-  const handleSubmit = async (e:any) => {
+  useEffect(() => {
+    const savedUsername = localStorage.getItem('username');
+    setUsername(savedUsername);
+  }, []);
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
     setMessage({ text: '', type: '' });
@@ -27,6 +28,21 @@ export default function SendQRCodeEmail() {
       });
 
       const data = await response.json();
+      const currentStep = 5;
+      const formDataPayment = 'PAGO';
+
+      if (!username) return;
+      try {
+        const existingData = await getRegistrationData(username);
+        await saveRegistrationData(username, currentStep, {
+          ...existingData, // Mantém os dados anteriores
+          payment: formDataPayment, 
+        });
+
+      } catch (error) {
+        console.error('Erro ao enviar os dados de pagamento:', error);
+      } 
+
 
       if (response.ok) {
         setMessage({ text: 'Email enviado com sucesso!', type: 'success' });
@@ -35,7 +51,7 @@ export default function SendQRCodeEmail() {
       } else {
         throw new Error(data.message || 'Falha ao enviar email');
       }
-    } catch (error:any) {
+    } catch (error: any) {
       setMessage({ text: error.message, type: 'error' });
     } finally {
       setIsLoading(false);

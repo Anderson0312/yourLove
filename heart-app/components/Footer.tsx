@@ -3,8 +3,8 @@ import Link from "next/link";
 
 const Footer = () => {
     return (
-      <footer className="bg-gray-900 py-12 border-t border-gray-800">
-        <div className="container mx-auto px-4">
+      <footer className="bg-gray-900 py-12 border-t border-gray-800 ">
+        <div className="container mx-auto px-4 z-5">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
@@ -76,12 +76,12 @@ const Footer = () => {
               <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Suporte</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white">
+                  <a href="https://wa.me/5521989419431" target="_blank" className="text-gray-400 hover:text-white">
                     Central de Ajuda
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white">
+                  <a href="mailto:ourloveeqr@gmail.com" target="_blank" className="text-gray-400 hover:text-white">
                     Contato
                   </a>
                 </li>
@@ -91,15 +91,15 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white">
+                  <a href="https://www.tiktok.com/@ourloveeqr/video/7496306775382134071?q=ourloveeqr&t=1745626713084" target="_blank" className="text-gray-400 hover:text-white">
                     Tutoriais
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a href="#" className="text-gray-400 hover:text-white">
                     Comunidade
                   </a>
-                </li>
+                </li> */}
               </ul>
             </div>
 

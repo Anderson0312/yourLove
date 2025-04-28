@@ -2,10 +2,8 @@
 import React, { useEffect, useState } from "react";
 
 interface CountdownProps {
-  startDate: Date; // Data inicial no formato ISO ou similar
+  startDate: Date;
 }
-
-
 
 const Countdown: React.FC<CountdownProps> = ({ startDate }) => {
   const [timeDiff, setTimeDiff] = useState({
@@ -18,43 +16,63 @@ const Countdown: React.FC<CountdownProps> = ({ startDate }) => {
   });
 
   useEffect(() => {
+    const calculateTimeDiff = (start: Date, end: Date) => {
+      let years = end.getFullYear() - start.getFullYear();
+      let months = end.getMonth() - start.getMonth();
+      let days = end.getDate() - start.getDate();
+      let hours = end.getHours() - start.getHours();
+      let minutes = end.getMinutes() - start.getMinutes();
+      let seconds = end.getSeconds() - start.getSeconds();
+
+      // Ajuste para valores negativos
+      if (seconds < 0) {
+        seconds += 60;
+        minutes--;
+      }
+      if (minutes < 0) {
+        minutes += 60;
+        hours--;
+      }
+      if (hours < 0) {
+        hours += 24;
+        days--;
+      }
+      if (days < 0) {
+        const prevMonth = new Date(end.getFullYear(), end.getMonth(), 0);
+        days += prevMonth.getDate();
+        months--;
+      }
+      if (months < 0) {
+        months += 12;
+        years--;
+      }
+
+      return { years, months, days, hours, minutes, seconds };
+    };
+
     const updateCountdown = () => {
+      // Ajuste para o fuso horário de São Paulo
       const start = new Date(new Date(startDate).getTime() - 3 * 60 * 60 * 1000);
       const now = new Date(
         new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
       );
 
-      let diff = now.getTime() - start.getTime();
+      const diff = calculateTimeDiff(start, now);
 
-      // Cálculo de anos
-      const anos = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-      diff -= anos * 1000 * 60 * 60 * 24 * 365.25;
-
-      // Cálculo de meses
-      const meses = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
-      diff -= meses * 1000 * 60 * 60 * 24 * 30.44;
-
-      // Cálculo de dias
-      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-      diff -= dias * 1000 * 60 * 60 * 24;
-
-      // Cálculo de horas, minutos e segundos
-      const horas = Math.floor(diff / (1000 * 60 * 60));
-      diff -= horas * 1000 * 60 * 60;
-
-      const minutos = Math.floor(diff / (1000 * 60));
-      diff -= minutos * 1000 * 60;
-
-      const segundos = Math.floor(diff / 1000);
-
-      // Atualizar o estado com os valores calculados
-      setTimeDiff({ anos, meses, dias, horas, minutos, segundos });
+      setTimeDiff({
+        anos: diff.years,
+        meses: diff.months,
+        dias: diff.days,
+        horas: diff.hours,
+        minutos: diff.minutes,
+        segundos: diff.seconds,
+      });
     };
 
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
 
-    return () => clearInterval(interval); // Cleanup
+    return () => clearInterval(interval);
   }, [startDate]);
 
   return (
@@ -63,10 +81,15 @@ const Countdown: React.FC<CountdownProps> = ({ startDate }) => {
         <div
           key={label}
           className="flex flex-col items-center justify-center w-20 h-20 rounded-lg shadow"
-          style={{ width: "90%", backgroundColor:'#131313'}}
-          >
+          style={{ width: "90%", backgroundColor: '#131313' }}
+        >
           <span className="text-2xl font-bold text-white-700">{value}</span>
-          <span className="text-sm font-medium text-white-500 uppercase" style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}>{label}</span>
+          <span 
+            className="text-sm font-medium text-white-500 uppercase" 
+            style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
+          >
+            {label}
+          </span>
         </div>
       ))}
     </div>

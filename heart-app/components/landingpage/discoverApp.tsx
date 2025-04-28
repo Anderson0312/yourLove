@@ -45,7 +45,7 @@ export default function DiscoverApp() {
             </div>
 
 
-            <div className="relative max-lg:row-start-1">
+            <div className="relative max-lg:row-start-1" id="recursos">
               <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem]"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">

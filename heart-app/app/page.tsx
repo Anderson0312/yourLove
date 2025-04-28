@@ -23,8 +23,6 @@ export default function LandingPage() {
 
       <Header />
 
-
-
       <div className="w-full flex container flex-col h-screen items-center justify-center md: p-7">
         <div
           className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-36 relative z-50"

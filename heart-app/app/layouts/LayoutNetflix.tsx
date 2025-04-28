@@ -110,7 +110,7 @@ export default function LayoutNetflix() {
         </button>
       </div>
       {/* Header */}
-      <header className="flex items-center justify-between p-4 bg-black bg-opacity-75 fixed w-full">
+      <header className="flex items-center justify-between p-4 bg-black bg-opacity-75 w-full">
         <div className="flex items-center space-x-4">
           <Image
             src="/loveflix.png"
@@ -141,7 +141,7 @@ export default function LayoutNetflix() {
       </header>
 
       {/* Main Content */}
-      <main className="pt-16">
+      <main className="pt-1">
         <section className="relative">
           <Carousel images={data?.photoPaths} autoPlay={true} interval={5000} preview={true} />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />

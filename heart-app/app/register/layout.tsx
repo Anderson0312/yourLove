@@ -10,7 +10,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-gradient-to-b from-gray-900 to-black"
+      style={{
+        color: "var(--foreground)"
+        // , background: "var(--background)"
+      }}>
+        {children}
+      </body>
     </html>
   )
 }

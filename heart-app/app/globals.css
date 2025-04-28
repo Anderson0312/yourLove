@@ -23,12 +23,12 @@
   }
 }
 
-
+/* 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Parisienne , Helvetica, sans-serif;
-}
+} */
 
 
 
@@ -105,9 +105,9 @@ body {
 }
 
 @layer base {
-  /* * {
+  * {
     @apply border-border;
-  } */
+  }
   body {
     @apply bg-background text-foreground;
   }

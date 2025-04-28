@@ -1,335 +1,216 @@
-
 "use client"
 
-import { useState } from "react"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle,
-  DialogFooter
-} from "@/components/ui/dialog"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/buttonv2"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, Music, ImageIcon, Layout, Clock, CreditCard, CheckCircle, XCircle } from 'lucide-react'
-import { Register } from "@/types/register"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/card"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
+import { Calendar, ExternalLink, ImageIcon, Music } from 'lucide-react'
 
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/buttonv2"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { Separator } from "@/components/ui/separator"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Register } from "@/lib/mock-data"
 
 interface UserDetailsDialogProps {
   user: Register
-  isOpen: boolean
-  onClose: () => void
+  open: boolean
+  onOpenChange: (open: boolean) => void
 }
 
-export function UserDetailsDialog({ user, isOpen, onClose }: UserDetailsDialogProps) {
-  const [loading, setLoading] = useState(false)
-
-  const handleExtendTrial = async () => {
-    setLoading(true)
-    try {
-      // Simulação de API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      toast({
-        title: "Teste estendido com sucesso",
-        description: `O período de teste de ${user.username} foi estendido por mais 24 horas.`,
-      })
-    } catch (error) {
-      toast({
-        title: "Erro ao estender teste",
-        description: "Ocorreu um erro ao tentar estender o período de teste.",
-        variant: "destructive",
-      })
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleChangePlan = async (plan: string) => {
-    setLoading(true)
-    try {
-      // Simulação de API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      toast({
-        title: "Plano alterado com sucesso",
-        description: `O plano de ${user.username} foi alterado para ${plan}.`,
-      })
-    } catch (error) {
-      toast({
-        title: "Erro ao alterar plano",
-        description: "Ocorreu um erro ao tentar alterar o plano.",
-        variant: "destructive",
-      })
-    } finally {
-      setLoading(false)
-    }
-  }
-
+export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialogProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-xl flex items-center gap-2">
-            Detalhes do Usuário
-            <Badge className="ml-2">{user.username}</Badge>
-          </DialogTitle>
+          <DialogTitle>Detalhes do Casal</DialogTitle>
+          <DialogDescription>
+            Informações completas sobre {user.names || user.username}
+          </DialogDescription>
         </DialogHeader>
 
-        <Tabs defaultValue="info" className="mt-4">
-          <TabsList className="grid grid-cols-3 mb-4">
-            <TabsTrigger value="info">Informações</TabsTrigger>
-            <TabsTrigger value="content">Conteúdo</TabsTrigger>
-            <TabsTrigger value="payment">Pagamento</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="info" className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label className="text-sm text-gray-500">Username</Label>
-                <p className="font-medium">{user.username}</p>
+        <div className="grid gap-4 py-4">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+            <div className="flex-1">
+              <h3 className="text-lg font-medium">Informações Básicas</h3>
+              <Separator className="my-2" />
+              
+              <div className="space-y-2">
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">ID:</span>
+                  <span className="text-sm col-span-2">{user.id}</span>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">Username:</span>
+                  <span className="text-sm col-span-2">{user.username}</span>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">Nomes:</span>
+                  <span className="text-sm col-span-2">{user.names || "-"}</span>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">Título:</span>
+                  <span className="text-sm col-span-2">{user.title || "-"}</span>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">Data de Criação:</span>
+                  <span className="text-sm col-span-2">
+                    {format(new Date(user.created_at), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
+                  </span>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">Data do Casamento:</span>
+                  <span className="text-sm col-span-2">
+                    {user.date 
+                      ? format(new Date(user.date), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })
+                      : "-"}
+                  </span>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">Etapa:</span>
+                  <span className="text-sm col-span-2">
+                    <Badge variant="outline">{user.step}/5</Badge>
+                  </span>
+                </div>
               </div>
-              <div>
-                <Label className="text-sm text-gray-500">Nome</Label>
-                <p className="font-medium">{user.names || "-"}</p>
+            </div>
+            
+            <div className="flex-1">
+              <h3 className="text-lg font-medium">Status e Pagamento</h3>
+              <Separator className="my-2" />
+              
+              <div className="space-y-2">
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">Status:</span>
+                  <span className="text-sm col-span-2">
+                    {user.payment === "paid" ? (
+                      <Badge className="bg-green-500">Pago</Badge>
+                    ) : user.trialStartDate ? (
+                      <Badge variant="outline">Teste</Badge>
+                    ) : (
+                      <Badge variant="secondary">Pendente</Badge>
+                    )}
+                  </span>
+                </div>
+                
+                {user.trialStartDate && (
+                  <div className="grid grid-cols-3 gap-1">
+                    <span className="text-sm font-medium text-muted-foreground">Início do Teste:</span>
+                    <span className="text-sm col-span-2">
+                      {format(new Date(user.trialStartDate), "dd/MM/yyyy")}
+                    </span>
+                  </div>
+                )}
+                
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">Layout:</span>
+                  <span className="text-sm col-span-2">{user.layout || "-"}</span>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">Modelo Carrossel:</span>
+                  <span className="text-sm col-span-2">{user.modelo_carrosel || "-"}</span>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">Modelo Data:</span>
+                  <span className="text-sm col-span-2">{user.modelo_date || "-"}</span>
+                </div>
               </div>
-              <div>
-                <Label className="text-sm text-gray-500">Data de Criação</Label>
-                <p className="font-medium">
-                  {format(new Date(user.created_at), "PPpp", { locale: ptBR })}
+            </div>
+          </div>
+          
+          <Tabs defaultValue="content" className="mt-4">
+            <TabsList>
+              <TabsTrigger value="content">Conteúdo</TabsTrigger>
+              <TabsTrigger value="photos">Fotos</TabsTrigger>
+              <TabsTrigger value="music">Música</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="content" className="mt-2">
+              <div className="rounded-md border p-4">
+                <h4 className="font-medium mb-2">Texto do Convite</h4>
+                <p className="text-sm text-muted-foreground whitespace-pre-line">
+                  {user.text || "Nenhum texto definido."}
                 </p>
               </div>
-              <div>
-                <Label className="text-sm text-gray-500">Progresso</Label>
-                <p className="font-medium">Etapa {user.step} de 5</p>
-              </div>
-              <div>
-                <Label className="text-sm text-gray-500">Título</Label>
-                <p className="font-medium">{user.title || "-"}</p>
-              </div>
-              <div>
-                <Label className="text-sm text-gray-500">Data Especial</Label>
-                <p className="font-medium">
-                  {user.date ? format(new Date(user.date), "PPP", { locale: ptBR }) : "-"}
-                </p>
-              </div>
-            </div>
-
-            <Separator />
-
-            <div>
-              <Label className="text-sm text-gray-500">Texto</Label>
-              <p className="mt-1 text-sm whitespace-pre-wrap border rounded-md p-3 bg-gray-50">
-                {user.text || "Nenhum texto adicionado."}
-              </p>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="content" className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <Layout className="h-4 w-4" />
-                    Layout
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="font-medium">{user.layout || "Não definido"}</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <Music className="h-4 w-4" />
-                    Música
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {user.music ? (
-                    <div className="space-y-2">
-                      <p className="font-medium">{user.music}</p>
-                      {user.musicThumbnail && (
-                        <div className="flex items-center gap-2">
-                          <img 
-                            src={user.musicThumbnail || "/placeholder.svg"} 
-                            alt={user.music} 
-                            className="w-12 h-12 rounded object-cover"
-                          />
-                          <span className="text-xs text-gray-500">ID: {user.musicVideoId || "-"}</span>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <p>Nenhuma música selecionada</p>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <ImageIcon className="h-4 w-4" />
-                  Fotos ({user.photoPaths.length})
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {user.photoPaths.length > 0 ? (
-                  <div className="grid grid-cols-3 gap-2">
-                    {user.photoPaths.map((photo, index) => (
-                      <div key={index} className="aspect-square rounded-md overflow-hidden bg-gray-100">
-                        <img 
-                          src={photo || "/placeholder.svg"} 
-                          alt={`Foto ${index + 1}`} 
-                          className="w-full h-full object-cover"
-                        />
+            </TabsContent>
+            
+            <TabsContent value="photos" className="mt-2">
+              <div className="rounded-md border p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="font-medium">Fotos ({user.photoPaths.length})</h4>
+                </div>
+                
+                {user.photoPaths.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-8 text-center">
+                    <ImageIcon className="h-10 w-10 text-muted-foreground mb-2" />
+                    <p className="text-sm text-muted-foreground">Nenhuma foto adicionada.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {user.photoPaths.map((path, index) => (
+                      <div key={index} className="aspect-square rounded-md bg-muted flex items-center justify-center">
+                        <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                        <span className="sr-only">Foto {index + 1}</span>
                       </div>
                     ))}
                   </div>
-                ) : (
-                  <p>Nenhuma foto adicionada</p>
                 )}
-              </CardContent>
-            </Card>
-
-            <div className="grid grid-cols-2 gap-4">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
-                    Modelo de Data
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="font-medium">{user.modelo_date || "Não definido"}</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <ImageIcon className="h-4 w-4" />
-                    Modelo de Carrossel
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="font-medium">{user.modelo_carrosel || "Não definido"}</p>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="payment" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <CreditCard className="h-5 w-5" />
-                  Informações de Pagamento
-                </CardTitle>
-                <CardDescription>
-                  Detalhes do plano e status de pagamento
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label className="text-sm text-gray-500">Plano Atual</Label>
-                    <p className="font-medium">
-                      {user.payment === "free-trial" && "Teste Gratuito"}
-                      {user.payment === "annual" && "Plano Anual"}
-                      {user.payment === "lifetime" && "Plano Vitalício"}
-                      {!user.payment && "Não definido"}
-                    </p>
-                  </div>
-                  
-                  {user.payment === "free-trial" && user.trialStartDate && (
-                    <div>
-                      <Label className="text-sm text-gray-500">Início do Teste</Label>
-                      <p className="font-medium">
-                        {format(new Date(user.trialStartDate), "PPpp", { locale: ptBR })}
-                      </p>
-                    </div>
-                  )}
-                  
-                  {user.payment === "free-trial" && user.trialStartDate && (
-                    <div className="col-span-2">
-                      <Label className="text-sm text-gray-500">Status do Teste</Label>
-                      <div className="flex items-center gap-2 mt-1">
-                        {new Date().getTime() - new Date(user.trialStartDate).getTime() > 24 * 60 * 60 * 1000 ? (
-                          <Badge variant="destructive" className="flex items-center gap-1">
-                            <XCircle className="h-3 w-3" />
-                            Expirado
-                          </Badge>
-                        ) : (
-                          <Badge variant="outline" className="flex items-center gap-1 bg-green-50 text-green-800 border-green-300">
-                            <Clock className="h-3 w-3" />
-                            Ativo
-                          </Badge>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="music" className="mt-2">
+              <div className="rounded-md border p-4">
+                {user.music ? (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      {user.musicThumbnail && (
+                        <div className="w-16 h-16 rounded-md bg-muted flex items-center justify-center">
+                          <Music className="h-8 w-8 text-muted-foreground" />
+                        </div>
+                      )}
+                      <div>
+                        <h4 className="font-medium">{user.music}</h4>
+                        {user.musicVideoId && (
+                          <p className="text-sm text-muted-foreground">ID: {user.musicVideoId}</p>
                         )}
-                        <span className="text-sm text-gray-500">
-                          {new Date().getTime() - new Date(user.trialStartDate).getTime() > 24 * 60 * 60 * 1000 
-                            ? "O período de teste expirou" 
-                            : "Tempo restante: " + Math.floor(
-                                (24 - (new Date().getTime() - new Date(user.trialStartDate).getTime()) / (60 * 60 * 1000))
-                              ) + " horas"
-                          }
-                        </span>
                       </div>
                     </div>
-                  )}
-                </div>
-
-                <Separator />
-
-                <div className="space-y-2">
-                  <Label>Ações de Pagamento</Label>
-                  <div className="flex flex-wrap gap-2">
-                    {user.payment === "free-trial" && (
-                      <Button 
-                        variant="outline" 
-                        onClick={handleExtendTrial}
-                        disabled={loading}
-                      >
-                        <Clock className="mr-2 h-4 w-4" />
-                        Estender Teste (24h)
-                      </Button>
-                    )}
-                    
-                    <Button 
-                      variant="outline" 
-                      onClick={() => handleChangePlan("annual")}
-                      disabled={loading || user.payment === "annual"}
-                    >
-                      <CheckCircle className="mr-2 h-4 w-4" />
-                      Definir como Plano Anual
-                    </Button>
-                    
-                    <Button 
-                      variant="outline" 
-                      onClick={() => handleChangePlan("lifetime")}
-                      disabled={loading || user.payment === "lifetime"}
-                    >
-                      <CheckCircle className="mr-2 h-4 w-4" />
-                      Definir como Vitalício
-                    </Button>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-8 text-center">
+                    <Music className="h-10 w-10 text-muted-foreground mb-2" />
+                    <p className="text-sm text-muted-foreground">Nenhuma música selecionada.</p>
+                  </div>
+                )}
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
+        <DialogFooter className="flex flex-col sm:flex-row gap-2">
+          <Button variant="outline" className="flex-1" asChild>
+            <a href={`https://ourlovee.com/${user.username}`} target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="mr-2 h-4 w-4" />
+              Visualizar Site
+            </a>
+          </Button>
+          <Button className="flex-1" onClick={() => onOpenChange(false)}>
             Fechar
           </Button>
-          <Button>Salvar Alterações</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

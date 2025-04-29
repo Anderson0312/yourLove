@@ -58,9 +58,9 @@ export default function AdminDashboard() {
         });
   
         toast.success(`Dados carregados com sucesso!`, { id: toastId });
-      } catch (error) {
+      } catch (error:any) {
         console.error("Error fetching data:", error);
-        toast.error(`Erro ao carregar dados: ${error.message}`, { id: toastId });
+        toast.error(`Erro ao carregar dados: ${error}`, { id: toastId });
         // Fallback para dados mockados se necessário
         setRegistrations(mockRegistrations);
         setMetrics({

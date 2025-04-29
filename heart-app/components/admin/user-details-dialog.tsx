@@ -156,8 +156,18 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {user.photoPaths.map((path, index) => (
-                      <div key={index} className="aspect-square rounded-md bg-muted flex items-center justify-center">
-                        <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                      <div key={index} className="aspect-square rounded-md bg-muted overflow-hidden relative">
+                        <img
+                          src={path}
+                          alt={`Foto ${index + 1} do casal`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            // Fallback caso a imagem não carregue
+                            const target = e.target as HTMLImageElement;
+                            target.onerror = null;
+                            target.src = '/placeholder-image.jpg'; // Adicione um fallback image
+                          }}
+                        />
                         <span className="sr-only">Foto {index + 1}</span>
                       </div>
                     ))}
@@ -195,7 +205,7 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
 
         <DialogFooter className="flex flex-col sm:flex-row gap-2">
           <Button variant="outline" className="flex-1" asChild>
-            <a href={`https://ourlovee.com/${user.username}`} target="_blank" rel="noopener noreferrer">
+            <a href={`https://ourlovee.com/yourDatting/${user.username}`} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="mr-2 h-4 w-4" />
               Visualizar Site
             </a>

@@ -29,6 +29,7 @@ export default function AdminDashboard() {
   const [filterStep, setFilterStep] = useState<string | null>(null);
   const [registrations, setRegistrations] = useState<Register[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [lastRegistrations, setLastRegistrations] = useState<Register[]>([]);
   const [metrics, setMetrics] = useState({
     totalRegistrations: 0,
     paidRegistrations: 0,
@@ -45,10 +46,11 @@ export default function AdminDashboard() {
         
         const registrations = await api.getAllRegistrations();
         const metrics = await api.getMetrics();
+        const lastFiveRegistrations = await api.getLastFiveRegistrations();
         
-        console.log('Registrations:', registrations);
-        console.log('Metrics:', metrics);
-        
+
+        setLastRegistrations(lastFiveRegistrations.data || []);
+        console.log("Registrations:", lastFiveRegistrations);
         setRegistrations(registrations || []);
         setMetrics({
           totalRegistrations: metrics?.totalRegistrations || 0,
@@ -260,20 +262,20 @@ export default function AdminDashboard() {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-8">
-                        {registrations.slice(0, 5).map((registration) => (
+                        {lastRegistrations.slice(0, 5).map((registration) => (
                           <div className="flex items-center" key={registration.id}>
                             <div className="space-y-1">
                               <p className="text-sm font-medium leading-none">
                                 {registration.names || registration.username}
                               </p>
                               <p className="text-sm text-muted-foreground">
-                                {registration.date
-                                  ? format(new Date(registration.date), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })
+                                {registration.created_at
+                                  ? format(new Date(registration.created_at), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })
                                   : "Data não definida"}
                               </p>
                             </div>
                             <div className="ml-auto font-medium">
-                              {registration.payment === "paid" ? (
+                              {registration.payment === "PAGO" ? (
                                 <Badge className="bg-green-500">Pago</Badge>
                               ) : registration.trialStartDate ? (
                                 <Badge variant="outline">Teste</Badge>

@@ -12,6 +12,11 @@ export const api = {
     return await response.json();
   },
   
+  getLastFiveRegistrations: async () => {
+    const response = await fetch(`${API_URL}/registration/last-five`);
+    return await response.json();
+  },
+
   createRegistration: async (userId: string, data: any) => {
     const response = await fetch(`${API_URL}/registration/create/${userId}`, {
       method: 'POST',

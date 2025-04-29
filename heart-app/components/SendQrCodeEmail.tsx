@@ -2,57 +2,61 @@
 import { getRegistrationData, saveRegistrationData } from '@/services/api';
 import { useEffect, useState } from 'react';
 
-export default function SendQRCodeEmail() {
-  const [email, setEmail] = useState('');
+
+interface TextDatingProps {
+  textTitle: string;
+}
+
+
+export default function SendQRCodeEmail({  textTitle }: TextDatingProps) {
+  const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState({ text: '', type: '' });
+  const [message, setMessage] = useState({ text: "", type: "" });
   const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
-    const savedUsername = localStorage.getItem('username');
+    const savedUsername = localStorage.getItem("username");
     setUsername(savedUsername);
   }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-    setMessage({ text: '', type: '' });
+    setMessage({ text: "", type: "" });
 
     try {
-      const response = await fetch('/api/sendemail', {
-        method: 'POST',
+      const response = await fetch("/api/sendemail", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, username }),
       });
 
       const data = await response.json();
       const currentStep = 5;
-      const formDataPayment = 'PAGO';
+      const formDataPayment = "PAGO";
 
       if (!username) return;
       try {
         const existingData = await getRegistrationData(username);
         await saveRegistrationData(username, currentStep, {
           ...existingData, // Mantém os dados anteriores
-          payment: formDataPayment, 
+          payment: formDataPayment,
         });
-
       } catch (error) {
-        console.error('Erro ao enviar os dados de pagamento:', error);
-      } 
-
+        console.error("Erro ao enviar os dados de pagamento:", error);
+      }
 
       if (response.ok) {
-        setMessage({ text: 'Email enviado com sucesso!', type: 'success' });
-        setEmail('');
-        setUsername('');
+        setMessage({ text: "Email enviado com sucesso!", type: "success" });
+        setEmail("");
+        setUsername("");
       } else {
-        throw new Error(data.message || 'Falha ao enviar email');
+        throw new Error(data.message || "Falha ao enviar email");
       }
     } catch (error: any) {
-      setMessage({ text: error.message, type: 'error' });
+      setMessage({ text: error.message, type: "error" });
     } finally {
       setIsLoading(false);
     }
@@ -60,10 +64,15 @@ export default function SendQRCodeEmail() {
 
   return (
     <div className="max-w-md mx-auto p-6 rounded-lg shadow-md bg-gray-50 border bg-gray-800 ">
-      <h2 className="text-2xl font-bold mb-4 text-red-600">Receba seu QrCode via email</h2>
+      <h2 className="text-2xl font-bold mb-4 text-red-600">
+        {textTitle} 
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
             Seu email
           </label>
           <input
@@ -78,13 +87,21 @@ export default function SendQRCodeEmail() {
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ${
+            isLoading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
-          {isLoading ? 'Enviando...' : 'Receber QRCode por Email'}
+          {isLoading ? "Enviando..." : "Receber QRCode por Email"}
         </button>
       </form>
       {message.text && (
-        <div className={`mt-4 p-3 rounded ${message.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+        <div
+          className={`mt-4 p-3 rounded ${
+            message.type === "success"
+              ? "bg-green-100 text-green-800"
+              : "bg-red-100 text-red-800"
+          }`}
+        >
           {message.text}
         </div>
       )}

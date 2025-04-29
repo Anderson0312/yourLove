@@ -4,41 +4,47 @@ import Header from "@/components/Header";
 import HeartButton from "@/components/HeartButton";
 import QRCodeGenerator from "@/components/QrCodeGnerator";
 import SendQRCodeEmail from "@/components/SendQrCodeEmail";
+import { CardDescription, CardTitle } from "@/components/ui/card";
+import { CheckCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Success = () => {
-    const [username, setUsername] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const savedUsername = localStorage.getItem('username');
-      setUsername(savedUsername); 
-    }, []);
-    
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    const savedUsername = localStorage.getItem('username');
+    setUsername(savedUsername);
+  }, []);
+
   return (
     <div className="">
-    <Header/>     
-    <div className="flex flex-col items-center justify-center min-h-screen ">
-      <div className="max-w-md w-full m-2 space-y-6 p-6 bg-white rounded-lg shadow-lg items-center bg-gray-800 ">
-        <div className="flex flex-col items-center">
-        <CircleCheckIcon className="text-green-500 h-16 w-16 " />
-        <h1 className="text-3xl font-bold text-gray-900 text-gray-50 mt-4">Pagamento Feito</h1>
-        <p className="text-gray-500 dark:text-gray-400 mt-2">Obrigado por sua compra. Seu pedido está sendo processado.</p>
+      <Header />
+      <div className="flex flex-col items-center justify-center min-h-screen ">
+        <div className="max-w-md w-full m-2 space-y-6 p-6 bg-white rounded-lg shadow-lg items-center bg-gray-800 ">
+          <div className="flex flex-col items-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/20">
+            <CheckCircle className="h-10 w-10 text-green-600 dark:text-green-400" />
+          </div>
+            <CardTitle className="text-2xl text-gray-800">Pagamento Confirmado</CardTitle>
+            <CardDescription>Seu pagamento foi processado com sucesso!</CardDescription>
+            <p className="text-gray-500 dark:text-gray-400 mt-2">Obrigado pela sua compra. Você receberá um email com os detalhes da sua transação. Seu acesso foi ativado
+              imediatamente.</p>
+          </div>
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-6 space-y-4">
+            <span className="text-gray-500 dark:text-gray-400">Baixe o Qr code após CLICK no coração para ser redirecionado para sua pagina</span>
+            <QRCodeGenerator dynamicPath={username} />
+            <SendQRCodeEmail textTitle='Receber QrCode por email' />
+          </div>
         </div>
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-6 space-y-4">
-        <span className="text-gray-500 dark:text-gray-400">Baixe o Qr code após CLICK no coração para ser redirecionado para sua pagina</span>
-        <QRCodeGenerator dynamicPath={username}/>
-        <SendQRCodeEmail/>
-        </div>
-        </div>
-      <HeartButton/>
-    </div>
+        <HeartButton />
+      </div>
     </div>
   );
 };
 
 export default Success;
 
-function CircleCheckIcon(props:any) {
+function CircleCheckIcon(props: any) {
   return (
     <svg
       {...props}

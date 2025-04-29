@@ -46,7 +46,7 @@ const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ dynamicPath }) => {
       <p className="text-sm text-gray-500 break-words">{fullUrl}</p>
       <button
         onClick={downloadQRCode}
-        className="px-4 py-2 text-white border rounded hover:bg-red-600 transition"
+        className="px-4 py-2 text-white border rounded bg-red-600 transition"
       >
         Baixar QR Code
       </button>

@@ -2,6 +2,9 @@
 
 import Header from "@/components/Header";
 import HeadingTop from "@/components/HeadingTop";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { XCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function CancelPage() {
@@ -9,20 +12,31 @@ export default function CancelPage() {
       <div className="">
       <HeadingTop/>
       <Header/>     
-      <div className="flex flex-col items-center justify-center min-h-screen ">
-        <div className="max-w-md w-full m-2 space-y-6 p-6 bg-white rounded-lg shadow-lg items-center bg-gray-800 ">
-        <div className="flex flex-col items-center">
-          <CircleCancelIcon className="text-red-500 h-16 w-16 " />
-        <h1 className="text-3xl font-bold text-gray-900 text-gray-50 mt-4">Pagamento Cancelado</h1>
-        <p className="text-gray-500 text-gray-400 mt-2">O pagamento foi cancelado. Você pode tentar novamente quando quiser.</p>
-        <div className="mt-2 border-t border-gray-200 border-gray-700 pt-6 space-y-4">
-        <Link  href="/register/5" className="mt-6 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">
-          Voltar para a página inicial
-        </Link >
-        </div>
-        </div>
-        </div>
-      </div>
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-gray-900 to-black p-4">
+      <Card className="mx-auto max-w-md border-red-500/20">
+        <CardHeader className="text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/20">
+            <XCircle className="h-10 w-10 text-red-600 dark:text-red-400" />
+          </div>
+          <CardTitle className="text-2xl">Pagamento Cancelado</CardTitle>
+          <CardDescription>Seu pagamento foi cancelado. Nenhuma cobrança foi realizada.</CardDescription>
+        </CardHeader>
+        <CardContent className="text-center text-sm text-muted-foreground">
+          <p>
+            Se você encontrou algum problema durante o processo de pagamento ou mudou de ideia, você pode tentar
+            novamente ou entrar em contato com nosso suporte.
+          </p>
+        </CardContent>
+        <CardFooter className="flex flex-col space-y-2">
+          <Button className="w-full" asChild>
+            <Link href="../">Tentar Novamente</Link>
+          </Button>
+          <Button variant="outline" className="w-full" asChild>
+            <Link href="/">Voltar para Página Inicial</Link>
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
       </div>
 
     );

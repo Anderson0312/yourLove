@@ -8,6 +8,7 @@ import toast from "react-hot-toast"
 import { api } from "@/lib/api"
 import { Register } from "@/types/register"
 import { mockRegistrations } from "@/lib/mock-data"
+import { AdminDashboardSidebar } from "@/components/admin/admin-dashboard-sidebar"
 
 export default function Analises() {
   const [timeRange, setTimeRange] = useState("all")
@@ -96,6 +97,17 @@ export default function Analises() {
       ),
     },
   ]
+
+    if (isLoading) {
+      return (
+        <div className="flex min-h-screen flex-col md:flex-row">
+          <AdminDashboardSidebar />
+          <div className="flex-1 flex items-center justify-center">
+            <p>Carregando dados...</p>
+          </div>
+        </div>
+      );
+    }
 
   return (
     <div className="flex flex-col gap-4 md:gap-8">

@@ -38,7 +38,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} bg-gradient-to-b from-gray-900 to-black`}
         style={{
           color: "var(--foreground)"
-          // , background: "var(--background)"
         }}>
         <Analytics/>
         <SpeedInsights/>

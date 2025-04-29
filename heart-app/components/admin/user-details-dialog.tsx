@@ -16,7 +16,8 @@ import {
 } from "@/components/ui/dialog"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import type { Register } from "@/lib/mock-data"
+import { Register } from "@/types/register"
+
 
 interface UserDetailsDialogProps {
   user: Register
@@ -58,6 +59,11 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
                 <div className="grid grid-cols-3 gap-1">
                   <span className="text-sm font-medium text-muted-foreground">Título:</span>
                   <span className="text-sm col-span-2">{user.title || "-"}</span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-1">
+                  <span className="text-sm font-medium text-muted-foreground">Email:</span>
+                  <span className="text-sm col-span-2">{user.email || "-"}</span>
                 </div>
 
                 <div className="grid grid-cols-3 gap-1">
@@ -205,7 +211,7 @@ export function UserDetailsDialog({ user, open, onOpenChange }: UserDetailsDialo
 
         <DialogFooter className="flex flex-col sm:flex-row gap-2">
           <Button variant="outline" className="flex-1" asChild>
-            <a href={`https://ourlovee.com/yourDatting/${user.username}`} target="_blank" rel="noopener noreferrer">
+            <a href={`https://ourlovee.vercel.app/yourDatting/${user.username}`} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="mr-2 h-4 w-4" />
               Visualizar Site
             </a>

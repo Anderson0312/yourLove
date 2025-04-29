@@ -4,7 +4,6 @@ import type React from "react"
 
 import { useState } from "react"
 import { Calendar } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
 import { Calendar as CalendarComponent } from "@/components/ui/calendar"
 import {
@@ -19,10 +18,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Textarea } from "@/components/ui/textarea"
-import type { Register } from "@/lib/mock-data"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Register } from "@/types/register"
 
 interface UserEditDialogProps {
   user: Register

@@ -108,8 +108,7 @@ export default function ChoicePlan() {
           });
         }
 
-        // Redirect to the app or dashboard
-        router.push(`/yourDatting/${savedUsername}`)
+        router.push(`/freetrial`)
         return
       }
 

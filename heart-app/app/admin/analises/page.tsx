@@ -7,8 +7,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import toast from "react-hot-toast"
 import { api } from "@/lib/api"
 import { Register } from "@/types/register"
-import { mockRegistrations } from "@/lib/mock-data"
-import { AdminDashboardSidebar } from "@/components/admin/admin-dashboard-sidebar"
 
 export default function Analises() {
   const [timeRange, setTimeRange] = useState("all")
@@ -48,14 +46,7 @@ export default function Analises() {
       } catch (error: any) {
         console.error("Error fetching data:", error);
         toast.error(`Erro ao carregar dados: ${error}`, { id: toastId });
-        // Fallback para dados mockados se necessário
-        setRegistrations(mockRegistrations);
-        setMetrics({
-          totalRegistrations: mockRegistrations.length,
-          paidRegistrations: mockRegistrations.filter(r => r.payment === 'paid').length,
-          trialRegistrations: mockRegistrations.filter(r => r.trialStartDate).length,
-          completedSetups: mockRegistrations.filter(r => r.step >= 5).length
-        });
+        
       } finally {
         setIsLoading(false);
       }
@@ -97,17 +88,13 @@ export default function Analises() {
       ),
     },
   ]
-
-    if (isLoading) {
-      return (
-        <div className="flex min-h-screen flex-col md:flex-row">
-          <AdminDashboardSidebar />
-          <div className="flex-1 flex items-center justify-center">
-            <p>Carregando dados...</p>
-          </div>
-        </div>
-      );
-    }
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen flex-col md:flex-row">
+        <p>Carregando dados...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-4 md:gap-8">

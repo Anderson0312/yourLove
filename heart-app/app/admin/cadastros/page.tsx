@@ -10,7 +10,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { mockRegistrations, type Register } from "@/lib/mock-data"
 import { UserDetailsDialog } from "@/components/admin/user-details-dialog"
 import { DeleteConfirmDialog } from "@/components/admin/delete-confirm-dialog"
 import { PaymentStatusDialog } from "@/components/admin/payment-status-dialog"
@@ -18,7 +17,7 @@ import { SendEmailDialog } from "@/components/admin/send-email-dialog"
 import { UserEditDialog } from "@/components/admin/user-edit-dialog"
 import { api } from "@/lib/api"
 import toast from "react-hot-toast"
-import { AdminDashboardSidebar } from "@/components/admin/admin-dashboard-sidebar"
+import { Register } from "@/types/register"
 
 
 export default function Cadastros() {
@@ -52,8 +51,6 @@ export default function Cadastros() {
       } catch (error: any) {
         console.error("Error fetching data:", error);
         toast.error(`Erro ao carregar dados: ${error}`, { id: toastId });
-        // Fallback para dados mockados se necessário
-        setRegistrations(mockRegistrations);
       } finally {
         setIsLoading(false);
       }
@@ -137,10 +134,7 @@ export default function Cadastros() {
   if (isLoading) {
     return (
       <div className="flex min-h-screen flex-col md:flex-row">
-        <AdminDashboardSidebar />
-        <div className="flex-1 flex items-center justify-center">
-          <p>Carregando dados...</p>
-        </div>
+        <p>Carregando dados...</p>
       </div>
     );
   }

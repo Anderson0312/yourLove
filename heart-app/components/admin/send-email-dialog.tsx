@@ -16,9 +16,9 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import type { Register } from "@/lib/mock-data"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "@/components/ui/use-toast"
+import { Register } from "@/types/register"
 
 interface SendEmailDialogProps {
   user: Register
@@ -82,7 +82,7 @@ export function SendEmailDialog({ user, open, onOpenChange }: SendEmailDialogPro
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
           <div className="space-y-2">
             <Label htmlFor="recipient">Destinatário</Label>
-            <Input id="recipient" value={`${user.username}@example.com`} disabled />
+            <Input id="recipient" value={`${user.email}`} disabled />
           </div>
 
           <div className="space-y-2">

@@ -12,6 +12,7 @@ export interface Register {
   musicVideoId?: string | null
   photoPaths: string[]
   step: number
+  email?: string | null
   payment?: string | null
   trialStartDate?: Date | null
   modelo_carrosel?: string | null

@@ -98,7 +98,7 @@ export default function LayoutPadrao() {
     }
 
     return (
-        <div className="relative min-h-screen w-full ">
+        <div className="relative min-h-screen w-full bg-gradient-to-b from-gray-900 to-black text-white">
             {isPlanFree && <TrialCountdown />}
             {/* Camada de animação de fundo */}
             <div className="fixed inset-0 -z-10 overflow-hidden">

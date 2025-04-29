@@ -17,12 +17,12 @@ interface FormData {
     music: string;
     musicThumbnail: string;
     musicVideoId: string;
-    photo: File[] | null ; // Objetos File originais
+    photo: File[] | null; // Objetos File originais
     photoPaths: string[] | null; // Caminhos das fotos retornados pelo backend
-  }
+}
 
 export default function Home() {
-     const [data, setData] = useState<FormData>({
+    const [data, setData] = useState<FormData>({
         title: '',
         username: '',
         date: '',
@@ -34,7 +34,7 @@ export default function Home() {
         musicVideoId: '',
         photo: null,
         photoPaths: null,
-      });
+    });
     const [layout, setLayout] = useState(data.layout || "padrao");
     const params = useParams();
     const userId = Array.isArray(params.id) ? params.id[0] : params.id;
@@ -53,20 +53,20 @@ export default function Home() {
                     setLoading(false);
                 }
             };
-    
+
             fetchData();
         }
     }, [userId]);
-    
+
     useEffect(() => {
         if (data.layout) {
-          setLayout(data.layout);
+            setLayout(data.layout);
         }
-      }, [data.layout]); 
+    }, [data.layout]);
 
 
     if (loading) {
-        return <HeartLoader/>; 
+        return <HeartLoader />;
     }
 
 
@@ -76,13 +76,9 @@ export default function Home() {
             <TrialExpirationCheck redirectTo="/pricing" />
             {/* Your existing layout content */}
             {layout === "padrao" ? (
-              
-                <LayoutPadrao/>
-                
+                <LayoutPadrao />
             ) : (
-                
-                <LayoutNetflix/>
-                
+                <LayoutNetflix />
             )}
         </>
     );

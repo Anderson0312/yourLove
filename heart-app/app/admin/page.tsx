@@ -4,15 +4,13 @@ import { useEffect, useState } from "react"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { Calendar, CreditCard, Heart, Settings, Users } from "lucide-react"
-
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { AdminDashboardSidebar } from "@/components/admin/admin-dashboard-sidebar"
-import { mockRegistrations, type Register } from "@/lib/mock-data"
 import { api } from "@/lib/api"
 import toast from "react-hot-toast"
 import Link from "next/link"
+import { Register } from "@/types/register"
 
 export default function AdminDashboard() {
   const [registrations, setRegistrations] = useState<Register[]>([]);
@@ -24,18 +22,18 @@ export default function AdminDashboard() {
     trialRegistrations: 0,
     completedSetups: 0
   });
-  
+
 
   useEffect(() => {
     const fetchData = async () => {
       const toastId = toast.loading("carregando dados ...");
       try {
         setIsLoading(true);
-        
+
         const registrations = await api.getAllRegistrations();
         const metrics = await api.getMetrics();
         const lastFiveRegistrations = await api.getLastFiveRegistrations();
-        
+
 
         setLastRegistrations(lastFiveRegistrations.data || []);
         console.log("Registrations:", lastFiveRegistrations);
@@ -46,24 +44,16 @@ export default function AdminDashboard() {
           trialRegistrations: metrics?.totalPeriodTest || 0,
           completedSetups: metrics?.totalCompleteStep || 0
         });
-  
+
         toast.success(`Dados carregados com sucesso!`, { id: toastId });
-      } catch (error:any) {
+      } catch (error: any) {
         console.error("Error fetching data:", error);
         toast.error(`Erro ao carregar dados: ${error}`, { id: toastId });
-        // Fallback para dados mockados se necessário
-        setRegistrations(mockRegistrations);
-        setMetrics({
-          totalRegistrations: mockRegistrations.length,
-          paidRegistrations: mockRegistrations.filter(r => r.payment === 'paid').length,
-          trialRegistrations: mockRegistrations.filter(r => r.trialStartDate).length,
-          completedSetups: mockRegistrations.filter(r => r.step >= 5).length
-        });
       } finally {
         setIsLoading(false);
       }
     };
-    
+
     fetchData();
   }, []);
 
@@ -75,10 +65,7 @@ export default function AdminDashboard() {
   if (isLoading) {
     return (
       <div className="flex min-h-screen flex-col md:flex-row">
-        <AdminDashboardSidebar />
-        <div className="flex-1 flex items-center justify-center">
-          <p>Carregando dados...</p>
-        </div>
+        <p>Carregando dados...</p>
       </div>
     );
   }

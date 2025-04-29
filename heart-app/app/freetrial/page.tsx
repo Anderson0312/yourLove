@@ -2,8 +2,6 @@
 
 import Header from "@/components/Header";
 import HeadingTop from "@/components/HeadingTop";
-import HeartButton from "@/components/HeartButton";
-import SendQRCodeEmail from "@/components/SendQrCodeEmail";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { getRegistrationData, saveRegistrationData } from "@/services/api";
 import { CheckCircle, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -20,6 +19,7 @@ const FreeTrial = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState("")
+  const router = useRouter()
 
   useEffect(() => {
     const savedUsername = localStorage.getItem('username');
@@ -27,7 +27,6 @@ const FreeTrial = () => {
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    const toastId = toast.loading("Enviando email ...");
     e.preventDefault()
     setError("")
 
@@ -41,6 +40,7 @@ const FreeTrial = () => {
     if (!username) return;
     // Simulando uma chamada de API
     try {
+      const toastId = toast.loading("Enviando email ...");
       // Aqui você adicionaria a lógica para enviar o email para seu backend
       await new Promise((resolve) => setTimeout(resolve, 1000))
       const existingData = await getRegistrationData(username);
@@ -52,19 +52,20 @@ const FreeTrial = () => {
       });
       toast.success(`Email enviado com sucesso!`, { id: toastId });
       } catch (err) {
-        toast.error(`Ocorreu um erro ao processar sua solicitação.: ${error}`, { id: toastId });
+        toast.error(`Ocorreu um erro ao processar sua solicitação.: ${error}`);
         setError("Ocorreu um erro ao processar sua solicitação. Tente novamente.")
       } finally {
+        router.push(`/yourDatting/${username}`)
         setIsSubmitting(false)
       }
     }
 
   return (
-      <div className="">
+      <div className="bg-gradient-to-b from-gray-900 to-black">
         <HeadingTop />
         <Header />
         <Toaster position="bottom-right" />
-        <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-gray-900 to-black p-4">
+        <div className="flex min-h-screen items-center justify-center p-4">
           <Card className="mx-auto max-w-md">
             <CardHeader className="text-center">
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/20">

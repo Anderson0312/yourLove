@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { Calendar, CreditCard, Download, Filter, Heart, Search, Settings, Users } from "lucide-react"
@@ -20,12 +20,48 @@ import { UserEditDialog } from "@/components/admin/user-edit-dialog"
 import { DeleteConfirmDialog } from "@/components/admin/delete-confirm-dialog"
 import { PaymentStatusDialog } from "@/components/admin/payment-status-dialog"
 import { SendEmailDialog } from "@/components/admin/send-email-dialog"
+import { api } from "@/lib/api"
 
 export default function AdminDashboard() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [filterPayment, setFilterPayment] = useState<string | null>(null)
-  const [filterStep, setFilterStep] = useState<string | null>(null)
-  const [registrations, setRegistrations] = useState<Register[]>(mockRegistrations)
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterPayment, setFilterPayment] = useState<string | null>(null);
+  const [filterStep, setFilterStep] = useState<string | null>(null);
+  const [registrations, setRegistrations] = useState<Register[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [metrics, setMetrics] = useState({
+    totalRegistrations: 0,
+    paidRegistrations: 0,
+    trialRegistrations: 0,
+    completedSetups: 0
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const [registrationsResponse, metricsResponse] = await Promise.all([
+          api.getAllRegistrations(),
+          api.getMetrics()
+        ]);
+        
+        setRegistrations(registrationsResponse.data || []);
+        setMetrics({
+          totalRegistrations: metricsResponse.data?.totalRegistrations || 0,
+          paidRegistrations: metricsResponse.data?.totalPaymentSuccess || 0,
+          trialRegistrations: metricsResponse.data?.totalPeriodTest || 0,
+          completedSetups: metricsResponse.data?.totalCompleteStep || 0
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Mostrar feedback ao usuário
+        toast.error("Erro ao carregar dados. Tente novamente.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, []);
 
   // Dialog states
   const [selectedUser, setSelectedUser] = useState<Register | null>(null)
@@ -50,23 +86,31 @@ export default function AdminDashboard() {
   })
 
   // Calculate statistics
-  const totalRegistrations = registrations.length
-  const paidRegistrations = registrations.filter((r) => r.payment === "paid").length
-  const trialRegistrations = registrations.filter((r) => r.trialStartDate).length
-  const completedSetups = registrations.filter((r) => r.step >= 5).length
+  const { totalRegistrations, paidRegistrations, trialRegistrations, completedSetups } = metrics;
 
   // Handle user update
-  const handleUserUpdate = (updatedUser: Register) => {
-    setRegistrations((prev) => prev.map((user) => (user.id === updatedUser.id ? updatedUser : user)))
-    setIsEditOpen(false)
-    setIsPaymentOpen(false)
-  }
+  const handleUserUpdate = async (updatedUser: Register) => {
+    try {
+      await api.updateRegistration(updatedUser.id, updatedUser);
+      setRegistrations((prev) =>
+        prev.map((user) => (user.id === updatedUser.id ? updatedUser : user))
+      );
+      setIsEditOpen(false);
+      setIsPaymentOpen(false);
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
 
-  // Handle user deletion
-  const handleUserDelete = (userId: string) => {
-    setRegistrations((prev) => prev.filter((user) => user.id !== userId))
-    setIsDeleteOpen(false)
-  }
+  const handleUserDelete = async (userId: string) => {
+    try {
+      await api.deleteRegistration(userId);
+      setRegistrations((prev) => prev.filter((user) => user.id !== userId));
+      setIsDeleteOpen(false);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
 
   // Export data as CSV
   const exportToCSV = () => {
@@ -100,6 +144,17 @@ export default function AdminDashboard() {
     link.setAttribute("href", url)
     link.setAttribute("download", `ourlovee_registros_${format(new Date(), "dd-MM-yyyy")}.csv`)
     link.click()
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen flex-col md:flex-row">
+        <AdminDashboardSidebar />
+        <div className="flex-1 flex items-center justify-center">
+          <p>Carregando dados...</p>
+        </div>
+      </div>
+    );
   }
 
   return (

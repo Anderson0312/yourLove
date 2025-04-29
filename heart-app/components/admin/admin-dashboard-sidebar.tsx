@@ -2,39 +2,34 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import {
-  Calendar,
-  CreditCard,
-  Heart,
-  ImageIcon,
-  LayoutDashboard,
-  LogOut,
-  Menu,
-  Music,
-  Settings,
-  Users,
-} from "lucide-react"
+import { usePathname } from "next/navigation"
+import { BarChart, Heart, LayoutDashboard, LogOut, Menu, Settings, Users } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 export function AdminDashboardSidebar() {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
 
   const navItems = [
-    { icon: LayoutDashboard, label: "Dashboard", href: "#" },
-    { icon: Users, label: "Casais", href: "#" },
-    { icon: Calendar, label: "Datas", href: "#" },
-    { icon: ImageIcon, label: "Fotos", href: "#" },
-    { icon: Music, label: "Músicas", href: "#" },
-    { icon: CreditCard, label: "Pagamentos", href: "#" },
-    { icon: Settings, label: "Configurações", href: "#" },
+    { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
+    { icon: Users, label: "Cadastros", href: "/admin/cadastros" },
+    { icon: BarChart, label: "Análises", href: "/admin/analises" },
+    { icon: Settings, label: "Configurações", href: "/admin/configuracoes" },
   ]
 
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === href
+    }
+    return pathname.startsWith(href)
+  }
+
   const SidebarContent = () => (
-    <div className="flex flex-col h-full bg-white dark:bg-slate-800 ">
+    <div className="flex flex-col h-full bg-white dark:bg-slate-800">
       <div className="flex h-14 items-center border-b px-4">
-        <Link href="#" className="flex items-center gap-2 font-semibold">
+        <Link href="/admin" className="flex items-center gap-2 font-semibold">
           <Heart className="h-6 w-6 text-rose-500" />
           <span className="text-xl">OurLovee</span>
         </Link>
@@ -42,12 +37,12 @@ export function AdminDashboardSidebar() {
 
       <div className="flex-1 overflow-auto py-2">
         <nav className="grid items-start px-2 text-sm font-medium">
-          {navItems.map((item, index) => (
+          {navItems.map((item) => (
             <Link
-              key={index}
+              key={item.label}
               href={item.href}
               className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary ${
-                index === 0 ? "bg-muted text-primary" : "text-muted-foreground"
+                isActive(item.href) ? "bg-muted text-primary" : "text-muted-foreground"
               }`}
               onClick={() => setOpen(false)}
             >
@@ -65,7 +60,7 @@ export function AdminDashboardSidebar() {
         </Button>
       </div>
     </div>
-  );
+  )
 
   return (
     <>

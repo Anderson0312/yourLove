@@ -2,13 +2,20 @@ import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
 import imageCompression from 'browser-image-compression';
 require('dotenv').config();
-import { Register } from "@/types/register"
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL ||'http://localhost:3001/api',
 });
 
-
+export const getRegistrationData = async (userId: string) => {
+  try {
+    const response = await api.get(`/registration/${userId}`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Erro ao recuperar os dados:', error);
+    throw error;
+  }
+};
 
 export const saveRegistrationData = async (userId: string, step: number, data: any) => {
   try {

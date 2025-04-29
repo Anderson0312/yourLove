@@ -21,6 +21,7 @@ import { DeleteConfirmDialog } from "@/components/admin/delete-confirm-dialog"
 import { PaymentStatusDialog } from "@/components/admin/payment-status-dialog"
 import { SendEmailDialog } from "@/components/admin/send-email-dialog"
 import { api } from "@/lib/api"
+import toast from "react-hot-toast"
 
 export default function AdminDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,27 +35,40 @@ export default function AdminDashboard() {
     trialRegistrations: 0,
     completedSetups: 0
   });
+  
 
   useEffect(() => {
     const fetchData = async () => {
+      const toastId = toast.loading("carregando dados ...");
       try {
         setIsLoading(true);
-        const [registrationsResponse, metricsResponse] = await Promise.all([
-          api.getAllRegistrations(),
-          api.getMetrics()
-        ]);
         
-        setRegistrations(registrationsResponse.data || []);
+        const registrations = await api.getAllRegistrations();
+        const metrics = await api.getMetrics();
+        
+        console.log('Registrations:', registrations);
+        console.log('Metrics:', metrics);
+        
+        setRegistrations(registrations || []);
         setMetrics({
-          totalRegistrations: metricsResponse.data?.totalRegistrations || 0,
-          paidRegistrations: metricsResponse.data?.totalPaymentSuccess || 0,
-          trialRegistrations: metricsResponse.data?.totalPeriodTest || 0,
-          completedSetups: metricsResponse.data?.totalCompleteStep || 0
+          totalRegistrations: metrics?.totalRegistrations || 0,
+          paidRegistrations: metrics?.totalPaymentSuccess || 0,
+          trialRegistrations: metrics?.totalPeriodTest || 0,
+          completedSetups: metrics?.totalCompleteStep || 0
         });
+  
+        toast.success(`Dados carregados com sucesso!`, { id: toastId });
       } catch (error) {
         console.error("Error fetching data:", error);
-        // Mostrar feedback ao usuário
-        toast.error("Erro ao carregar dados. Tente novamente.");
+        toast.error(`Erro ao carregar dados: ${error.message}`, { id: toastId });
+        // Fallback para dados mockados se necessário
+        setRegistrations(mockRegistrations);
+        setMetrics({
+          totalRegistrations: mockRegistrations.length,
+          paidRegistrations: mockRegistrations.filter(r => r.payment === 'paid').length,
+          trialRegistrations: mockRegistrations.filter(r => r.trialStartDate).length,
+          completedSetups: mockRegistrations.filter(r => r.step >= 5).length
+        });
       } finally {
         setIsLoading(false);
       }
@@ -338,7 +352,7 @@ export default function AdminDashboard() {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value="all">Todos</SelectItem>
-                              <SelectItem value="paid">Pagos</SelectItem>
+                              <SelectItem value="PAGO">Pagos</SelectItem>
                               <SelectItem value="pending">Pendentes</SelectItem>
                             </SelectContent>
                           </Select>

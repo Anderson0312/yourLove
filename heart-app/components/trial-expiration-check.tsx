@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
-import { Alert, AlertDescription, AlertTitle } from "@/components/alert"
-import { Button } from "@/components/buttonv2"
 import { Clock, AlertTriangle } from "lucide-react"
 import { getRemainingTrialTime, isTrialExpired } from "@/utils/trial-utils"
 import { getRegistrationData } from "@/services/api"
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert"
+import { Button } from "./ui/button"
 
 interface TrialExpirationCheckProps {
   redirectTo?: string

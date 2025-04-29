@@ -4,8 +4,8 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Lock } from "lucide-react"
 import { useParams, useRouter } from "next/navigation"
-import { Button } from "./buttonv2"
 import { getRegistrationData } from "@/services/api"
+import { Button } from "./ui/button"
 
 interface FeatureRestrictionProps {
   feature: "edit" | "qrcode" | "music" | "support" | "layout"

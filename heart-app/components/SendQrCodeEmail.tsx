@@ -59,7 +59,7 @@ export default function SendQRCodeEmail() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 rounded-lg shadow-md bg-gray-50 border dark:bg-gray-800 ">
+    <div className="max-w-md mx-auto p-6 rounded-lg shadow-md bg-gray-50 border bg-gray-800 ">
       <h2 className="text-2xl font-bold mb-4 text-red-600">Receba seu QrCode via email</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -71,7 +71,7 @@ export default function SendQRCodeEmail() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-800 shadow-sm focus:border-red-500 focus:ring-red-500 p-2 border"
+            className="mt-1 block w-full rounded-md border-gray-300 bg-gray-800 shadow-sm focus:border-red-500 focus:ring-red-500 p-2 border"
             required
           />
         </div>

@@ -34,9 +34,12 @@ export default function RootLayout({
         />
         <link rel="icon" href="/heart.svg" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} `}
-      >
+      <body 
+        className={`${geistSans.variable} ${geistMono.variable} bg-gradient-to-b from-gray-900 to-black`}
+        style={{
+          color: "var(--foreground)"
+          // , background: "var(--background)"
+        }}>
         <Analytics/>
         <SpeedInsights/>
         {children}

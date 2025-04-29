@@ -6,16 +6,16 @@ import Link from "next/link";
 
 export default function CancelPage() {
     return (
-      <div className="bg-gray-50 dark:bg-gray-900">
+      <div className="">
       <HeadingTop/>
       <Header/>     
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-md w-full m-2 space-y-6 p-6 bg-white rounded-lg shadow-lg items-center dark:bg-gray-800 ">
+      <div className="flex flex-col items-center justify-center min-h-screen ">
+        <div className="max-w-md w-full m-2 space-y-6 p-6 bg-white rounded-lg shadow-lg items-center bg-gray-800 ">
         <div className="flex flex-col items-center">
           <CircleCancelIcon className="text-red-500 h-16 w-16 " />
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50 mt-4">Pagamento Cancelado</h1>
-        <p className="text-gray-500 dark:text-gray-400 mt-2">O pagamento foi cancelado. Você pode tentar novamente quando quiser.</p>
-        <div className="mt-2 border-t border-gray-200 dark:border-gray-700 pt-6 space-y-4">
+        <h1 className="text-3xl font-bold text-gray-900 text-gray-50 mt-4">Pagamento Cancelado</h1>
+        <p className="text-gray-500 text-gray-400 mt-2">O pagamento foi cancelado. Você pode tentar novamente quando quiser.</p>
+        <div className="mt-2 border-t border-gray-200 border-gray-700 pt-6 space-y-4">
         <Link  href="/register/5" className="mt-6 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">
           Voltar para a página inicial
         </Link >

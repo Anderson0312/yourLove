@@ -1,5 +1,7 @@
 "use client"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/accordion"
+
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
+
 
 const FAQSection = () => {
 

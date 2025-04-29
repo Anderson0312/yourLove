@@ -1,13 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react"
-
-import { Card, CardContent } from "@/components/card"
 import { Clock } from "lucide-react"
 import { useParams, useRouter } from "next/navigation"
 import { formatRemainingTime, getRemainingTrialTime } from "@/utils/trial-utils"
-import { Button } from "./buttonv2"
 import { getRegistrationData } from "@/services/api"
+import { Button } from "./ui/button"
+import { Card, CardContent } from "./ui/card"
 
 
 export function TrialCountdown() {

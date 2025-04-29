@@ -102,8 +102,9 @@ export function UserEditDialog({ user, open, onOpenChange, onSave }: UserEditDia
               <Label htmlFor="step">Etapa</Label>
               <Select
                 value={formData.step.toString()}
-                onValueChange={(value) => handleSelectChange("step", Number.parseInt(value))}
+                onValueChange={(value) => handleSelectChange("step", value)}
               >
+
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione a etapa" />
                 </SelectTrigger>

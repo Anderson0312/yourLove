@@ -2,13 +2,13 @@
 
 import { useState } from "react"
 import ChoicePlan from "@/components/ChoicePlan"
-import { Button } from "@/components/buttonv2"
 import { Header } from "@/components/Header"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/accordion"
 import { CheckIcon,  StarIcon, } from "lucide-react"
 import Footer from "@/components/Footer"
 import HeadingTop from "@/components/HeadingTop"
 import { useRouter } from "next/navigation"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
 
 export default function PricingPage() {
     const router = useRouter()

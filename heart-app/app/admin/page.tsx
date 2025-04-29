@@ -153,7 +153,7 @@ export default function AdminDashboard() {
           <CardHeader className="flex justify-between items-center">
             <CardTitle>Cadastros Recentes</CardTitle>
             <Button variant="outline" size="sm" asChild>
-              <Link href="/cadastros">Ver todos</Link>
+              <Link href="/admin/cadastros">Ver todos</Link>
             </Button>
           </CardHeader>
           <CardContent>
@@ -190,7 +190,7 @@ export default function AdminDashboard() {
               <CardDescription>Distribuição dos cadastros por etapa</CardDescription>
             </div>
             <Button variant="outline" size="sm" asChild>
-              <Link href="/analises">Mais detalhes</Link>
+              <Link href="/admin/analises">Mais detalhes</Link>
             </Button>
           </CardHeader>
           <CardContent>

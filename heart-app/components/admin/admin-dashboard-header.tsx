@@ -15,7 +15,7 @@ import {
 
 export function AdminDashboardHeader() {
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-white dark:bg-slate-800 px-4 md:px-6">
       <div className="w-full flex-1 md:max-w-sm">
         <div className="relative">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />

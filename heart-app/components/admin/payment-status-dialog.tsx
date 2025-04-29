@@ -54,7 +54,7 @@ export function PaymentStatusDialog({ user, open, onOpenChange, onSave }: Paymen
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md bg-white dark:bg-slate-800 ">
         <DialogHeader>
           <DialogTitle>Status de Pagamento</DialogTitle>
           <DialogDescription>Altere o status de pagamento para {user.names || user.username}</DialogDescription>

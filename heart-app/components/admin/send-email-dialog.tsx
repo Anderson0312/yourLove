@@ -73,7 +73,7 @@ export function SendEmailDialog({ user, open, onOpenChange }: SendEmailDialogPro
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-800 ">
         <DialogHeader>
           <DialogTitle>Enviar E-mail</DialogTitle>
           <DialogDescription>Envie um e-mail para {user.names || user.username}</DialogDescription>

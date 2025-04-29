@@ -56,7 +56,7 @@ export function UserEditDialog({ user, open, onOpenChange, onSave }: UserEditDia
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-800 ">
         <DialogHeader>
           <DialogTitle>Editar Casal</DialogTitle>
           <DialogDescription>Edite as informações de {formData.names || formData.username}</DialogDescription>

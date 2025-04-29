@@ -32,7 +32,7 @@ export function AdminDashboardSidebar() {
   ]
 
   const SidebarContent = () => (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-white dark:bg-slate-800 ">
       <div className="flex h-14 items-center border-b px-4">
         <Link href="#" className="flex items-center gap-2 font-semibold">
           <Heart className="h-6 w-6 text-rose-500" />
@@ -65,7 +65,7 @@ export function AdminDashboardSidebar() {
         </Button>
       </div>
     </div>
-  )
+  );
 
   return (
     <>

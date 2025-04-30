@@ -63,7 +63,7 @@ export default function SendQRCodeEmail({  textTitle }: TextDatingProps) {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 rounded-lg shadow-md bg-gray-50 border bg-gray-800 ">
+    <div className="max-w-md mx-auto p-6 rounded-lg shadow-md  ">
       <h2 className="text-2xl font-bold mb-4 text-red-600">
         {textTitle} 
       </h2>
@@ -80,7 +80,7 @@ export default function SendQRCodeEmail({  textTitle }: TextDatingProps) {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 bg-gray-800 shadow-sm focus:border-red-500 focus:ring-red-500 p-2 border"
+            className="mt-1 block w-full rounded-md border-gray-300  shadow-sm focus:border-red-500 focus:ring-red-500 p-2 border"
             required
           />
         </div>

@@ -18,9 +18,9 @@ import {
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import type { Register } from "@/lib/mock-data"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
+import { Register } from "@/types/register"
 
 interface PaymentStatusDialogProps {
   user: Register

@@ -12,7 +12,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import type { Register } from "@/lib/mock-data"
+import { Register } from "@/types/register"
+
 
 interface DeleteConfirmDialogProps {
   user: Register

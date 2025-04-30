@@ -56,6 +56,7 @@ const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ dynamicPath }) => {
       console.error("Erro ao enviar os dados de pagamento:", error);
     } finally {
       setIsLoading(false);
+      localStorage.clear();
     }
   };
 

@@ -59,6 +59,7 @@ export default function SendQRCodeEmail({  textTitle }: TextDatingProps) {
       setMessage({ text: error.message, type: "error" });
     } finally {
       setIsLoading(false);
+      localStorage.clear();
     }
   };
 

@@ -159,7 +159,7 @@ export default function AdminDashboard() {
                     {registration.payment === "paid" ? (
                       <Badge className="bg-green-500">Pago</Badge>
                     ) : registration.trialStartDate ? (
-                      <Badge variant="outline">Teste</Badge>
+                      <Badge variant="outline" className="bg-yellow-400">Teste</Badge>
                     ) : (
                       <Badge variant="secondary">Pendente</Badge>
                     )}
@@ -194,7 +194,7 @@ export default function AdminDashboard() {
                         <span className="text-sm text-muted-foreground">{percentage}%</span>
                       </div>
                       <div className="w-full bg-secondary rounded-full h-2.5">
-                        <div className="bg-primary h-2.5 rounded-full" style={{ width: `${percentage}%` }}></div>
+                        <div className="bg-red-600 h-2.5 rounded-full" style={{ width: `${percentage}%` }}></div>
                       </div>
                     </div>
                   </div>

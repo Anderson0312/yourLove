@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { format } from "date-fns"
-import { Download, Filter, Search } from "lucide-react"
+import { BookUser, Download, Filter, Mail, MoreHorizontal, Pencil, Search, Trash2 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -18,6 +18,8 @@ import { UserEditDialog } from "@/components/admin/user-edit-dialog"
 import { api } from "@/lib/api"
 import toast from "react-hot-toast"
 import { Register } from "@/types/register"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
+import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 
 
 export default function Cadastros() {
@@ -176,7 +178,8 @@ export default function Cadastros() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">Todos</SelectItem>
-                    <SelectItem value="paid">Pagos</SelectItem>
+                    <SelectItem value="PAGO">Pagos</SelectItem>
+                    <SelectItem value="free-trial">Teste</SelectItem>
                     <SelectItem value="pending">Pendentes</SelectItem>
                   </SelectContent>
                 </Select>
@@ -214,9 +217,9 @@ export default function Cadastros() {
                   <TableRow>
                     <TableHead>Usuário</TableHead>
                     <TableHead>Nomes</TableHead>
-                    <TableHead>Data do Casamento</TableHead>
+                    <TableHead>Data do Casal</TableHead>
                     <TableHead>Criado em</TableHead>
-                    <TableHead>Etapa</TableHead>
+                    <TableHead>Step</TableHead>
                     <TableHead>Pagamento</TableHead>
                     <TableHead className="text-right">Ações</TableHead>
                   </TableRow>
@@ -241,7 +244,7 @@ export default function Cadastros() {
                           <Badge variant="outline">{registration.step}/5</Badge>
                         </TableCell>
                         <TableCell>
-                          {registration.payment === "paid" ? (
+                          {registration.payment === "PAGO" ? (
                             <Badge
                               className="bg-green-500 hover:bg-green-600 cursor-pointer"
                               onClick={() => {
@@ -254,7 +257,7 @@ export default function Cadastros() {
                           ) : registration.trialStartDate ? (
                             <Badge
                               variant="outline"
-                              className="cursor-pointer"
+                              className="bg-yellow-500 cursor-pointer"
                               onClick={() => {
                                 setSelectedUser(registration)
                                 setIsPaymentOpen(true)
@@ -276,49 +279,46 @@ export default function Cadastros() {
                           )}
                         </TableCell>
                         <TableCell className="text-right">
-                          <div className="flex justify-end gap-2">
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => {
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Abrir menu</span>
+                                <MoreHorizontal className="h-4 w-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem onClick={() => {
                                 setSelectedUser(registration)
-                                setIsDetailsOpen(true)
-                              }}
-                            >
-                              Detalhes
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => {
-                                setSelectedUser(registration)
-                                setIsEditOpen(true)
-                              }}
-                            >
-                              Editar
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => {
-                                setSelectedUser(registration)
-                                setIsEmailOpen(true)
-                              }}
-                            >
-                              Email
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                              onClick={() => {
+                                setIsDetailsOpen(true)}}>
+                                <Pencil className="mr-2 h-4 w-4" />
+                                Editar
+                              </DropdownMenuItem>
+                              <DropdownMenuItem  onClick={() => {
                                 setSelectedUser(registration)
                                 setIsDeleteOpen(true)
                               }}
                             >
-                              Excluir
-                            </Button>
-                          </div>
+                                <Trash2 className="mr-2 h-4 w-4" />
+                                Excluir
+                              </DropdownMenuItem>
+                              <DropdownMenuItem  onClick={() => {
+                                setSelectedUser(registration)
+                                setIsEmailOpen(true)
+                              }}
+                            >
+                                <Mail className="mr-2 h-4 w-4" />
+                                Email
+                              </DropdownMenuItem>
+                              <DropdownMenuItem  onClick={() => {
+                                setSelectedUser(registration)
+                                setIsDetailsOpen(true)
+                              }}
+                            >
+                                <BookUser className="mr-2 h-4 w-4" />
+                                Detalhes
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                         </TableCell>
                       </TableRow>
                     ))

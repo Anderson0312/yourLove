@@ -2,6 +2,7 @@
 
 import { Register } from "@/types/register"
 import { createTransport } from "nodemailer"
+import { api } from "./api"
 
 // Configuração do transporter usando as variáveis de ambiente
 const transporter = createTransport({
@@ -78,7 +79,7 @@ Equipe OurLovee`,
     </p>
   </div>
   
-  <p>É a oportunidade perfeita para criar ou melhorar seu site de casamento 
+  <p>É a oportunidade perfeita para criar ou melhorar seu site de casal 
   com todos os recursos premium pela metade do preço.</p>
   
   <p style="text-align: center; margin: 20px 0;">

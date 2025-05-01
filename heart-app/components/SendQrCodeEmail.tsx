@@ -25,7 +25,7 @@ export default function SendQRCodeEmail({  textTitle }: TextDatingProps) {
     setMessage({ text: "", type: "" });
 
     try {
-      const response = await fetch("/api/sendemail", {
+      const response = await fetch("/api/sendemailQrCode", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,18 +1,9 @@
 "use client"
 
-import { SelectItem } from "@/components/ui/select"
-
-import { SelectContent } from "@/components/ui/select"
-
-import { SelectValue } from "@/components/ui/select"
-
-import { SelectTrigger } from "@/components/ui/select"
-
-import { Select } from "@/components/ui/select"
-
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { AlertCircle, CheckCircle, Loader2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -20,16 +11,19 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { toast } from "@/components/ui/use-toast"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { verifyEmailConfig } from "@/lib/email-service"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import toast from "react-hot-toast"
 
 export default function Configuracoes() {
   const [emailSettings, setEmailSettings] = useState({
-    smtpServer: "smtp.ourlovee.com",
+    smtpServer: "smtp.gmail.com",
     smtpPort: "587",
-    smtpUser: "admin@ourlovee.com",
+    smtpUser: process.env.GMAIL_USER || "",
     smtpPassword: "••••••••••••",
     senderName: "OurLovee",
-    senderEmail: "noreply@ourlovee.com",
+    senderEmail: process.env.GMAIL_USER || "",
   })
 
   const [notificationSettings, setNotificationSettings] = useState({
@@ -38,6 +32,23 @@ export default function Configuracoes() {
     trialExpiring: true,
     dailySummary: false,
   })
+
+  const [emailConfigStatus, setEmailConfigStatus] = useState<"loading" | "success" | "error" | null>(null)
+  const [testEmailLoading, setTestEmailLoading] = useState(false)
+
+  useEffect(() => {
+    const checkEmailConfig = async () => {
+      setEmailConfigStatus("loading")
+      try {
+        const result = await verifyEmailConfig()
+        setEmailConfigStatus(result.success ? "success" : "error")
+      } catch (error) {
+        setEmailConfigStatus("error")
+      }
+    }
+
+    checkEmailConfig()
+  }, [])
 
   const handleEmailSettingChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -49,10 +60,39 @@ export default function Configuracoes() {
   }
 
   const handleSaveSettings = () => {
-    toast({
-      title: "Configurações salvas",
-      description: "Suas configurações foram atualizadas com sucesso.",
-    })
+    toast.success(`Suas configurações foram atualizadas com sucesso.`);
+  }
+
+  const handleTestEmail = async () => {
+    setTestEmailLoading(true)
+
+    const toastId = toast.loading("Enviando...");
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: emailSettings.smtpUser,
+          subject: "Teste de Configuração de Email - OurLovee",
+          text: "Este é um email de teste para verificar a configuração do serviço de email da plataforma OurLovee.",
+        }),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        toast.success(`Email de teste enviado para ${emailSettings.smtpUser}`, { id: toastId });
+      } else {
+        toast.error(`Ocorreu um erro ao enviar o e-mail. ${data.error}`, { id: toastId });
+      }
+    } catch (error) {
+      
+      toast.error(`Ocorreu um erro ao enviar o e-mail. ${error}`, { id: toastId });
+    } finally {
+      setTestEmailLoading(false)
+    }
   }
 
   return (
@@ -77,6 +117,33 @@ export default function Configuracoes() {
               <CardDescription>Configure o servidor SMTP para envio de emails.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
+              {emailConfigStatus === "success" && (
+                <Alert className="bg-green-50 border-green-200">
+                  <CheckCircle className="h-4 w-4 text-green-600" />
+                  <AlertTitle className="text-green-800">Configuração de email verificada</AlertTitle>
+                  <AlertDescription className="text-green-700">
+                    Sua configuração de email está funcionando corretamente.
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              {emailConfigStatus === "error" && (
+                <Alert variant="destructive">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Erro na configuração de email</AlertTitle>
+                  <AlertDescription>
+                    Há um problema com sua configuração de email. Verifique as credenciais e configurações.
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              {emailConfigStatus === "loading" && (
+                <div className="flex items-center justify-center p-4">
+                  <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                  <span className="ml-2">Verificando configuração de email...</span>
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="smtpServer">Servidor SMTP</Label>
@@ -85,7 +152,9 @@ export default function Configuracoes() {
                     name="smtpServer"
                     value={emailSettings.smtpServer}
                     onChange={handleEmailSettingChange}
+                    disabled
                   />
+                  <p className="text-xs text-muted-foreground">Usando Gmail como serviço de email</p>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="smtpPort">Porta SMTP</Label>
@@ -94,26 +163,33 @@ export default function Configuracoes() {
                     name="smtpPort"
                     value={emailSettings.smtpPort}
                     onChange={handleEmailSettingChange}
+                    disabled
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="smtpUser">Usuário SMTP</Label>
+                  <Label htmlFor="smtpUser">Usuário SMTP (Email do Gmail)</Label>
                   <Input
                     id="smtpUser"
                     name="smtpUser"
                     value={emailSettings.smtpUser}
                     onChange={handleEmailSettingChange}
+                    disabled
                   />
+                  <p className="text-xs text-muted-foreground">Configurado via variável de ambiente GMAIL_USER</p>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="smtpPassword">Senha SMTP</Label>
+                  <Label htmlFor="smtpPassword">Senha de App do Gmail</Label>
                   <Input
                     id="smtpPassword"
                     name="smtpPassword"
                     type="password"
                     value={emailSettings.smtpPassword}
                     onChange={handleEmailSettingChange}
+                    disabled
                   />
+                  <p className="text-xs text-muted-foreground">
+                    Configurado via variável de ambiente GMAIL_APP_PASSWORD
+                  </p>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="senderName">Nome do Remetente</Label>
@@ -131,8 +207,27 @@ export default function Configuracoes() {
                     name="senderEmail"
                     value={emailSettings.senderEmail}
                     onChange={handleEmailSettingChange}
+                    disabled
                   />
+                  <p className="text-xs text-muted-foreground">Mesmo que o usuário SMTP</p>
                 </div>
+              </div>
+
+              <div className="mt-6">
+                <Button
+                  onClick={handleTestEmail}
+                  disabled={testEmailLoading || emailConfigStatus !== "success"}
+                  variant="outline"
+                >
+                  {testEmailLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Enviando email de teste...
+                    </>
+                  ) : (
+                    "Enviar email de teste"
+                  )}
+                </Button>
               </div>
             </CardContent>
             <CardFooter>
@@ -270,7 +365,7 @@ export default function Configuracoes() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="adminEmail">Email</Label>
-                  <Input id="adminEmail" defaultValue="admin@ourlovee.com" />
+                  <Input id="adminEmail" defaultValue={emailSettings.smtpUser || "admin@ourlovee.com"} />
                 </div>
               </div>
 

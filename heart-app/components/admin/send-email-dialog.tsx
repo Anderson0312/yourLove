@@ -17,8 +17,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { toast } from "@/components/ui/use-toast"
+import { getEmailTemplate } from "@/lib/email-service"
+import { Loader2 } from "lucide-react"
 import { Register } from "@/types/register"
+import toast from "react-hot-toast"
 
 interface SendEmailDialogProps {
   user: Register
@@ -30,50 +32,63 @@ export function SendEmailDialog({ user, open, onOpenChange }: SendEmailDialogPro
   const [subject, setSubject] = useState("")
   const [template, setTemplate] = useState("")
   const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [emailAddress, setEmailAddress] = useState(user.email || '')
 
-  const handleTemplateChange = (value: string) => {
+  const handleTemplateChange = async (value: string) => {
     setTemplate(value)
+    if (value === "custom") {
+      setSubject("")
+      setMessage("")
+      return
+    }
 
-    switch (value) {
-      case "welcome":
-        setSubject("Bem-vindo ao OurLovee!")
-        setMessage(
-          `Olá ${user.names || user.username},\n\nSeja bem-vindo ao OurLovee! Estamos muito felizes em ajudar vocês a criar um site especial para o seu casamento.\n\nPara começar, acesse seu painel em https://ourlovee.com/dashboard e complete as etapas de configuração.\n\nSe precisar de ajuda, estamos à disposição.\n\nAtenciosamente,\nEquipe OurLovee`,
-        )
-        break
-      case "payment":
-        setSubject("Confirmação de Pagamento - OurLovee")
-        setMessage(
-          `Olá ${user.names || user.username},\n\nRecebemos seu pagamento com sucesso! Seu site de casamento agora está ativo permanentemente.\n\nAproveite todos os recursos premium e personalize seu site como desejar.\n\nAtenciosamente,\nEquipe OurLovee`,
-        )
-        break
-      case "reminder":
-        setSubject("Complete seu site de casamento - OurLovee")
-        setMessage(
-          `Olá ${user.names || user.username},\n\nNotamos que você ainda não completou a configuração do seu site de casamento.\n\nFaltam apenas algumas etapas para que seu site fique perfeito! Acesse https://ourlovee.com/dashboard para continuar.\n\nPrecisa de ajuda? Estamos à disposição.\n\nAtenciosamente,\nEquipe OurLovee`,
-        )
-        break
-      default:
-        setSubject("")
-        setMessage("")
+    try {
+      const templateData = await getEmailTemplate(value, user)
+      setSubject(templateData.subject)
+      setMessage(templateData.text)
+    } catch (error) {     
+      toast.error(`Error loading template ${error}`);
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoading(true)
+    const toastId = toast.loading("Enviando...");
+    
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: emailAddress,
+          subject,
+          text: message,
+        }),
+      })
 
-    // Simulação de envio de e-mail
-    toast({
-      title: "E-mail enviado com sucesso",
-      description: `E-mail enviado para ${user.username}@example.com`,
-    })
+      const data = await response.json()
 
-    onOpenChange(false)
+      if (data.success) {
+        
+        toast.success(`E-mail enviado com sucesso para ${emailAddress}`, { id: toastId });
+        onOpenChange(false)
+      } else {
+        toast.error(`Ocorreu um erro ao enviar o e-mail. ${data.error}`, { id: toastId });
+      }
+    } catch (error) {    
+      toast.error(`Ocorreu um erro ao enviar o e-mail. ${error}`, { id: toastId });
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-800 ">
+      <DialogContent className="max-w-2xl bg-white dark:bg-slate-800">
         <DialogHeader>
           <DialogTitle>Enviar E-mail</DialogTitle>
           <DialogDescription>Envie um e-mail para {user.names || user.username}</DialogDescription>
@@ -82,7 +97,13 @@ export function SendEmailDialog({ user, open, onOpenChange }: SendEmailDialogPro
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
           <div className="space-y-2">
             <Label htmlFor="recipient">Destinatário</Label>
-            <Input id="recipient" value={`${user.email}`} disabled />
+            <Input
+              id="recipient"
+              value={emailAddress}
+              onChange={(e) => setEmailAddress(e.target.value)}
+              placeholder="email@exemplo.com"
+              required
+            />
           </div>
 
           <div className="space-y-2">
@@ -95,6 +116,7 @@ export function SendEmailDialog({ user, open, onOpenChange }: SendEmailDialogPro
                 <SelectItem value="welcome">Boas-vindas</SelectItem>
                 <SelectItem value="payment">Confirmação de Pagamento</SelectItem>
                 <SelectItem value="reminder">Lembrete de Configuração</SelectItem>
+                <SelectItem value="campaign">Campanha Promocional (50% OFF)</SelectItem>
                 <SelectItem value="custom">Personalizado</SelectItem>
               </SelectContent>
             </Select>
@@ -124,10 +146,19 @@ export function SendEmailDialog({ user, open, onOpenChange }: SendEmailDialogPro
           </div>
 
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
               Cancelar
             </Button>
-            <Button type="submit">Enviar E-mail</Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Enviando...
+                </>
+              ) : (
+                "Enviar E-mail"
+              )}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

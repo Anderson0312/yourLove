@@ -36,7 +36,6 @@ export default function AdminDashboard() {
 
 
         setLastRegistrations(lastFiveRegistrations.data || []);
-        console.log("Registrations:", lastFiveRegistrations);
         setRegistrations(registrations || []);
         setMetrics({
           totalRegistrations: metrics?.totalRegistrations || 0,
@@ -151,7 +150,7 @@ export default function AdminDashboard() {
                     <p className="text-sm font-medium leading-none">{registration.names || registration.username}</p>
                     <p className="text-sm text-muted-foreground">
                       {registration.created_at
-                        ? format(new Date(registration.created_at), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })
+                        ? format(new Date(registration.created_at), "dd 'de' MMMM 'de' yyyy k:m", { locale: ptBR })
                         : "Data não definida"}
                     </p>
                   </div>

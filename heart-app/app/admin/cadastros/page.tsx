@@ -239,7 +239,7 @@ export default function Cadastros() {
                         <TableCell>
                           {registration.date ? format(new Date(registration.date), "dd/MM/yyyy") : "-"}
                         </TableCell>
-                        <TableCell>{format(new Date(registration.created_at), "dd/MM/yyyy")}</TableCell>
+                        <TableCell>{format(new Date(registration.created_at), "dd/MM/yyyy k:m")}</TableCell>
                         <TableCell>
                           <Badge variant="outline">{registration.step}/5</Badge>
                         </TableCell>
@@ -289,34 +289,37 @@ export default function Cadastros() {
                             <DropdownMenuContent align="end">
                               <DropdownMenuItem onClick={() => {
                                 setSelectedUser(registration)
-                                setIsDetailsOpen(true)}}>
-                                <Pencil className="mr-2 h-4 w-4" />
-                                Editar
-                              </DropdownMenuItem>
-                              <DropdownMenuItem  onClick={() => {
-                                setSelectedUser(registration)
-                                setIsDeleteOpen(true)
-                              }}
-                            >
-                                <Trash2 className="mr-2 h-4 w-4" />
-                                Excluir
-                              </DropdownMenuItem>
-                              <DropdownMenuItem  onClick={() => {
-                                setSelectedUser(registration)
-                                setIsEmailOpen(true)
-                              }}
-                            >
-                                <Mail className="mr-2 h-4 w-4" />
-                                Email
-                              </DropdownMenuItem>
-                              <DropdownMenuItem  onClick={() => {
-                                setSelectedUser(registration)
                                 setIsDetailsOpen(true)
                               }}
-                            >
+                              >
                                 <BookUser className="mr-2 h-4 w-4" />
                                 Detalhes
                               </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => {
+                                setSelectedUser(registration)
+                                setIsEditOpen(true)
+                              }}>
+                                <Pencil className="mr-2 h-4 w-4" />
+                                Editar
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => {
+                                setSelectedUser(registration)
+                                setIsEmailOpen(true)
+                              }}
+                              >
+                                <Mail className="mr-2 h-4 w-4" />
+                                Email
+                              </DropdownMenuItem>
+
+                              <DropdownMenuItem onClick={() => {
+                                setSelectedUser(registration)
+                                setIsDeleteOpen(true)
+                              }}
+                              >
+                                <Trash2 className="mr-2 h-4 w-4 text-red-500" />
+                                Excluir
+                              </DropdownMenuItem>
+
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </TableCell>

@@ -141,7 +141,7 @@ Equipe OurLovee`,
 
 // Filtros para segmentação de usuários
 export interface CampaignFilters {
-  payment?: "paid" | "free-trial" | "all"
+  paymentStatus?: "paid" | "free-trial" | "all"
   step?: number | "all"
   trialStatus?: "in_trial" | "not_in_trial" | "all"
   daysUntilWedding?: number | null
@@ -150,9 +150,9 @@ export interface CampaignFilters {
 // Função para verificar se um usuário atende aos critérios de filtro
 function userMatchesFilters(user: Register, filters: CampaignFilters): boolean {
   // Filtro por status de pagamento
-  if (filters.payment && filters.payment !== "all") {
-    if (filters.payment === "paid" && user.payment !== "PAGO") return false
-    if (filters.payment === "free-trial" && user.payment === "free-trial") return false
+  if (filters.paymentStatus && filters.paymentStatus !== "all") {
+    if (filters.paymentStatus === "paid" && user.payment !== "PAGO") return false
+    if (filters.paymentStatus === "free-trial" && user.payment === "free-trial") return false
   }
 
   // Filtro por etapa

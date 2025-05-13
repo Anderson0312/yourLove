@@ -21,6 +21,8 @@ import { CampaignPreviewDialog } from "@/components/admin/campaign-preview-dialo
 import { CampaignFilters, CampaignType, estimateRecipients, sendCampaign } from "@/lib/campaing-service"
 import { Progress } from "@/components/ui/progress"
 import { mockRegistrations } from "@/lib/mock-data"
+import { Register } from "@/types/register"
+import { api } from "@/lib/api"
 
 
 const availableCampaigns = [
@@ -106,10 +108,35 @@ export default function Configuracoes() {
     errors: string[]
   } | null>(null)
 
+  // Estado para armazenar os registros da API
+  const [registrations, setRegistrations] = useState<Register[]>([])
+  const [loadingRegistrations, setLoadingRegistrations] = useState(true)
+  const [registrationsError, setRegistrationsError] = useState<string | null>(null)
+
+  // Buscar registros da API
+  useEffect(() => {
+    async function fetchRegistrations() {
+      try {
+        setLoadingRegistrations(true)
+        setRegistrationsError(null)
+        const data = await api.getAllRegistrations()
+        setRegistrations(data)
+      } catch (error) {
+        console.error("Erro ao buscar registros:", error)
+        setRegistrationsError("Não foi possível carregar os registros. Tente novamente mais tarde.")
+      } finally {
+        setLoadingRegistrations(false)
+      }
+    }
+
+    fetchRegistrations()
+  }, [])
+
   // Efeito para atualizar a contagem de destinatários quando os filtros mudam
   useEffect(() => {
     if (selectedCampaign) {
-      const count = estimateRecipients(campaignFilters, mockRegistrations)
+
+      const count = estimateRecipients(campaignFilters, registrations)
       setRecipientCount(count)
     } else {
       setRecipientCount(0)
@@ -196,7 +223,7 @@ export default function Configuracoes() {
       }, 200)
 
       // Enviar campanha
-      const result = await sendCampaign(selectedCampaign, campaignFilters, mockRegistrations)
+      const result = await sendCampaign(selectedCampaign, campaignFilters, registrations)
 
       clearInterval(progressInterval)
       setSendProgress(100)
@@ -525,7 +552,7 @@ export default function Configuracoes() {
                     <p className="text-sm text-muted-foreground">
                       {Array.isArray(availableCampaigns)
                         ? availableCampaigns.find((c) => c.id === selectedCampaign)?.description ||
-                          "Campanha selecionada"
+                        "Campanha selecionada"
                         : "Campanha selecionada"}
                     </p>
                   )}
@@ -681,7 +708,7 @@ export default function Configuracoes() {
           {/* Diálogos de prévia e confirmação */}
           <CampaignPreviewDialog
             campaignId={selectedCampaign}
-            previewUser={mockRegistrations[0]}
+            previewUser={registrations[0]}
             open={isPreviewOpen}
             onOpenChange={setIsPreviewOpen}
           />

@@ -208,9 +208,14 @@ export async function sendCampaign(
 
   for (const user of filteredUsers) {
     try {
-      console.log(user)
-      const personalizedTemplate = personalizeTemplate(campaign.template, user);
       const emailAddress = user.email;
+      if (!emailAddress) {
+        failed++;
+        errors.push(`Usuário ${user.username} não possui email cadastrado`);
+        continue;
+      }
+
+      const personalizedTemplate = personalizeTemplate(campaign.template, user);
 
       const result = await sendEmail({
         to: emailAddress,

@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useEffect, useState } from "react"
-import { AlertCircle, Badge, CheckCircle, Loader2, Mail, Users } from "lucide-react"
+import { AlertCircle, CheckCircle, Loader2, Mail, Users } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -14,6 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { verifyEmailConfig } from "@/lib/email-service"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Badge } from "@/components/ui/badge"
 import toast from "react-hot-toast"
 import { Separator } from "@/components/ui/separator"
 import { CampaignConfirmDialog } from "@/components/admin/campaing-confirm-dialog"
@@ -135,13 +136,15 @@ export default function Configuracoes() {
   // Efeito para atualizar a contagem de destinatários quando os filtros mudam
   useEffect(() => {
     if (selectedCampaign) {
-
-      const count = estimateRecipients(campaignFilters, registrations)
-      setRecipientCount(count)
+      const updateCount = async () => {
+        const count = await estimateRecipients(campaignFilters, registrations)
+        setRecipientCount(count)
+      }
+      updateCount()
     } else {
       setRecipientCount(0)
     }
-  }, [selectedCampaign, campaignFilters])
+  }, [selectedCampaign, campaignFilters, registrations])
 
   useEffect(() => {
     const checkEmailConfig = async () => {

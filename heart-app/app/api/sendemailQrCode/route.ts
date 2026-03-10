@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createTransport } from 'nodemailer';
 import QRCode from 'qrcode';
-import { createCanvas, loadImage } from 'canvas';
 import path from 'path';
 
 const transporter = createTransport({
@@ -40,7 +39,8 @@ export async function POST(request: Request) {
       }
     );
 
-    // 3. Carregar imagens e combinar
+    // 3. Carregar imagens e combinar (dynamic import para evitar erro no build)
+    const { createCanvas, loadImage } = await import('canvas');
     const canvas = createCanvas(220, 220);
     const ctx = canvas.getContext('2d');
     

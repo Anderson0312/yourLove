@@ -85,12 +85,17 @@ export function CampaignPreviewDialog({ campaignId, previewUser, open, onOpenCha
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (open && campaignId && previewUser) {
+    if (!open || !campaignId || !previewUser) {
+      setPreview(null)
+      setError(null)
+      return
+    }
+
+    const loadPreview = async () => {
       try {
         setLoading(true)
         setError(null)
 
-        // Get campaign from local array instead of server function
         const campaign = availableCampaigns.find((c) => c.id === campaignId)
 
         if (campaign) {
@@ -99,8 +104,7 @@ export function CampaignPreviewDialog({ campaignId, previewUser, open, onOpenCha
             text: personalizeTemplate(campaign.template, previewUser),
           })
         } else {
-          // Fallback to server function if not found locally
-          const previewData = getCampaignPreview(campaignId, previewUser)
+          const previewData = await getCampaignPreview(campaignId, previewUser)
           setPreview(previewData)
         }
       } catch (err) {
@@ -109,10 +113,9 @@ export function CampaignPreviewDialog({ campaignId, previewUser, open, onOpenCha
       } finally {
         setLoading(false)
       }
-    } else {
-      setPreview(null)
-      setError(null)
     }
+
+    loadPreview()
   }, [open, campaignId, previewUser])
 
   return (

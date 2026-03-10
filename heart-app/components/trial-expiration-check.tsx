@@ -92,7 +92,7 @@ export function TrialExpirationCheck({ redirectTo = "/pricing" }: TrialExpiratio
         <AlertTriangle className="h-4 w-4" />
         <AlertTitle>Seu período de teste gratuito expirou</AlertTitle>
         <AlertDescription className="flex flex-col gap-2">
-          <p>Seu período de teste gratuito de 1 dia expirou. Você será redirecionado para a página de preços.</p>
+          <p>Seu período de teste gratuito de 7 dias expirou. Você será redirecionado para a página de preços.</p>
           <Button variant="outline" onClick={() => router.push(redirectTo)} className="w-fit">
             Escolher um plano
           </Button>
@@ -101,8 +101,8 @@ export function TrialExpirationCheck({ redirectTo = "/pricing" }: TrialExpiratio
     )
   }
 
-  // Se o teste está prestes a expirar (menos de 3 horas restantes)
-  if (remaining && remaining.hours < 3) {
+  // Se o teste está prestes a expirar (menos de 24 horas restantes)
+  if (remaining && remaining.hours < 24) {
     return (
       <Alert variant="default" className="mb-4 border-amber-500 bg-amber-50 text-amber-800">
         <Clock className="h-4 w-4" />

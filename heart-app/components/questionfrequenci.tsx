@@ -16,7 +16,7 @@ const FAQSection = () => {
               O que acontece quando meu teste gratuito expira?
             </AccordionTrigger>
             <AccordionContent className="text-gray-300 pb-4">
-              Quando seu teste gratuito de 1 dia expirar, você será redirecionado para a página de preços para
+              Quando seu teste gratuito de 7 dias expirar, você será redirecionado para a página de preços para
               escolher um plano. Seu site continuará existindo, mas você não poderá acessá-lo até fazer upgrade para
               um plano pago.
             </AccordionContent>

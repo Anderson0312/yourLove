@@ -15,7 +15,7 @@ import CometShower from '@/components/animations/CometasShow';
 import MeteorShower from '@/components/animations/MeteorShow';
 import AuroraBorealis from '@/components/animations/Aurora';
 import VorticeCores from '@/components/animations/VorticeCores';
-import { TrialCountdown } from '@/components/trial-countdown';
+import { TrialBadge } from '@/components/trial-badge';
 import { FeatureRestriction } from '@/components/feature-restriction';
 
 interface FormData {
@@ -99,7 +99,7 @@ export default function LayoutPadrao() {
 
     return (
         <div className="relative min-h-screen w-full  text-white">
-            {isPlanFree && <TrialCountdown />}
+            {isPlanFree && <TrialBadge />}
             {/* Camada de animação de fundo */}
             <div className="fixed inset-0 -z-10 overflow-hidden">
                 {renderBackgroundAnimation()}

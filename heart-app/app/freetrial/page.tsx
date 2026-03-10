@@ -72,7 +72,7 @@ const FreeTrial = () => {
                 <Sparkles className="h-10 w-10 text-red-600 dark:text-red-400" />
               </div>
               <CardTitle className="text-2xl">Experimente Grátis</CardTitle>
-              <CardDescription>Acesse todos os recursos por 1 dias sem compromisso.</CardDescription>
+              <CardDescription>Acesse todos os recursos por 7 dias sem compromisso.</CardDescription>
             </CardHeader>
             <CardContent>
               {!isSuccess ? (

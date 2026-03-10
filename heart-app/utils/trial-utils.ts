@@ -22,8 +22,8 @@ export function isTrialExpired(trialStartDate: Date | string | null): boolean {
     // Convert to hours (1000ms * 60s * 60min = 3,600,000ms in an hour)
     const hoursDifference = timeDifference / 3600000
 
-    // Trial expires after 24 hours
-    return hoursDifference >= 24
+    // Trial expires after 7 days (168 hours)
+    return hoursDifference >= 168
   } catch (error) {
     console.error("Error checking trial expiration:", error)
     return true // If there's an error, consider the trial expired
@@ -44,8 +44,8 @@ export function getRemainingTrialTime(trialStartDate: Date | string | null): { h
     const startDate = new Date(trialStartDate)
     const currentDate = new Date()
 
-    // Calculate time difference in milliseconds
-    const timeDifference = startDate.getTime() + 24 * 3600000 - currentDate.getTime()
+    // Calculate time difference in milliseconds (7 days = 168 hours)
+    const timeDifference = startDate.getTime() + 168 * 3600000 - currentDate.getTime()
 
     if (timeDifference <= 0) {
       return { hours: 0, minutes: 0 } // Trial expired
@@ -68,9 +68,30 @@ export function getRemainingTrialTime(trialStartDate: Date | string | null): { h
  * @returns {string} Formatted time string
  */
 export function formatRemainingTime(remaining: { hours: number; minutes: number }): string {
+  if (remaining.hours >= 24) {
+    const days = Math.floor(remaining.hours / 24)
+    const hours = remaining.hours % 24
+    if (hours > 0) {
+      return `${days}d ${hours}h`
+    }
+    return `${days} dia${days > 1 ? "s" : ""}`
+  }
   if (remaining.hours > 0) {
     return `${remaining.hours}h ${remaining.minutes}m`
-  } else {
-    return `${remaining.minutes} minutos`
   }
+  return `${remaining.minutes} minutos`
+}
+
+/**
+ * Format remaining time in compact form for badge (e.g. "6d" or "12h")
+ */
+export function formatRemainingTimeShort(remaining: { hours: number; minutes: number }): string {
+  if (remaining.hours >= 24) {
+    const days = Math.floor(remaining.hours / 24)
+    return `${days}d`
+  }
+  if (remaining.hours > 0) {
+    return `${remaining.hours}h`
+  }
+  return `${remaining.minutes}m`
 }

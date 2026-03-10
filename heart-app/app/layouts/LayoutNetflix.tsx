@@ -12,7 +12,7 @@ import Modal from '@/components/Modal';
 import FormComponent from '@/components/FormComponent';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import Top10Badge from '@/components/Top10Badge';
-import { TrialCountdown } from '@/components/trial-countdown';
+import { TrialBadge } from '@/components/trial-badge';
 import { FeatureRestriction } from '@/components/feature-restriction';
 
 interface FormData {
@@ -89,7 +89,7 @@ export default function LayoutNetflix() {
 
   return (
     <div className="bg-black text-white font-roboto min-h-screen">
-      {isPlanFree && <TrialCountdown />}
+      {isPlanFree && <TrialBadge />}
       {/* Modal com formulário */}
       {isEditing && (
         <Modal onClose={() => setIsEditing(false)}>

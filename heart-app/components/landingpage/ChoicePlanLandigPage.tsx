@@ -11,7 +11,7 @@ const tiers = [
     priceMonthly: "0",
     priceId: "free-trial",
     quantity: 1,
-    description: "Experimente nosso site por 1 dia para ver se atende suas necessidades",
+    description: "Experimente nosso site por 7 dias para ver se atende suas necessidades",
     features: [
       { name: "Texto Dedicado", included: true },
       { name: "Contador Tempo Real", included: true },
@@ -23,7 +23,7 @@ const tiers = [
       { name: "Suporte 24h", included: false },
 
     ],
-    limitations: "Válido por apenas 1 dia",
+    limitations: "Válido por 7 dias",
     featured: false,
   },
   {

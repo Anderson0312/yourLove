@@ -151,7 +151,7 @@ export default function PricingPage() {
                             </tr>
                             <tr className="border-b border-gray-800">
                                 <td className="py-4 px-6">Duração</td>
-                                <td className="py-4 px-6 text-center">1 dia</td>
+                                <td className="py-4 px-6 text-center">7 dias</td>
                                 <td className="py-4 px-6 text-center">1 ano</td>
                                 <td className="py-4 px-6 text-center">Para sempre</td>
                             </tr>
@@ -250,7 +250,7 @@ export default function PricingPage() {
                                 O que acontece quando meu teste gratuito expira?
                             </AccordionTrigger>
                             <AccordionContent className="text-gray-300 pb-4">
-                                Quando seu teste gratuito de 1 dia expirar, você será redirecionado para a página de preços para
+                                Quando seu teste gratuito de 7 dias expirar, você será redirecionado para a página de preços para
                                 escolher um plano. Seu site continuará existindo, mas você não poderá acessá-lo até fazer upgrade para
                                 um plano pago.
                             </AccordionContent>

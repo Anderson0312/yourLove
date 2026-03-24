@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+💖 YourLove
 
-## Getting Started
+Aplicação web para criação de páginas personalizadas de relacionamento, permitindo registrar momentos especiais, memórias e experiências únicas de forma visual e interativa.
 
-First, run the development server:
+🚀 Demonstração
 
-```bash
+👉 Acesse o projeto:
+https://github.com/Anderson0312/yourLove
+
+📸 Preview
+
+(adicione aqui prints do seu app depois – isso aumenta MUITO o impacto)
+
+✨ Funcionalidades
+
+💌 Criação de mini sites personalizados para casais
+
+📝 Registro de momentos especiais (texto + data)
+
+🎵 Escolha de música para cada memória
+
+📷 Upload de imagens
+
+📊 Resumo geral com todos os momentos
+
+🎨 Diferentes layouts para visualização
+
+🤖 Integração com IA (personalização de conteúdo)
+
+🧠 Objetivo do Projeto
+
+O YourLove foi criado com o objetivo de permitir que pessoas registrem e compartilhem suas histórias de forma única, criando uma experiência digital emocional e personalizada.
+
+🛠️ Tecnologias utilizadas
+Front-end
+
+⚛️ Next.js
+
+🎨 Tailwind CSS / Styled Components
+
+📱 Responsivo (Mobile First)
+
+Back-end
+
+🟢 Node.js / NestJS (ou ajuste se estiver usando outro)
+
+🐍 Python (IA / geração de conteúdo)
+
+Outros
+
+☁️ Cloud Storage (Google Cloud Storage)
+
+💳 Stripe (pagamentos)
+
+🤖 Integração com IA
+
+⚙️ Instalação e execução
+# Clone o repositório
+git clone https://github.com/Anderson0312/yourLove.git
+
+# Entre na pasta
+cd yourLove
+
+# Instale as dependências
+npm install
+
+# Rode o projeto
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+📂 Estrutura do Projeto
+yourLove/
+├── frontend/
+├── backend/
+├── components/
+├── pages/
+├── services/
+└── utils/
+🔥 Próximas melhorias
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ Autenticação de usuários
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+ Compartilhamento via link público
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ Exportação em PDF
 
-## Learn More
+ Templates prontos
 
-To learn more about Next.js, take a look at the following resources:
+ Integração com redes sociais
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ Player de música sem autenticação (Spotify ou alternativa)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🤝 Contribuição
 
-## Deploy on Vercel
+Sinta-se à vontade para contribuir com melhorias!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Fork o projeto
+# Crie uma branch
+git checkout -b minha-feature
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Commit
+git commit -m "Minha nova feature"
+
+# Push
+git push origin minha-feature
+📄 Licença
+
+Este projeto está sob a licença MIT.
+
+👨‍💻 Autor
+
+Desenvolvido por Anderson Moura 🚀
+💼 Full Stack Developer
+🔗 https://github.com/Anderson0312
